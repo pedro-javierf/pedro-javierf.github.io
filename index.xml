@@ -5,19 +5,23 @@
     <link>https://pedro-javierf.github.io/</link>
     <description>Recent content in Home on PJ&#39;s Playground</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 12 Sep 2018 19:35:38 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 22 Sep 2018 20:49:36 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Hacking The 3ds III: Glorious extraction</title>
-      <link>https://pedro-javierf.github.io/devblog/hacking3ds3/</link>
-      <pubDate>Wed, 12 Sep 2018 19:35:38 +0200</pubDate>
+      <title>Hacking The 3ds 0: Resources</title>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds0/</link>
+      <pubDate>Sat, 22 Sep 2018 20:49:36 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/hacking3ds3/</guid>
-      <description>Introduction Welcome again. Finally, it&amp;rsquo;s time to go back and continue hacking the Nintendo 3ds. Previously, I got raw RAM dumps where several unicode strings could be found, evidencing the data was not encrypted or secured at all in RAM. This also applies for code, binary&amp;rsquo;s code sections may be also loaded in memory (as we saw using entropy) so we can extract them and reverse them.
-Identifying code Even though I used binvis and could clearly see the differences between data and code, it wasn&amp;rsquo;t precise enough to get addresses.</description>
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds0/</guid>
+      <description>What is this This is an extra resources pages for storing useful information and resources related to the development of this series of articles. This includes tools, external articles, stack overflow posts, and any other kind of resource that is considered helpfull. Consecuently it is also used to store and conserve information of value.
+URLs booting-process-for-arm
+ARM Reset vector information
+ARM Image Entrypoint Docs
+ARM Boot procedure
+Method for Booting ARM Based Multi-Core SoCs</description>
     </item>
     
     <item>
