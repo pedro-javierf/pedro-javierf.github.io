@@ -43,25 +43,25 @@ Method for Booting ARM Based Multi-Core SoCs</description>
     </item>
     
     <item>
+      <title>Hacking The 3ds I: Introduction</title>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds1/</link>
+      <pubDate>Sat, 12 Aug 2017 11:17:57 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds1/</guid>
+      <description>Hello back! Today, a new series begin. A &amp;ldquo;journey&amp;rdquo; into hacking the Nintendo 3DS Handheld Console starts. There are several reasons why I am going to do this series;
+ Personal Interest. During the later 2014, the 3DS Scene started growing. I was there, and was told I couldn&amp;rsquo;t get anything. The obnoxious sceners and community, only working for fame and personal interest. The lack of information and documentation about hacking blindly (Which is basically what I&amp;rsquo;ll be doing here) Exploit development is exciting and challenging</description>
+    </item>
+    
+    <item>
       <title>Hacking The 3ds II: Finding the Pattern</title>
       <link>https://pedro-javierf.github.io/devblog/hacking3ds2/</link>
-      <pubDate>Tue, 12 Jun 2018 11:30:48 +0200</pubDate>
+      <pubDate>Mon, 12 Jun 2017 11:30:48 +0200</pubDate>
       
       <guid>https://pedro-javierf.github.io/devblog/hacking3ds2/</guid>
       <description>Hello again! I&amp;rsquo;m back with part 2: &amp;ldquo;Finding The Pattern&amp;rdquo;! In case you haven&amp;rsquo;t read yet the first blog entry, click here.
 Brief Summary Back in the day, I analysed what possible entry-points the 3DS may have. We lead to the conclusion that the RAM contents were not encrypted. This is something useful. Here&#39;s proof:
  First glance at the RAM Dump. Byte class view.
  As you can see, if we search for unicode strings (remember the 3DS supports several languages, as everything should do this days, to enable non-ascii languages to work, i.</description>
-    </item>
-    
-    <item>
-      <title>Hacking The 3ds I: Introduction</title>
-      <link>https://pedro-javierf.github.io/devblog/hacking3ds1/</link>
-      <pubDate>Tue, 12 Jun 2018 11:17:57 +0200</pubDate>
-      
-      <guid>https://pedro-javierf.github.io/devblog/hacking3ds1/</guid>
-      <description>Hello back! Today, a new series begin. A &amp;ldquo;journey&amp;rdquo; into hacking the Nintendo 3DS Handheld Console starts. There are several reasons why I am going to do this series;
- Personal Interest. During the later 2014, the 3DS Scene started growing. I was there, and was told I couldn&amp;rsquo;t get anything. The obnoxious sceners and community, only working for fame and personal interest. The lack of information and documentation about hacking blindly (Which is basically what I&amp;rsquo;ll be doing here) Exploit development is exciting and challenging</description>
     </item>
     
     <item>
