@@ -16,12 +16,10 @@
       <pubDate>Sat, 22 Sep 2018 20:49:36 +0200</pubDate>
       
       <guid>https://pedro-javierf.github.io/devblog/hacking3ds0/</guid>
-      <description>What is this This is an extra resources pages for storing useful information and resources related to the development of this series of articles. This includes tools, external articles, stack overflow posts, and any other kind of resource that is considered helpfull. Consecuently it is also used to store and conserve information of value.
-URLs booting-process-for-arm
+      <description>What is this This is an extra resources pages for storing useful information and resources related to the development of this series of articles. This includes tools, external articles, stack overflow posts, and any other kind of resource that is considered helpful. Consecuently it is also used to store, link to, and conserve information of value for my research.
+URLs / Posts booting-process-for-arm
 ARM Reset vector information
-ARM Image Entrypoint Docs
-ARM Boot procedure
-Method for Booting ARM Based Multi-Core SoCs</description>
+ARM Image Entrypoint Docs</description>
     </item>
     
     <item>
