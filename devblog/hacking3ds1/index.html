@@ -13,7 +13,7 @@
  Personal Interest. During the later 2014, the 3DS Scene started growing. I was there, and was told I couldn&rsquo;t get anything. The obnoxious sceners and community, only working for fame and personal interest. The lack of information and documentation about hacking blindly (Which is basically what I&rsquo;ll be doing here) Exploit development is exciting and challenging'>
 <meta property='og:url' content='https://pedro-javierf.github.io/devblog/hacking3ds1/'>
 <meta property='og:site_name' content='PJ&#39;s Playground'>
-<meta property='og:type' content='article'><meta property='article:section' content='Devblog'><meta property='article:published_time' content='2017-08-12T11:17:57&#43;02:00'/><meta property='article:modified_time' content='2017-08-12T11:17:57&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@pedro_javierf'>
+<meta property='og:type' content='article'><meta property='article:section' content='Devblog'><meta property='article:published_time' content='2017-06-12T11:17:57&#43;02:00'/><meta property='article:modified_time' content='2017-06-12T11:17:57&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@pedro_javierf'>
 
 <meta name="generator" content="Hugo 0.41" />
 
@@ -137,7 +137,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2017-08-12T11:17:57&#43;02:00'>2017, Aug 12</time>
+  <time class='entry-date' datetime='2017-06-12T11:17:57&#43;02:00'>2017, Jun 12</time>
 </span>
 
   
@@ -183,16 +183,17 @@ Before doing anything, we need to know what is inside the 3DS. The inner hardwar
 This are the most important pieces of hardware that we should have always in account. For extended details and New3ds information see<a href="https://www.3dbrew.org/wiki/Hardware"> this </a><br/><br/>
 In this series, I&rsquo;ll be talking about the MSET Exploit. Again, back in the late 2014, the Gateway Team released the Gateway 3DS Cartridge, which allowed piracy on 4.1 to 4.5 firmwares. They used an exploit on the DS Profile menu in the 3ds settings which then loaded further code from the Launcher.dat file on the SD Card. Some people were able to reverse their Launcher before they implemented more strong obfuscation, but this still was and is a seriously difficult task. My aim is to gain code execution using this exploit without reversing others&rsquo; work, just by myself and my investigations, as if there were no public information (and actually there&rsquo;s not much information available, and obviously not documentation).<br />
 <h2 class='elegantshadow'> Thoughts</h2>
-So basically, we have no information about anything. The first step is hardware hacking; Is the only thing we have access to so we must start working there. Again, hardware is more complicated with every passing day. This means that I can&rsquo;t do anything here by myself. Unless you have a career in something related and you like it, is unlikely you are able to learn much about hardware hacking, there isn&rsquo;t much information available neither so we have to rely on experts. Unfortunately, most of this people don&rsquo;t like to share their investigations for free. So unless you find someone with the same hardware you have and interest in hacking it, you are screwed. This is the most common scenario in console hacking, there&rsquo;s no public scene because those discoveries are private and only shared with certain people. <br/><br/></p>
+So basically, we have no information about anything. We are working with what is often called a &ldquo;Black Box&rdquo; system. The first step is hardware hacking; Is the only thing we have access to so we must start working there. Again, hardware is more complicated with every passing day. This means that I can&rsquo;t do anything here by myself. Unless you have a career in something related and you like it, is unlikely you are able to learn much about hardware hacking, there isn&rsquo;t much information available neither so we have to rely on experts. Unfortunately, most of this people don&rsquo;t like to share their investigations for free. So unless you find someone with the same hardware you have and interest in hacking it, you are screwed. This is the most common scenario in console hacking, there&rsquo;s no public scene because those discoveries are private and only shared with certain people. <br/><br/>
+EDIT: Actually, I have been learning a lot about hardware hacking. I would still not be able to such a complicated and specific set-up, but I suggest you read this: <a href="https://scanlime.org/2009/09/dsi-ram-tracing/" target="_blank">https://scanlime.org/2009/09/dsi-ram-tracing/</a> it&rsquo;s from a girl who did something similar with the Nintendo DSi. It may give you a brief idea!</p>
 
-<p>But, lets assume we are skilled enough so let&rsquo;s move on. What shall we do first? <br/>
+<p>As for now, lets assume we are skilled enough to perform any of the possible hardware attacks. What shall we do first? <br/>
 We must look in the different data sources in the hardware and decide if they are useful for us. For example, The 3ds has the following:<br/>
 <ul>
   <li>NAND Chip</li>
   <li>SD Card</li>
   <li>RAM Chips</li>
 </ul>
-Let&rsquo;s start with the NAND. In the 3ds, this is a 1GB samsung storage unit. So we investigate and manage to dump it&rsquo;s contents. If we would analyse the dump carefully, we could try the following;<br/>
+Let&rsquo;s start with the NAND. In the 3ds, this is a 1GB samsung storage unit. So investigating it&rsquo;s datasheet and experimenting, we would eventually be able to dump its contents. If we would analyse the dump carefully, we could try the following;<br/>
 <ul>
   <li>Find Strings: Such as user data, menu&rsquo;s text, etc..<br/></li>
   <li>Find structures or patterns: such as MAGIC signatures/numbers, headers&rsquo; information (i.e. ELF), etc&hellip;<br/></li>
@@ -204,23 +205,23 @@ Let&rsquo;s start with the NAND. In the 3ds, this is a 1GB samsung storage unit.
 <ul>
   <li>Can&rsquo;t find any string</li>
   <li>Can&rsquo;t find any known pattern, signature or magic. </li>
-  <li>Errors when we restore a modified NAND dump. May be encrypted</li>
+  <li>Errors when we restore a modified NAND dump. May be encrypted, signed or both</li>
   <li>Errors when we restore a foreign NAND dump. May be signed with unique keys per console.</li>
 </ul>
-So we can lead to the conclusion that the NAND is somehow encrypted, signed, or both.<br/><br/><br/></p>
+So we can lead to the conclusion that the NAND is somehow encrypted, signed, or both.<br/></p>
 
 <p>Let&rsquo;s move on to the next possible entry-point, the SD card. It is accessible from a PC and we can browse the files. We could try to:
 <ul>
   <li>Identify what kind of files we have. It can have content such as, pictures, videos, music, titles (applications or games), exdata(extra data), others.</li>
   <li>Identify which of the things above are signed or encrypted. Try modifying them and see if they still work. Multimedia is likely going to be clear data, but titles, exdata and everything else is probably going to be, at least, console signed.</li>
-  <li>Try to exploit the multimedia managers. Use fuzzers to create multimedia files and try loading them. You may find crashes, and who knows, maybe an exploit. </li> <!--Link here for the 3ds soundhax-->
+  <li>Try to exploit the multimedia managers. Use fuzzers to create multimedia files and try loading them. You may find crashes, and who knows, maybe an exploit, like &ldquo;soundhax&rdquo; which was found a lot of years later. </li> <!--Link here for the 3ds soundhax-->
 </ul>
-Sadly, this is very difficult (not impossible tough) at this point where we know little, if any, details of the system.<br/><br/></p>
+Sadly, this is very difficult at this point where we know little, if any, details of the system.<br/><br/></p>
 
-<p>And our last option, the RAM. We would need a working hardware set-up that would allow us to dump the ram. This has been done in the 3ds by some hardware hackers <!--neimod-->, but they only work for money so you know the rest ;). Assuming we have dumped the RAM, let&rsquo;s proceed to analyse the dumps. We would try, but not only, the same ideas as for the NAND chip. In the 3ds, we would lead to the conclusion that RAM contents are not encrypted! We can, in fact, find strings from menus (Though always in unicode).</p>
+<p>And our last option, the RAM. We would need a working hardware set-up that would allow us to dump the ram (see scanlime set-up above). This has been done in the 3ds by some hardware hackers <!--neimod-->, but the ones who did it only work for money so you guess their work is not avaiable to the public ;). Assuming we have dumped the RAM, let&rsquo;s proceed to analyse the dumps. We would try, but not only, the same ideas as for the NAND chip. In the 3ds, we find that RAM contents are not encrypted! We can, in fact, find strings from menus (most of them in unicode).</p>
 
 <p><h2 class='elegantshadow'> Conclusion</h2>
-Analysing the RAM requires a whole article; I&rsquo;ll be using some mind-blowing techniques which may lead to code execution, and definitively, there&rsquo;s going to be a lot of static reverse engineering.<br/><br/></p>
+Analysing the RAM requires a whole article or two; I&rsquo;ll be using some mind-blowing techniques which may lead to code execution, and definitively, there&rsquo;s going to be a lot of static reverse engineering.<br/><br/></p>
 
 <p>I hope you enjoyed this post. If you consider any suggestion/correction, message me at twitter or mail me.</p>
 
@@ -238,7 +239,7 @@ Analysing the RAM requires a whole article; I&rsquo;ll be using some mind-blowin
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/devblog/hacking3ds2/'>
+      <a href='/devblog/hacking3ds0/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -246,10 +247,10 @@ Analysing the RAM requires a whole article; I&rsquo;ll be using some mind-blowin
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Hacking The 3ds II: Finding the Pattern</a>
+        <span class='screen-reader-text'>Previous post: </span>Hacking The 3ds 0: Resources</a>
     </div><div class='next-entry sep-before'>
-      <a href='/devblog/hacking3ds0/'>
-        <span class='screen-reader-text'>Next post: </span>Hacking The 3ds 0: Resources<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+      <a href='/devblog/hacking3ds2/'>
+        <span class='screen-reader-text'>Next post: </span>Hacking The 3ds II: Finding the Pattern<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>
@@ -284,12 +285,11 @@ Analysing the RAM requires a whole article; I&rsquo;ll be using some mind-blowin
     </small>
   </h4>
   <form action='https://api.staticman.net/v2/entry/pedro-javierf/pedro-javierf.github.io/master/data/comments' method='post' id='comment-form' class='comment-form'>
-    &#34;https://api.staticman.net/v2/entry/pedro-javierf/pedro-javierf.github.io/master&#34;
+    
     <input type='hidden' name='options[postId]' value='46c0b0e1a9ca29571211d25c168adb96'>
     <input type='hidden' name='options[redirect]' value='https://pedro-javierf.github.io/devblog/hacking3ds1/#submission-success'>
     <input type='hidden' name='options[redirectError]' value='https://pedro-javierf.github.io/devblog/hacking3ds1/#submission-failure'>
 
-    <input type='address' name='fields[honeypot]' style='display:none'>
     <input type='hidden' name='fields[permalink]' value='/devblog/hacking3ds1/'>
     <input type='hidden' name='fields[parent_id]' value=''>
 
@@ -361,7 +361,7 @@ Analysing the RAM requires a whole article; I&rsquo;ll be using some mind-blowin
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2018 Pedro Javier Fernández </p>
+  <p> &copy; 2018-2019 Pedro Javier Fernández </p>
 </div>
 
         </div>

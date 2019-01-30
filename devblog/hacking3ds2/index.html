@@ -167,7 +167,7 @@ Brief Summary Back in the day, I analysed what possible entry-points the 3DS may
 
   <div class='container entry-content'>
   <p>Hello again!<br/>
-I&rsquo;m back with part 2: &ldquo;Finding The Pattern&rdquo;! In case you haven&rsquo;t read yet the first blog entry, click <a href="https://pedro-javierf.github.io/devblog/hacking3ds1/">here</a>.<br><br></p>
+I&rsquo;m back with part 2: &ldquo;Finding The Pattern&rdquo;! In case you haven&rsquo;t read yet the first blog entry, click <a href="https://pedro-javierf.github.io/devblog/hacking3ds1/">here</a>.<br></p>
 
 <h2 class='elegantshadow'> Brief Summary</h1>
 Back in the day, I analysed what possible entry-points the 3DS may have. We lead to the conclusion that the RAM contents were not encrypted. This is something useful. Here's proof:<br/><br>
@@ -183,11 +183,11 @@ Before trying anything, we should have some knowledge about how modern systems m
 
 <b>1. Virtual Memory:</b><br> Every computer, phone, machine, that is a little up-to-day supports the concept of "multi-applications"; This means basically that several applications or services are running AT THE SAME TIME, using THE SAME SHARED RESOURCES, more or less, because that would be a total mess. Imagine if any application could access and modify any other process information. Since we can't split physical memory, the concept of virtual memory was invented. Briefly, when the kernel is told to start a given process, it will spawn it in an "emulated" environment; The new process would see and believe that it is running as if it were running normal, being able to access any memory address. That's actually not true, it can access any address, but in fact those addresses are mapped by the kernel to physical memory. So for the shake of this small explanation, we'll say that the process would believe he is running as normal and as if no other processes were running at the same time. "Completely" Isolated.<br><br>
 <b>2. Memory Pages Location:</b><br> Not only pages the kernel the virtual memory to physical memory, but also places it into the hard disk (and other storages depending on the platform). This means, if we were "viewing" all the memory in a picture, it's possible that our data would be stored in different parts of the memory and HDD, not all close together.<br><br>
-<b>3. Memory Pages Types:</b><br> Still, it's not that simple. There's a protection called DEP (Data Execute Prevention) or NX bit which does the following. You could, using a simple buffer overflow vulnerability, write your own code to the memory (at any page, for example, or even unallocated memory) and then jump to it, gaining unsigned code execution. DEP basically adds a flagging/privilege system to pages. Back in the time, pages were all WX, writable(W) and executable(X) at the same time. With DEP (or, in the same words, NX bit activated) pages can only be writable, or only executable, but not both at the same time. This means, that even you could write to a writeable page, you couldn't execute that code, at the same time you can't write to executable pages. But don't worry, as always, there's ways to bypass this, but they are out of the scope of this blog post. The point here is you to know that, assuming DEP is enabled, we can difference between data and code pages, since data pages will only contain data, and vice-versa.<br> <br>
+<b>3. Memory Pages Types:</b><br> Still, it's not that simple. There's a protection called DEP (Data Execute Prevention) or NX bit (No eXecute) which does the following. You could, using a simple buffer overflow vulnerability, write your own code to the memory (at any page, for example, or even unallocated memory) and then jump to it, gaining unsigned code execution. DEP basically adds a flagging/privilege system to pages. Back in the time, pages were all WX, writable(W) and executable(X) at the same time. With DEP (or, in the same words, NX bit activated) pages can only be writable, or only executable, but not both at the same time. This means, that even you could write to a writeable page, you couldn't execute that code, at the same time you can't write to executable pages. But don't worry, as always, there's ways to bypass this, but they are out of the scope of this blog post. The point here is you to know that, assuming DEP is enabled, we can difference between data and code pages, since data pages will only contain data, and vice-versa.<br> <br>
 
 <h2 class='elegantshadow'> Finding The Pattern</h2>
 
-<p>So. Ok. We know &ldquo;a lot&rdquo; about how the system could work. And we have RAM dumps. Approaches? I&rsquo;ve got &lsquo;em.<br><br>
+<p>So. Ok. We know now more about how the system could work. And we have RAM dumps. There&rsquo;s a few ideas I&rsquo;ve come up with.<br><br>
 What if we could identify and extract the different kind of memory pages that were loaded when we took the dump?<br> We now can; Entropy is the key. What&rsquo;s entropy you may be asking? Entropy is the measure of randomness. Sounds cool, doesn&rsquo;t it? But how is this supposed to help us identifying pages? Well, just think about it this way: processor designers trying to pack instruction definitions as effective as possible, but programmers never trying to store data efficiently.<br><br></p>
 
 <p>We lead then to the conclusion that memory pages marked as executable, which will surely contain code, will have a higher entropy<br>
@@ -216,17 +216,17 @@ This picture above shows the chunk(cluster) view mode, that shows blocks with sa
 <p>Let&rsquo;s try doing some zoom (with the + icon obviously). I move to the &ldquo;start&rdquo; of the binary and we can see this!<br><br>
 <center>
 <img src="img/binvis4.png" alt="Binvis4" />
-<i>We can also find section identifiers</i><br><br><br><br>
+<i>We can also find what looks like section identifiers</i><br><br><br><br>
 </center></p>
 
-<p>This may be what we were searching for!<br><br></p>
+<p>This may be what we were searching for!<br></p>
 
 <p><div class="divspoiler">
 <input style="color: #FF0000" type="button" value="NOTE" onclick="if (this.parentNode.nextSibling.childNodes[0].style.display != '') { this.parentNode.nextSibling.childNodes[0].style.display = ''; this.value = 'HIDE'; } else { this.parentNode.nextSibling.childNodes[0].style.display = 'none'; this.value = 'NOTE'; }" />
 </div><div><div class="spoiler" style="display: none;">
 Code is not the only stuff with high entropy; JPEG compressed images, or encrypted data, will have high entropy too.
 </div></div>
-<br><br></p>
+<br></p>
 
 <p>Now, repeat this for all the high-entropy chunks; take note of those addresses (more or less, start and end, I&rsquo;ll go in depth with this in other post.), grab your favourite file manager and extract that precious piece of code.<br><br></p>
 
@@ -235,7 +235,7 @@ Code is not the only stuff with high entropy; JPEG compressed images, or encrypt
 </div><div><div class="spoiler" style="display: none;">
 When a program is executed, usually not the whole binary is loaded into memory, only important sections are loaded so don&rsquo;t expect to find the whole binary in memory, nor headers or things like that, despite we could find them sometimes.
 </div></div>
-<br><br></p>
+<br></p>
 
 <h2 class='elegantshadow'> Conclusions</h2>
 
@@ -262,7 +262,7 @@ In the next post, I&rsquo;ll identify code pages and try to reverse them!<br><br
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/devblog/bypassuac/'>
+      <a href='/devblog/hacking3ds1/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -270,10 +270,10 @@ In the next post, I&rsquo;ll identify code pages and try to reverse them!<br><br
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Twicexploit: Windows UAC Bypass</a>
+        <span class='screen-reader-text'>Previous post: </span>Hacking The 3ds I: Introduction</a>
     </div><div class='next-entry sep-before'>
-      <a href='/devblog/hacking3ds1/'>
-        <span class='screen-reader-text'>Next post: </span>Hacking The 3ds I: Introduction<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+      <a href='/devblog/hacking3ds3/'>
+        <span class='screen-reader-text'>Next post: </span>Hacking The 3ds III: Browsing the memory<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
   <polyline points="14 6 20 12 14 18"/>
@@ -308,12 +308,11 @@ In the next post, I&rsquo;ll identify code pages and try to reverse them!<br><br
     </small>
   </h4>
   <form action='https://api.staticman.net/v2/entry/pedro-javierf/pedro-javierf.github.io/master/data/comments' method='post' id='comment-form' class='comment-form'>
-    &#34;https://api.staticman.net/v2/entry/pedro-javierf/pedro-javierf.github.io/master&#34;
+    
     <input type='hidden' name='options[postId]' value='ee3ff0cdcd21650da5280b109012222f'>
     <input type='hidden' name='options[redirect]' value='https://pedro-javierf.github.io/devblog/hacking3ds2/#submission-success'>
     <input type='hidden' name='options[redirectError]' value='https://pedro-javierf.github.io/devblog/hacking3ds2/#submission-failure'>
 
-    <input type='address' name='fields[honeypot]' style='display:none'>
     <input type='hidden' name='fields[permalink]' value='/devblog/hacking3ds2/'>
     <input type='hidden' name='fields[parent_id]' value=''>
 
@@ -385,7 +384,7 @@ In the next post, I&rsquo;ll identify code pages and try to reverse them!<br><br
       </li></ul>
   </nav>
 </section><div class='copyright'>
-  <p> &copy; 2018 Pedro Javier Fernández </p>
+  <p> &copy; 2018-2019 Pedro Javier Fernández </p>
 </div>
 
         </div>
