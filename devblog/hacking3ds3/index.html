@@ -148,7 +148,7 @@ Identifying code Even though I used binvis and could clearly see the differences
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-12 mins read
+10 mins read
 </span>
 
 
@@ -193,7 +193,7 @@ We can select how much we want to represent, selecting different regions using t
 
 <p>Actually, we&rsquo;ll be back at Veles once we get some addresses, and use its built in functions to extract a chunk of the FCRam dump. Now let&rsquo;s move on.</p>
 
-<p>The next tool I will be using is <a href="https://github.com/airbus-seclab/cpu_rec" target="_blank">cpu_rec</a> an amazing utility created by the people at airbus seclab.
+<p>The next tool I will be using is <a href="https://github.com/airbus-seclab/cpu_rec" target="_blank">cpu_rec</a> an utility created by the people at airbus seclab.
 As its repository says, cpu_rec is a tool that recognizes cpu instructions in an arbitrary binary files. It supports a good bunch of architectures, including among others ARM64 or ARMel (Arm32 or Arm endian little), the later being the one the 3DS uses. Therefore, there was a chance it could
 detect chunks of code, so I had to try it.</p>
 
@@ -203,7 +203,7 @@ detect chunks of code, so I had to try it.</p>
 <img src=img/cpu_rec_fcram_dump.png>
 </center><br></p>
 
-<p>The output is not very crystal clear for me though, there is (apparently) an ARM (ARMel) chunk of code starting at address 0x9f000, with a size of 318 (bytes?). I haven&rsquo;t been able to get a more precise result from cpurec.
+<p>The output is not crystal clear for me, even though there is (apparently) an ARM (ARMel) chunk of code starting at address 0x9f000, with a size of 318 (bytes?). I haven&rsquo;t been able to get a more precise result from cpurec.
 Surely there are other similar tools waiting for us to try. Let&rsquo;s look into it.</p>
 
 <h1 id="stronger-together">Stronger Together</h1>
@@ -235,9 +235,6 @@ DECIMAL       HEXADECIMAL     DESCRIPTION<br>
 7993402       0x79F83A        Intel x86 or x64 microcode, sig 0x021e0001, pf_mask 0x00, 1A5A-01-16, rev 0x529c0000, size 2048<br>
 8000252       0x7A12FC        Intel x86 or x64 microcode, sig 0x0f15202a, pf_mask 0x3030404, 1F36-15-26, rev 0x37464b5c, size 16843009<br>
 50306088      0x2FF9C28       Intel x86 or x64 microcode, sig 0x00000016, pf_mask 0x803e5ec, 1C4C-08-01, rev 0x3f800000, size 2048<br>
-50307128      0x2FFA038       Intel x86 or x64 microcode, sig 0x7b33ff16, pf_mask 0x803e5ec, 205C-08-01, rev 0x3f800000, size 2048<br>
-50371736      0x3009C98       Intel x86 or x64 microcode, sig 0x3f499316, pf_mask 0x803e5ec, 1CBC-08-02, rev 0x3f800000, size 2048<br>
-50372776      0x300A0A8       Intel x86 or x64 microcode, sig 0x00000016, pf_mask 0x803e5ec, 20CC-08-02, rev 0x3f800000, size 2048<br>
 50567676      0x30399FC       Intel x86 or x64 microcode, pf_mask 0x00, 1AD4-08-05, rev 0x8051ad4, size 2048<br>
 60749628      0x39EF73C       TROC filesystem, 4279375 file entries<br>
 60752768      0x39F0380       TROC filesystem, 4279375 file entries<br>
@@ -262,9 +259,6 @@ DECIMAL       HEXADECIMAL     DESCRIPTION<br>
 68421348      0x41406E4       MySQL MISAM index file Version 3<br>
 69043542      0x41D8556       MySQL ISAM index file Version 5<br>
 69159852      0x41F4BAC       MySQL MISAM compressed data file Version 7<br>
-69168472      0x41F6D58       MySQL MISAM index file Version 3<br>
-69169992      0x41F7348       MySQL MISAM index file Version 3<br>
-69197324      0x41FDE0C       MySQL ISAM index file Version 5<br>
 69349091      0x4222EE3       mcrypt 2.2 encrypted data, algorithm: blowfish-448, mode: CBC, keymode: 8bit<br>
 69403564      0x42303AC       MySQL MISAM compressed data file Version 7<br>
 69473406      0x424147E       MySQL ISAM index file Version 5<br>
@@ -277,13 +271,6 @@ DECIMAL       HEXADECIMAL     DESCRIPTION<br>
 107215248     0x663F990       Intel x86 or x64 microcode, sig 0x0803b216, pf_mask 0x803b2b4, 19B4-08-01, rev 0x3f800000, size 2048<br>
 107216348     0x663FDDC       Intel x86 or x64 microcode, sig 0x00000016, pf_mask 0x803b2b4, 1E00-08-01, rev 0x3f800000, size 2048<br>
 107280616     0x664F8E8       Intel x86 or x64 microcode, sig 0x0803b216, pf_mask 0x803b2b4, 190C-08-02, rev 0x3f800000, size 2048<br>
-107281596     0x664FCBC       Intel x86 or x64 microcode, sig 0x0803b216, pf_mask 0x803b2b4, 1CE0-08-02, rev 0x3f800000, size 2048<br>
-107282576     0x6650090       Intel x86 or x64 microcode, sig 0x0803b216, pf_mask 0x803b2b4, 20B4-08-02, rev 0x3f800000, size 2048<br>
-108198624     0x672FAE0       Intel x86 or x64 microcode, sig 0x63495f47, pf_mask 0x00, 1B10-08-10, rev 0x8101b10, size 21828<br>
-108198716     0x672FB3C       Intel x86 or x64 microcode, pf_mask 0x00, 1C14-08-10, rev 0x8101c14, size 2048<br>
-108264080     0x673FA90       Intel x86 or x64 microcode, sig 0x00000002, pf_mask 0x80000000, 1CC0-08-11, rev 0x8111cc0, size 2048<br>
-108330036     0x674FC34       Intel x86 or x64 microcode, sig 0x63495f47, pf_mask 0x00, 1C64-08-12, rev 0x8121c64, size 21828<br>
-108330128     0x674FC90       Intel x86 or x64 microcode, pf_mask 0x00, 1D68-08-12, rev 0x8121d68, size 2048<br>
 108395492     0x675FBE4       Intel x86 or x64 microcode, sig 0x00000002, pf_mask 0x80000000, 1E14-08-13, rev 0x8131e14, size 2048<br>
 110505168     0x6962CD0       <strong>Nintendo DS Game ROM Image</strong><br>
 111811632     0x6AA1C30       SHA256 hash constants, little endian<br>
@@ -299,13 +286,6 @@ DECIMAL       HEXADECIMAL     DESCRIPTION<br>
 120886268     0x73493FC       Certificate in DER format (x509 v3), header length: 4, sequence length: 863<br>
 120887135     0x734975F       Certificate in DER format (x509 v3), header length: 4, sequence length: 807<br>
 120887946     0x7349A8A       Certificate in DER format (x509 v3), header length: 4, sequence length: 1066<br>
-120889016     0x7349EB8       Certificate in DER format (x509 v3), header length: 4, sequence length: 787<br>
-120889807     0x734A1CF       Certificate in DER format (x509 v3), header length: 4, sequence length: 1056<br>
-120890867     0x734A5F3       Certificate in DER format (x509 v3), header length: 4, sequence length: 770<br>
-120891641     0x734A8F9       Certificate in DER format (x509 v3), header length: 4, sequence length: 572<br>
-120892217     0x734AB39       Certificate in DER format (x509 v3), header length: 4, sequence length: 1050<br>
-120893271     0x734AF57       Certificate in DER format (x509 v3), header length: 4, sequence length: 1235<br>
-120894510     0x734B42E       Certificate in DER format (x509 v3), header length: 4, sequence length: 1209<br>
 122021324     0x745E5CC       CRC32 polynomial table, little endian<br>
 122025420     0x745F5CC       CRC32 polynomial table, big endian<br>
 122225616     0x74903D0       SHA256 hash constants, little endian<br>
@@ -316,13 +296,6 @@ DECIMAL       HEXADECIMAL     DESCRIPTION<br>
 123549136     0x75D35D0       Certificate in DER format (x509 v3), header length: 4, sequence length: 893<br>
 123550033     0x75D3951       Certificate in DER format (x509 v3), header length: 4, sequence length: 1169<br>
 123551206     0x75D3DE6       Certificate in DER format (x509 v3), header length: 4, sequence length: 1056<br>
-123552266     0x75D420A       Certificate in DER format (x509 v3), header length: 4, sequence length: 920<br>
-123553190     0x75D45A6       Certificate in DER format (x509 v3), header length: 4, sequence length: 1196<br>
-123554390     0x75D4A56       Certificate in DER format (x509 v3), header length: 4, sequence length: 1196<br>
-123555590     0x75D4F06       Certificate in DER format (x509 v3), header length: 4, sequence length: 602<br>
-123556196     0x75D5164       Certificate in DER format (x509 v3), header length: 4, sequence length: 1078<br>
-123557278     0x75D559E       Certificate in DER format (x509 v3), header length: 4, sequence length: 1496<br>
-123558778     0x75D5B7A       Certificate in DER format (x509 v3), header length: 4, sequence length: 1502<br>
 123563013     0x75D6C05       Minix filesystem, V1, little endian, 30 char names, 37 zones<br>
 123936009     0x7631D09       Minix filesystem, V1, little endian, 30 char names, 38 zones<br>
 123936748     0x7631FEC       Intel x86 or x64 microcode, sig 0x08032070, pf_mask 0xffffffff, 2070-08-03, rev 0x8032050, size 2048<br>
@@ -340,15 +313,15 @@ DECIMAL       HEXADECIMAL     DESCRIPTION<br>
 <img src=img/PAPERPLANE3DS.jpeg>
 </center><br></p>
 
-<p>Even though I did not run it before dumping the fcram memory, it is there! I did in fact load up some nds-mode programs, so heh, who knows why, but we later found the whole PAPERPLANE NDS executable had been loaded into fcram!</p>
+<p>Even though I did not run it before dumping the fcram memory, it is there! I did, in fact, load usome nds-mode programs but not that one, so heh, who knows why! but we later found that the whole PAPERPLANE NDS executable had been loaded into fcram!</p>
 
 <p><center>
 <img src=img/PAPERPLANE.jpg>
 </center><br></p>
 
-<p>I haven&rsquo;t done this yet, but in theory, this would mean this is the first piece of code I can completely dump (with a good integrity) since the NDS format has been completely documented for a long time. You may have noticed that it is not a native 3ds piece of code, but hey! it would be an amazing entrypoint to start with. Since the binary is dump-eable and the extension known, and there&rsquo;s amazing NDS/dsi debuggers out there (No$Gba mainly) we could dump this videogame (and surely any other dsi mode game that was installed) and <a href="https://github.com/pedro-javierf/JAFE" target="_blank"><em>look for vulnerabilities</em></a> in the backwards nds mode. That would be a way to get initial unsigned code running, and try to escalate / break out of the emulator sandbox into native code.</p>
+<p>While I haven&rsquo;t done the following yet, in theory, this would mean this is the first piece of code I can completely dump (with a good integrity) since the NDS format has been completely documented for a long time. You may have noticed that it is not a native 3ds piece of code, but hey! it would be an amazing entrypoint to start with. Since the binary is dump-eable and the extension known, and there&rsquo;s amazing NDS/dsi debuggers out there (No$Gba mainly) we could dump this videogame (and surely any other dsi mode game that was installed) and <a href="https://github.com/pedro-javierf/JAFE" target="_blank"><em>look for vulnerabilities</em></a> in the backwards nds mode. That would be a way to get initial unsigned code running, and try to escalate / break out of the emulator sandbox into native code.</p>
 
-<p>And yet, we got even more data from binwalk. We did a <em>binwalk -e</em> run, which extracts all the formats found into separate files. Sadly we did not obtain much stuff, but some <em>Certificates in DER format</em>. After that, wisk was able to read them with OpenSSL:</p>
+<p>And yet, we got even more data from binwalk. We did a <code><em>binwalk -e</em></code> run, which extracts all the formats found into separate files. Sadly we did not obtain much stuff, but some <em>Certificates in DER format</em>. After that, wisk was able to read them with OpenSSL:</p>
 
 <p><center>
 <img src=img/CERT.jpg>
@@ -356,7 +329,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION<br>
 
 <h1 id="a-final-throwback-to-strings-with-ida">A final throwback to strings with IDA</h1>
 
-<p>Least but not less important, I did a bit more of research into native 3ds binaries. After brainstorming there&rsquo;s plans to try and find out MAGIC numbers for unknown formats and try to link them to 3ds executable formats, thus being able to investigate them further. I tried to follow strings to code in IDA, but at this moment I&rsquo;ve (mostly) failed.</p>
+<p>Least but not less important, I did a bit more of research into native 3ds binaries. After brainstorming, there&rsquo;s plans to try and find out MAGIC numbers for unknown file formats and try to link them to 3ds executable binaries, thus being able to investigate them further. Meanwhile I tried to follow strings to code in IDA, but at this moment I&rsquo;ve (mostly) failed.</p>
 
 <p><center>
 <img src=img/CONFIG.jpg>
@@ -368,7 +341,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION<br>
 
 <h1 id="conclusions">Conclusions</h1>
 
-<p>There has been progress. Native code execution in the black box way has not been achieved yet, but It&rsquo;s being worked out. In my view, future research will go into correctly mapping the dumps, handling the MMU mess and being able to browse the FCRam images apropiately. <br>
+<p>There has been progress. Native code execution in the black box fashion has not been achieved yet, but It&rsquo;s being worked out. In my view, future research will point towards correctly mapping the dumps, handling the MMU mess and being able to browse the FCRam images apropiately. <br>
 This post could not end without special thanks to @wisk who has provided a lot of knowledge and motivation into the research!</p>
 
 <p>PS: Reader, are you interested in black box hacking or 3ds hacking? Want to mess with FCRam madness? Don&rsquo;t hesitate to contact me ;) !</p>
