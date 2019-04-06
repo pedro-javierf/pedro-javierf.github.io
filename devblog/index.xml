@@ -5,10 +5,19 @@
     <link>https://pedro-javierf.github.io/devblog/</link>
     <description>Recent content in Devblog on PJ&#39;s Playground</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 30 Jan 2019 19:35:38 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 29 Mar 2019 19:35:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/devblog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hacking The 3ds IV: Hardware attacks, OpenMSET, and Gateway Reversing</title>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds4/</link>
+      <pubDate>Fri, 29 Mar 2019 19:35:38 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds4/</guid>
+      <description>Introduction On this post I will talk about three different subjects, close to 3ds hacking but certainly related to distint attack surfaces. These are, first, hardware attacks explained (finally!) with the best possible examples and attempts of implementations, next, the finding of a vulnerability in native 3ds mode through backwards compatibility, and finally, I show the result of reversing Gateway 3DS 1.0 step by step with explanation, showing how it is possible to understand ac &amp;ldquo;proffesional&amp;rdquo; implementation of the exploit found before.</description>
+    </item>
     
     <item>
       <title>Hacking The 3ds III: Browsing the memory</title>

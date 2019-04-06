@@ -5,19 +5,18 @@
     <link>https://pedro-javierf.github.io/</link>
     <description>Recent content in Home on PJ&#39;s Playground</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 07 Feb 2019 16:10:30 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 29 Mar 2019 19:35:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>StargateNX Review</title>
-      <link>https://pedro-javierf.github.io/reviews/stargatenx/</link>
-      <pubDate>Thu, 07 Feb 2019 16:10:30 +0200</pubDate>
+      <title>Hacking The 3ds IV: Hardware attacks, OpenMSET, and Gateway Reversing</title>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds4/</link>
+      <pubDate>Fri, 29 Mar 2019 19:35:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/reviews/stargatenx/</guid>
-      <description>Welcome back to another post! Today, I will be reviewing StargateNX, a new paid homebrew software for the switch and the SXPro.
-What is it? StargateNX is a new software solution provided as a plugin for SX Installer that allows you to download and install different packages for the console. Developed by the stargate team, it follows a kind of SAAS (Software as a Service) model, with a monthly subscription.</description>
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds4/</guid>
+      <description>Introduction On this post I will talk about three different subjects, close to 3ds hacking but certainly related to distint attack surfaces. These are, first, hardware attacks explained (finally!) with the best possible examples and attempts of implementations, next, the finding of a vulnerability in native 3ds mode through backwards compatibility, and finally, I show the result of reversing Gateway 3DS 1.0 step by step with explanation, showing how it is possible to understand ac &amp;ldquo;proffesional&amp;rdquo; implementation of the exploit found before.</description>
     </item>
     
     <item>
@@ -28,24 +27,6 @@ What is it? StargateNX is a new software solution provided as a plugin for SX In
       <guid>https://pedro-javierf.github.io/devblog/hacking3ds3/</guid>
       <description>Introduction Welcome again. Finally, it&amp;rsquo;s time to go back and continue hacking the Nintendo 3ds. Previously, I got raw RAM dumps where several unicode strings could be found, evidencing the data was not encrypted or secured at all in RAM. This also applies for code, binary&amp;rsquo;s code sections may be also loaded in memory (as we saw using entropy) so we can extract them and reverse them.
 Identifying code Even though I used binvis and could clearly see the differences between data and code, it wasn&amp;rsquo;t precise enough to get addresses.</description>
-    </item>
-    
-    <item>
-      <title>R4S (Spanish)</title>
-      <link>https://pedro-javierf.github.io/reviews/r4s/</link>
-      <pubDate>Tue, 21 Aug 2018 16:10:38 +0200</pubDate>
-      
-      <guid>https://pedro-javierf.github.io/reviews/r4s/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SXPro (Spanish)</title>
-      <link>https://pedro-javierf.github.io/reviews/sxpro/</link>
-      <pubDate>Tue, 21 Aug 2018 16:10:30 +0200</pubDate>
-      
-      <guid>https://pedro-javierf.github.io/reviews/sxpro/</guid>
-      <description></description>
     </item>
     
     <item>
