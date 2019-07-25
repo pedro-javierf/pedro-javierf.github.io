@@ -5,19 +5,10 @@
     <link>https://pedro-javierf.github.io/devblog/</link>
     <description>Recent content in Devblog on PJ&#39;s Playground</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 24 Jul 2019 19:40:38 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 22 Jul 2019 19:35:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/devblog/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Hacking The 3ds V: ARM Reversing, exploit chain and OpenMSET</title>
-      <link>https://pedro-javierf.github.io/devblog/hacking3ds5/</link>
-      <pubDate>Wed, 24 Jul 2019 19:40:38 +0200</pubDate>
-      
-      <guid>https://pedro-javierf.github.io/devblog/hacking3ds5/</guid>
-      <description>OpenMSET, first vulnerability Now it&amp;rsquo;s time to explain how to find an exploit blindly, or mostly blindy. In the last post we saw how to dump a piece of native dsi code running on the 3ds. This is a nice entrypoint, since it could give us code execution in the backwards compatibility mode. There are already other easier and more widespread methods to get code execution on the Nintendo DS which work for the Nintendo 3DS backwards mode, like flashcarts, or savegame hacks.</description>
-    </item>
     
     <item>
       <title>Hacking The 3ds IV: Hardware attacks</title>
