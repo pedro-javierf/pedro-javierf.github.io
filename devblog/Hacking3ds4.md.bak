@@ -1,0 +1,150 @@
+---
+title: "Hacking The 3ds IV: Hardware attacks and OpenMSET"
+date: 2019-07-24T19:35:38+02:00
+draft: false
+---
+
+# <u>Introduction</u>
+On this post I will talk about two different subjects, close to 3ds hacking but certainly related to distint attack surfaces. These are, first, hardware attacks explained (finally!) with the best possible examples and attempts of implementations, and next, the finding of a vulnerability in native 3ds mode through backwards compatibility, with the release of free and open source code to trigger the vulnerability, which will also be used as a fuzzing platform for the future entries of this series.
+In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds "scene" content back from as soon as 2011, which is getting lost and dissapearing from internet; this includes images, posts, and finally the addition of my comments.
+
+
+# <u>Hardware Attacks</u>
+A few years ago when I posted the first article about 3ds hacking I considered hardware hacking to be an obscure and complex learning field. Luckily, I'm very satisfied with what I have learned so far, and it no longer looks so frustrating. This has been possible because I have spent a certain amount of spare time investigating and learning, and also unexpectedly thanks to university, where I'm getting a lot of information about computer architecture. I want the reader to be able to learn about all of this (or at least the basis).
+
+The architecture of any console, like the 3ds, is composed by different electronics or hardware components. Depending on the information flowing through this components, we could consider them interesting for hacking. If we can attack a component and extract its information, we say we have a working hardware attack. Of course there are tons of variations, so, to begin with, I will explain in general the concept of each attack and then apply the abstract idea to our target, the Nintendo 3DS.
+
+#### Nand Dumping  
+
+For preservation purposes, I will start talking about Nand dumps. These have been a recurrent topic in the 3ds scene over the years.
+
+##### What is a _NAND_ memory?
+
+A NAND memory is just a kind of [flash memory chip](https://en.wikipedia.org/wiki/Flash_memory#NAND_flash) based on NAND [logic gates](https://en.wikipedia.org/wiki/Logic_gate). 
+As we saw in the first post, the 3ds uses an internal 1GB Samsung Nand Chip.
+
+For example, SD Cards are NAND memories, just that these are removable, while the 3ds one is soldered in the SoC. The protocol used by these cards to communicate is called [SPI](https://es.wikipedia.org/wiki/Serial_Peripheral_Interface).
+
+<center>
+<img src=img/SD_pinout.jpg>
+</center><br>
+
+Explaining every detail about how flash memories are designed internally is out of the scope of this post. So as for now, just consider _how_ they work. Often we only need the following 5 pins to do something useful with it, like writing or reading their contents:<br><br>
+- _CMD I/O_ (input of SPI commands)<br>
+- One data line, for example _DAT0_ (to read the content in the memory address passed through the _CMD I/O_)<br>
+- _CLK_ which is the clock signal<br>
+- _VDD_ and _GND_ to supply electricity to the chip.<br><br>
+**Normally** with only those lines we are able to send the NAND memory read commands and dump it's contents. But different chips may required more lines. VDD can also be left unused, as the console itself can power the chip properly.
+
+In the 3ds, this pins of the NAND chip were connected to the board and so, we could solder to some pads or components in the board which were indirectly or directly connected to the NAND memory. This means there is no need to desolder the flash just to read it (and usually the chips are difficult to desolder and may break if you try to do it!).
+
+This is the pinout for the Old3DS:
+
+<center>
+<img src=img/O3DSpinout1.png>
+<img src=img/O3DSpinout2.png><br>
+Main pins required, and an alternative pin for CLK in another part of the board.
+</center><br>
+
+Notice there is no VDD pin. This is because it is unnecesary. The chip will be powered properly if we turn the console on as explained before.
+As a bonus example, here is the pinout for the Nintendo DSi:
+
+<center>
+<img src=img/DSiSideBNANDPinout.png>
+<img src=img/DSiXLSideBNANDPinout.png>
+Main pins required, and an alternative pin for DAT0 in another part of the board. (Top Dsi, Bottom DsiXL)
+</center><br>
+
+
+The final issue is getting to dump the contents to a PC. How we do this? That's actually the most straightforward part of all; we are crafting an adapter with cheap components.
+
+<center>
+<img src=img/SD_Reader.jpg>
+</center><br>
+
+The concept is simple; microSD cards are one kind of NAND flash memory. And SD cards are another kind of NAND flash. When you plug an SD card into the card reader of a computer, it sends SPI commands to initialize and read/write the cards contents. An adapter from microSD to SD just connects the pins of the microSD to others, bigger, according to the SD standard. Now the key idea is - the chip on the 3ds is just **another** different kind of NAND memory flash -. By connecting its pins to ones of the size of an SD card, we can just plug it to an SD reader in any computer. As you can see in the picture above this can be done modifying a microSD to SD adapter, soldering wires to its pins on one side, and soldering the other end of the wire to the pins in the 3DS board. And that's it! The NAND will communicate with the PC over SPI commands. It appears as if it were a raw drive, we can just dump it with _dd_ (on linux) or _win32diskImager_ (on windows).
+
+Some extra _DATX_ pins can also used in the hardmod, so it is possible to write back to the memory (i.e. restore a NAND backup).
+
+#### RAM Sniffing / RAM tracing and RAM injection
+While the NAND read-write was simple, now I'll feature a more complex attack. The concept is straightforward; intercept the bus lines connecting the RAM chip to the board and trace writes and reads generating an "image" of the memory. This can be done with an [FPGA](https://es.wikipedia.org/wiki/Field-programmable_gate_array).
+
+This is known as **RAM Tracing**. The only console-hacking known attack of this kind was performed by @scamlime some years ago; she did it with the DSi's RAM; find more information
+[here](https://scanlime.org/category/projects/dsi/),
+[here](https://www.flickr.com/search/?user_id=22238428%40N05&view_all=1&text=dsi),
+[and here](https://forum.gbadev.org/viewtopic.php?t=16752&sid=3b27fe4b607fc157d24855fb6ef9c1d4)
+
+Alternatively, the attack can be extended further, to the point that it allows injection or "emulation" of data blocks of the RAM.
+Not only requires the same hardware, an [FPGA](https://es.wikipedia.org/wiki/Field-programmable_gate_array) but also involves extreme soldering skills.  We can create a setup to sniff the traffic as in attack 1, by hooking up to the chip lines. Specially, @scanlime hooked to the DSi's _CS_ (Chip Select) line of the board, and when it detected that the console was trying to read some data from the RAM, redirected it to her FPGA, providing the console with modified RAM data blocks. @Scanlime's work is by far the most open and documented setup, check it on the links above.
+
+<center>
+<img src=img/RAMInjection1.PNG>
+
+_Injection of strings into RAM_
+
+<img src=img/RAMInjection2.PNG>
+</center>
+
+Nevertheless I consider interesting to mention the work of neimod, who presumably was the first person ever to hack the 3ds. As far as I can tell from the following pictures of his work (now dissapeared from the web) he used a custom fpga to do a similar attack but on the 3ds:
+
+<center>
+<img src=img/neimod1.jpg>
+<img src=img/neimod2.jpg>
+<img src=img/neimod3.jpg>
+<img src=img/neimod4.jpg>
+<img src=img/neimod5.jpg>
+<img src=img/neimod6.jpg>
+<img src=img/neimod7.jpg>
+<img src=img/neimod8.jpg>
+<img src=img/neimod9.jpg>
+<img src=img/neimodA.jpg>
+<img src=img/neimodB.jpg>
+<img src=img/neimodC.jpg>
+<img src=img/neimodD.jpg>
+<img src=img/neimodE.jpg>
+<br>
+</center><br>
+
+Unfortunately it is believed that neimod sold all his work. Later all the pictures were deleted but you can still see here some of the soldering work and setup used.
+
+_NOTE: I'm not really sure about the truthfulness of the image that says #Opening JTAG... Either it is fake and whoever posted it tried to fool by saying he/she connected to the 3ds using JTAG(which is not possible since it was likely removed), or someone was able to restore the JTAG connections and the JTAG debugger was not removed after all, or maybe that's the debug output from a FPGA... who knows._
+
+#### EEPROM Emulation + Savegame Attack
+
+Ok. This is a quite different attack. It is refreshing because even though it also requires an [FPGA](https://es.wikipedia.org/wiki/Field-programmable_gate_array), it involves much less soldering, and the ones that have to be done are quite simple.
+
+The first implementation I saw of the _Emulation Attack_ was done by Micah Elizabeth Scott (scanlime) and you can see her work [here](https://www.flickr.com/photos/micahdowty/albums/72157621023570420):
+<center>
+<img src=img/scanlime1.PNG>
+<img src=img/scanlime2.PNG>
+<img src=img/scanlime3.PNG>
+</center>
+<center>**Distributed under the [Attribution-ShareAlike 2.0 Generic (CC BY-SA 2.0)](https://creativecommons.org/licenses/by-sa/2.0/)**.</center>
+
+Recently my friend Gericom has been working on a similar interface for NDS, with the subtle differences that his emulates the ROM chip, thus being able to load NDS and DSi games from his FPGA. He even designed his own PCB instead of refurbishing an actual game cart:
+
+<center>
+<img src=img/interfaceGericom1.jpg>
+<img src=img/interfaceGericom2.jpg>
+</center>
+
+
+FPGAs are game-changing devices that can interact with virtually any component. The shown interface gives us the power to emulate the EEPROM or ROM chips that interact with the console. Interestingly 3ds cartridges' internals are 1:1 copies of the NDS ones (with bigger EEPROMs and ROMs, of course), so the attack can be reproduced with 3DS carts. By replacing the content of the EEPROM, which contains the savegame data, we can fuzz data that is inputted into games' code and find a vulnerability over the savegame.
+
+A FPGA setup build + explanation + code is in the works right! As I am building my own interface right now ;)
+
+#### Glitch attacks / fault injection
+This attack vector has, in my humble opinion, the most simple concept yet the most extense and complex implementations. The idea is to introduce glitches (or faults) into the processor (which is basically a very advanced state machine) so it is possible to skip instructions, change execution flow, dump keys and secrets, etc.
+There has been [successful glitch attacks](https://arxiv.org/pdf/1802.00359.pdf) to the 3DS bootrom in the last years.
+
+<center>
+<iframe width="420" height="315" src="http://www.youtube.com/embed/6Pf3pY3GxBM" frameborder="0" allowfullscreen></iframe><br>
+Practical example of a glitch attack.
+</center>
+
+It is interesting to consider that there exists specific hardware to design and perform glitch attacks, like the [Chipwhisperer](https://newae.com/tools/chipwhisperer/) though it is expensive and usually more extra hardware is needed.
+
+
+# Conclusions
+See you soon! Next post I will show how to make a working exploit for backwards compatibility mode, and how to fuzz(attack) native code from there! I am also trying to build a FPGA setup by myself!
+We are getting close to native 3DS code execution!
