@@ -11,7 +11,7 @@
 <meta property='og:description' content='Introduction On this post I will talk about hardware hacking targeting 3ds hacking but certainly related to electronics and other distinct attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, and finally the addition of my comments.'>
 <meta property='og:url' content='https://pedro-javierf.github.io/devblog/hacking3ds4/'>
 <meta property='og:site_name' content='PJ&#39;s Playground'>
-<meta property='og:type' content='article'><meta property='article:section' content='Devblog'><meta property='article:published_time' content='2019-07-22T19:35:38&#43;02:00'/><meta property='article:modified_time' content='2019-07-22T19:35:38&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@pedro_javierf'>
+<meta property='og:type' content='article'><meta property='article:section' content='Devblog'><meta property='article:published_time' content='2019-07-25T19:35:38&#43;02:00'/><meta property='article:modified_time' content='2019-07-25T19:35:38&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@pedro_javierf'>
 
 <meta name="generator" content="Hugo 0.55.6" />
 
@@ -135,7 +135,7 @@
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2019-07-22T19:35:38&#43;02:00'>2019, Jul 22</time>
+  <time class='entry-date' datetime='2019-07-25T19:35:38&#43;02:00'>2019, Jul 25</time>
 </span>
 
   
@@ -171,7 +171,7 @@ In addition, I have tried to create a post which explains with the maximum level
 
 <p>A few years ago when I posted the first article about 3ds hacking I considered hardware hacking to be an obscure and complex learning field. Luckily, I&rsquo;m very satisfied with what I have learned so far, and it no longer looks so frustrating. This has been possible because I have spent a certain amount of spare time investigating and learning, and also unexpectedly thanks to university, where I&rsquo;m getting a lot of information about computer architecture. I want to share all this information.</p>
 
-<p>The architecture of any console, like the 3ds, is composed by different electronics or hardware components. Depending on the information flowing through this components, we could consider them interesting for hacking. If we can attack a component and extract its information or make it behave as we wish, we say we have a working hardware attack. Of course there are tons of variations, so, to begin with, I will explain in general the concept of each attack and then apply the abstract idea to our target, the Nintendo 3DS.</p>
+<p>The architecture of any console, like the 3ds, is composed by different electronics or hardware components. Depending on the information flowing through these components, we could consider them interesting for hacking. If we can attack a component and extract its information or make it behave as we wish, we say we have a working hardware attack. Of course there are tons of variations, so, to begin with, I will explain in general the concept of each attack and then apply the abstract idea to our target, the Nintendo 3DS.</p>
 
 <h4 id="nand-dumping">Nand Dumping</h4>
 
@@ -214,7 +214,7 @@ As a bonus example, here is the pinout for the Nintendo DSi:</p>
 Main pins required, and an alternative pin for DAT0 in another part of the board. (Top Dsi, Bottom DsiXL)
 </center><br></p>
 
-<p>The last issue is getting to dump the contents to a PC. How we do this? That&rsquo;s actually the most straightforward part of all; we are crafting an adapter with cheap components.</p>
+<p>The last issue is getting to dump the contents to a computer. How we do this? That&rsquo;s actually the most straightforward part of all; we are crafting an adapter with cheap components.</p>
 
 <p><center>
 <img src=img/SD_Reader.jpg>
@@ -226,7 +226,7 @@ Main pins required, and an alternative pin for DAT0 in another part of the board
 
 <h4 id="ram-sniffing-ram-tracing-and-ram-injection">RAM Sniffing / RAM tracing and RAM injection</h4>
 
-<p>While the NAND read-write was simple, now I&rsquo;ll feature a more complex attack. The concept is straightforward; intercept the bus lines connecting the RAM chip to the board and trace writes and reads generating an &ldquo;image&rdquo; of the memory. This can be done with an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a>.</p>
+<p>While the NAND read-write was simple, now I&rsquo;ll feature a more complex attack. The concept is as follows; intercept the bus lines connecting the RAM chip to the board and trace writes and reads generating an &ldquo;image&rdquo; of the memory. This can be done with an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a>.</p>
 
 <p>This is known as <strong>RAM Tracing</strong>. The only console-hacking known attack of this kind was performed by @scamlime some years ago; she did it with the DSi&rsquo;s RAM; find more information
 <a href="https://scanlime.org/category/projects/dsi/" target="_blank">here</a>,
@@ -289,7 +289,7 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 <img src=img/interfaceGericom2.jpg>
 </center></p>
 
-<p>FPGAs are game-changing devices that can interact with virtually any component. The shown interface gives us the power to emulate the EEPROM or ROM chips that interact with the console. Interestingly 3ds cartridges&rsquo; internals are 1:1 copies of the NDS ones (with bigger EEPROMs and ROMs, of course), so the attack can be reproduced with 3DS carts. By replacing the content of the EEPROM, which contains the savegame data, we can fuzz data that is inputted into games&rsquo; code and find a vulnerability over the savegame.</p>
+<p>FPGAs are game-changing devices that can interact as virtually any component. The shown interface gives us the power to emulate the EEPROM or ROM chips that interact with the console. Interestingly 3ds cartridges&rsquo; internals are 1:1 copies of the NDS ones (with bigger EEPROMs and ROMs, of course), so the attack can be reproduced with 3DS carts. By replacing the content of the EEPROM, which contains the savegame data, we can fuzz data that is inputted into games&rsquo; code and find a vulnerability over the savegame.</p>
 
 <p>A FPGA setup build + explanation + code is in progress! As I am building my own interface right now ;)</p>
 

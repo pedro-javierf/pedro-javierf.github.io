@@ -5,7 +5,7 @@
     <link>https://pedro-javierf.github.io/</link>
     <description>Recent content in Home on PJ&#39;s Playground</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 22 Jul 2019 19:35:38 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jul 2019 19:35:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,7 +13,7 @@
     <item>
       <title>Hacking The 3ds IV: Hardware attacks</title>
       <link>https://pedro-javierf.github.io/devblog/hacking3ds4/</link>
-      <pubDate>Mon, 22 Jul 2019 19:35:38 +0200</pubDate>
+      <pubDate>Thu, 25 Jul 2019 19:35:38 +0200</pubDate>
       
       <guid>https://pedro-javierf.github.io/devblog/hacking3ds4/</guid>
       <description>Introduction On this post I will talk about hardware hacking targeting 3ds hacking but certainly related to electronics and other distinct attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &amp;ldquo;scene&amp;rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, and finally the addition of my comments.</description>
