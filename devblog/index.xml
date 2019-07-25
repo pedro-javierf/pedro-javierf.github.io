@@ -16,7 +16,7 @@
       <pubDate>Mon, 22 Jul 2019 19:35:38 +0200</pubDate>
       
       <guid>https://pedro-javierf.github.io/devblog/hacking3ds4/</guid>
-      <description>Introduction On this post I will talk about two different subjects, close to 3ds hacking but certainly related to distint attack surfaces. These are, first, hardware attacks explained (finally!) with the best possible examples and attempts of implementations, and next, the finding of a vulnerability in native 3ds mode through backwards compatibility, with the release of free and open source code to trigger the vulnerability, which will also be used as a fuzzing platform for the future entries of this series.</description>
+      <description>Introduction On this post I will talk about hardware hacking targetting 3ds hacking but certainly related to electronics and other distint attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &amp;ldquo;scene&amp;rdquo; content back from as soon as 2011, which is getting lost and dissapearing from internet; this includes images, posts, and finally the addition of my comments.</description>
     </item>
     
     <item>

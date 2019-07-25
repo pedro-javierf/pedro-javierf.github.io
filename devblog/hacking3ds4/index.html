@@ -4,11 +4,11 @@
 <head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Introduction On this post I will talk about two different subjects, close to 3ds hacking but certainly related to distint attack surfaces. These are, first, hardware attacks explained (finally!) with the best possible examples and attempts of implementations, and next, the finding of a vulnerability in native 3ds mode through backwards compatibility, with the release of free and open source code to trigger the vulnerability, which will also be used as a fuzzing platform for the future entries of this series.'>
+<meta name='description' content='Introduction On this post I will talk about hardware hacking targetting 3ds hacking but certainly related to electronics and other distint attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and dissapearing from internet; this includes images, posts, and finally the addition of my comments.'>
 <meta name='theme-color' content='#6aff00'>
 
 <meta property='og:title' content='Hacking The 3ds IV: Hardware attacks • PJ&#39;s Playground'>
-<meta property='og:description' content='Introduction On this post I will talk about two different subjects, close to 3ds hacking but certainly related to distint attack surfaces. These are, first, hardware attacks explained (finally!) with the best possible examples and attempts of implementations, and next, the finding of a vulnerability in native 3ds mode through backwards compatibility, with the release of free and open source code to trigger the vulnerability, which will also be used as a fuzzing platform for the future entries of this series.'>
+<meta property='og:description' content='Introduction On this post I will talk about hardware hacking targetting 3ds hacking but certainly related to electronics and other distint attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and dissapearing from internet; this includes images, posts, and finally the addition of my comments.'>
 <meta property='og:url' content='https://pedro-javierf.github.io/devblog/hacking3ds4/'>
 <meta property='og:site_name' content='PJ&#39;s Playground'>
 <meta property='og:type' content='article'><meta property='article:section' content='Devblog'><meta property='article:published_time' content='2019-07-22T19:35:38&#43;02:00'/><meta property='article:modified_time' content='2019-07-22T19:35:38&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@pedro_javierf'>
@@ -164,18 +164,18 @@
 
 <h1 id="u-introduction-u"><u>Introduction</u></h1>
 
-<p>On this post I will talk about two different subjects, close to 3ds hacking but certainly related to distint attack surfaces. These are, first, hardware attacks explained (finally!) with the best possible examples and attempts of implementations, and next, the finding of a vulnerability in native 3ds mode through backwards compatibility, with the release of free and open source code to trigger the vulnerability, which will also be used as a fuzzing platform for the future entries of this series.
+<p>On this post I will talk about hardware hacking targetting 3ds hacking but certainly related to electronics and other distint attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations.
 In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and dissapearing from internet; this includes images, posts, and finally the addition of my comments.</p>
 
 <h1 id="u-hardware-attacks-u"><u>Hardware Attacks</u></h1>
 
-<p>A few years ago when I posted the first article about 3ds hacking I considered hardware hacking to be an obscure and complex learning field. Luckily, I&rsquo;m very satisfied with what I have learned so far, and it no longer looks so frustrating. This has been possible because I have spent a certain amount of spare time investigating and learning, and also unexpectedly thanks to university, where I&rsquo;m getting a lot of information about computer architecture. I want the reader to be able to learn about all of this (or at least the basis).</p>
+<p>A few years ago when I posted the first article about 3ds hacking I considered hardware hacking to be an obscure and complex learning field. Luckily, I&rsquo;m very satisfied with what I have learned so far, and it no longer looks so frustrating. This has been possible because I have spent a certain amount of spare time investigating and learning, and also unexpectedly thanks to university, where I&rsquo;m getting a lot of information about computer architecture. I want to share all this information.</p>
 
-<p>The architecture of any console, like the 3ds, is composed by different electronics or hardware components. Depending on the information flowing through this components, we could consider them interesting for hacking. If we can attack a component and extract its information, we say we have a working hardware attack. Of course there are tons of variations, so, to begin with, I will explain in general the concept of each attack and then apply the abstract idea to our target, the Nintendo 3DS.</p>
+<p>The architecture of any console, like the 3ds, is composed by different electronics or hardware components. Depending on the information flowing through this components, we could consider them interesting for hacking. If we can attack a component and extract its information or make it behave as we wish, we say we have a working hardware attack. Of course there are tons of variations, so, to begin with, I will explain in general the concept of each attack and then apply the abstract idea to our target, the Nintendo 3DS.</p>
 
 <h4 id="nand-dumping">Nand Dumping</h4>
 
-<p>For preservation purposes, I will start talking about Nand dumps. These have been a recurrent topic in the 3ds scene over the years.</p>
+<p>For scene preservation purposes, I will start talking about Nand dumps. These have been a recurrent topic in the 3ds scene over the years.</p>
 
 <h5 id="what-is-a-nand-memory">What is a <em>NAND</em> memory?</h5>
 
@@ -279,6 +279,8 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 <img src=img/scanlime3.PNG>
 </center>
 <center><strong>Distributed under the <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Attribution-ShareAlike 2.0 Generic (CC BY-SA 2.0)</a></strong>.</center></p>
+
+<p>With this setup, it is possible to modify the savegame stored in the EEPROM. The game&rsquo;s code uses the savegame as input, so it is a good target for exploits, as we&rsquo;ll see in next post.</p>
 
 <p>Recently my friend Gericom has been working on a similar interface for NDS, with the subtle differences that his emulates the ROM chip, thus being able to load NDS and DSi games from his FPGA. He even designed his own PCB instead of refurbishing an actual game cart:</p>
 
