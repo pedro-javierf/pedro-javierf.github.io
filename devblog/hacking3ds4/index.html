@@ -4,11 +4,11 @@
 <head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Introduction On this post I will talk about hardware hacking targetting 3ds hacking but certainly related to electronics and other distint attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and dissapearing from internet; this includes images, posts, and finally the addition of my comments.'>
+<meta name='description' content='Introduction On this post I will talk about hardware hacking targeting 3ds hacking but certainly related to electronics and other distinct attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, and finally the addition of my comments.'>
 <meta name='theme-color' content='#6aff00'>
 
 <meta property='og:title' content='Hacking The 3ds IV: Hardware attacks • PJ&#39;s Playground'>
-<meta property='og:description' content='Introduction On this post I will talk about hardware hacking targetting 3ds hacking but certainly related to electronics and other distint attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and dissapearing from internet; this includes images, posts, and finally the addition of my comments.'>
+<meta property='og:description' content='Introduction On this post I will talk about hardware hacking targeting 3ds hacking but certainly related to electronics and other distinct attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, and finally the addition of my comments.'>
 <meta property='og:url' content='https://pedro-javierf.github.io/devblog/hacking3ds4/'>
 <meta property='og:site_name' content='PJ&#39;s Playground'>
 <meta property='og:type' content='article'><meta property='article:section' content='Devblog'><meta property='article:published_time' content='2019-07-22T19:35:38&#43;02:00'/><meta property='article:modified_time' content='2019-07-22T19:35:38&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@pedro_javierf'>
@@ -164,8 +164,8 @@
 
 <h1 id="u-introduction-u"><u>Introduction</u></h1>
 
-<p>On this post I will talk about hardware hacking targetting 3ds hacking but certainly related to electronics and other distint attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations.
-In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and dissapearing from internet; this includes images, posts, and finally the addition of my comments.</p>
+<p>On this post I will talk about hardware hacking targeting 3ds hacking but certainly related to electronics and other distinct attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations.
+In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, and finally the addition of my comments.</p>
 
 <h1 id="u-hardware-attacks-u"><u>Hardware Attacks</u></h1>
 
@@ -205,7 +205,7 @@ As we saw in the first post, the 3ds uses an internal 1GB Samsung Nand Chip.</p>
 Main pins required, and an alternative pin for CLK in another part of the board.
 </center><br></p>
 
-<p>Notice there is no VDD pin. This is because it is unnecesary. The chip will be powered properly if we turn the console on as explained before.
+<p>Notice there is no VDD pin. This is because it is unnecessary. The chip will be powered properly if we turn the console on as explained before.
 As a bonus example, here is the pinout for the Nintendo DSi:</p>
 
 <p><center>
@@ -214,7 +214,7 @@ As a bonus example, here is the pinout for the Nintendo DSi:</p>
 Main pins required, and an alternative pin for DAT0 in another part of the board. (Top Dsi, Bottom DsiXL)
 </center><br></p>
 
-<p>The final issue is getting to dump the contents to a PC. How we do this? That&rsquo;s actually the most straightforward part of all; we are crafting an adapter with cheap components.</p>
+<p>The last issue is getting to dump the contents to a PC. How we do this? That&rsquo;s actually the most straightforward part of all; we are crafting an adapter with cheap components.</p>
 
 <p><center>
 <img src=img/SD_Reader.jpg>
@@ -244,7 +244,7 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 <p><img src=img/RAMInjection2.PNG>
 </center></p>
 
-<p>Nevertheless I consider interesting to mention the work of neimod, who presumably was the first person ever to hack the 3ds. As far as I can tell from the following pictures of his work (now dissapeared from the web) he used a custom fpga to do a similar attack but on the 3ds:</p>
+<p>Nevertheless I consider interesting to mention the work of neimod, who presumably was the first person ever to hack the 3ds. As far as I can tell from the following pictures of his work (now disappeared from the web) he used a custom fpga to do a similar attack but on the 3ds:</p>
 
 <p><center>
 <img src=img/neimod1.jpg>
@@ -309,6 +309,8 @@ Practical example of a glitch attack.
 
 <p>See you soon! Next post I will show how to make a working exploit for backwards compatibility mode, and how to fuzz(attack) native code from there! I am also trying to build a FPGA setup by myself!
 We are getting close to native 3DS code execution!</p>
+
+<p>Special thanks to @Gericom and @ChampionLeake.</p>
 
 </div>
 
