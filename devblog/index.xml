@@ -32,12 +32,12 @@ Identifying code Even though I used binvis and could clearly see the differences
     <item>
       <title>Hacking The 3ds II: Finding the Pattern</title>
       <link>https://pedro-javierf.github.io/devblog/hacking3ds2/</link>
-      <pubDate>Mon, 12 Jun 2017 11:30:48 +0200</pubDate>
+      <pubDate>Tue, 30 Jan 2018 11:30:48 +0200</pubDate>
       
       <guid>https://pedro-javierf.github.io/devblog/hacking3ds2/</guid>
       <description>Hello again! I&amp;rsquo;m back with part 2: &amp;ldquo;Finding The Pattern&amp;rdquo;! In case you haven&amp;rsquo;t read yet the first blog entry, click here.
 Brief Summary Back in the day, I analysed what possible entry-points the 3DS may have. We lead to the conclusion that the RAM contents were not encrypted. This is something useful. Here&#39;s proof:
- First glance at the RAM Dump. Byte class view.
+ Unicode string found in the RAM Dump.
  As you can see, if we search for unicode strings (remember the 3DS supports several languages, as everything should do this days, to enable non-ascii languages to work, i.</description>
     </item>
     

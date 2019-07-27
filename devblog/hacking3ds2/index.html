@@ -6,18 +6,18 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Hello again! I&rsquo;m back with part 2: &ldquo;Finding The Pattern&rdquo;! In case you haven&rsquo;t read yet the first blog entry, click here.
 Brief Summary Back in the day, I analysed what possible entry-points the 3DS may have. We lead to the conclusion that the RAM contents were not encrypted. This is something useful. Here&#39;s proof:
- First glance at the RAM Dump. Byte class view.
+ Unicode string found in the RAM Dump.
  As you can see, if we search for unicode strings (remember the 3DS supports several languages, as everything should do this days, to enable non-ascii languages to work, i.'>
 <meta name='theme-color' content='#6aff00'>
 
 <meta property='og:title' content='Hacking The 3ds II: Finding the Pattern • PJ&#39;s Playground'>
 <meta property='og:description' content='Hello again! I&rsquo;m back with part 2: &ldquo;Finding The Pattern&rdquo;! In case you haven&rsquo;t read yet the first blog entry, click here.
 Brief Summary Back in the day, I analysed what possible entry-points the 3DS may have. We lead to the conclusion that the RAM contents were not encrypted. This is something useful. Here&#39;s proof:
- First glance at the RAM Dump. Byte class view.
+ Unicode string found in the RAM Dump.
  As you can see, if we search for unicode strings (remember the 3DS supports several languages, as everything should do this days, to enable non-ascii languages to work, i.'>
 <meta property='og:url' content='https://pedro-javierf.github.io/devblog/hacking3ds2/'>
 <meta property='og:site_name' content='PJ&#39;s Playground'>
-<meta property='og:type' content='article'><meta property='article:section' content='Devblog'><meta property='article:published_time' content='2017-06-12T11:30:48&#43;02:00'/><meta property='article:modified_time' content='2017-06-12T11:30:48&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@pedro_javierf'>
+<meta property='og:type' content='article'><meta property='article:section' content='Devblog'><meta property='article:published_time' content='2018-01-30T11:30:48&#43;02:00'/><meta property='article:modified_time' content='2018-01-30T11:30:48&#43;02:00'/><meta name='twitter:card' content='summary'><meta name='twitter:site' content='@pedro_javierf'>
 
 <meta name="generator" content="Hugo 0.55.6" />
 
@@ -63,7 +63,7 @@ Brief Summary Back in the day, I analysed what possible entry-points the 3DS may
       <ul><li class='item'>
   <a href='/'>Home</a></li><li class='item'>
   <a href='/devblog/'>Devblog</a></li><li class='item'>
-  <a href='/reviews/'>Reviews</a></li><li class='item'>
+  <a href='/talks/'>Talks</a></li><li class='item'>
   <a href='/posts/'>Other Posts</a></li><li class='item'>
   <a href='/about/'>About</a></li></ul>
     </div>
@@ -103,7 +103,7 @@ Brief Summary Back in the day, I analysed what possible entry-points the 3DS may
       </li><li class='item'>
         <a href='/devblog/'>Devblog</a>
       </li><li class='item'>
-        <a href='/reviews/'>Reviews</a>
+        <a href='/talks/'>Talks</a>
       </li><li class='item'>
         <a href='/posts/'>Other Posts</a>
       </li><li class='item'>
@@ -141,7 +141,7 @@ Brief Summary Back in the day, I analysed what possible entry-points the 3DS may
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2017-06-12T11:30:48&#43;02:00'>2017, Jun 12</time>
+  <time class='entry-date' datetime='2018-01-30T11:30:48&#43;02:00'>2018, Jan 30</time>
 </span>
 
   
@@ -173,7 +173,7 @@ I&rsquo;m back with part 2: &ldquo;Finding The Pattern&rdquo;! In case you haven
 Back in the day, I analysed what possible entry-points the 3DS may have. We lead to the conclusion that the RAM contents were not encrypted. This is something useful. Here's proof:<br/><br>
 <center>
 <img src=img/ramstr.png><br>
-<i>First glance at the RAM Dump. Byte class view.</i><br><br><br><br>
+<i>Unicode string found in the RAM Dump.</i><br><br><br>
 </center>
 As you can see, if we search for unicode strings (remember the 3DS supports several languages, as everything should do this days, to enable non-ascii languages to work, i.e. Japanese, Spanish, etc.) we can find that they are in plaintext. <br>Side-Note: I searched for known strings, such my profile username and folder names.
 
@@ -210,7 +210,7 @@ As for everything else, this view isn&rsquo;t much interesting. Let&rsquo;s move
 This picture above shows the chunk(cluster) view mode, that shows blocks with same entropy. For a more realistic view, we can switch to linear(scan) mode.<br><br>
 <center>
 <img src="img/binvis3.png" alt="Binvis3" />
-<i>Code identified</i><br><br><br><br>
+<i>Code identified</i><br><br><br>
 </center></p>
 
 <p>Let&rsquo;s try doing some zoom (with the + icon obviously). I move to the &ldquo;start&rdquo; of the binary and we can see this!<br><br>
@@ -221,21 +221,32 @@ This picture above shows the chunk(cluster) view mode, that shows blocks with sa
 
 <p>This may be what we were searching for!<br></p>
 
-<p><div class="divspoiler">
+<!--
+<div class="divspoiler">
 <input style="color: #FF0000" type="button" value="NOTE" onclick="if (this.parentNode.nextSibling.childNodes[0].style.display != '') { this.parentNode.nextSibling.childNodes[0].style.display = ''; this.value = 'HIDE'; } else { this.parentNode.nextSibling.childNodes[0].style.display = 'none'; this.value = 'NOTE'; }" />
 </div><div><div class="spoiler" style="display: none;">
 Code is not the only stuff with high entropy; JPEG compressed images, or encrypted data, will have high entropy too.
 </div></div>
-<br></p>
+<br>-->
+
+<blockquote>
+<p>Code is not the only stuff with high entropy; JPEG compressed images, or encrypted data, will have high entropy too.</p>
+</blockquote>
 
 <p>Now, repeat this for all the high-entropy chunks; take note of those addresses (more or less, start and end, I&rsquo;ll go in depth with this in other post.), grab your favourite file manager and extract that precious piece of code.<br><br></p>
 
-<p><div class="divspoiler">
+<!--
+<div class="divspoiler">
 <input style="color: #FF0000" type="button" value="NOTE" onclick="if (this.parentNode.nextSibling.childNodes[0].style.display != '') { this.parentNode.nextSibling.childNodes[0].style.display = ''; this.value = 'HIDE'; } else { this.parentNode.nextSibling.childNodes[0].style.display = 'none'; this.value = 'NOTE'; }" />
 </div><div><div class="spoiler" style="display: none;">
-When a program is executed, usually not the whole binary is loaded into memory, only important sections are loaded so don&rsquo;t expect to find the whole binary in memory, nor headers or things like that, despite we could find them sometimes.
+When a program is executed, usually not the whole binary is loaded into memory, only important sections are loaded so don't expect to find the whole binary in memory, nor headers or things like that, despite we could find them sometimes.
 </div></div>
-<br></p>
+<br>
+-->
+
+<blockquote>
+<p>When a program is executed, usually not the whole binary is loaded into memory, only important sections are loaded so don&rsquo;t expect to find the whole binary in memory, nor headers or things like that, despite we could find them sometimes.</p>
+</blockquote>
 
 <h2 class='elegantshadow'> Conclusions</h2>
 

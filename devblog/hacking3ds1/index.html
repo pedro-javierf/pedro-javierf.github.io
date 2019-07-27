@@ -59,7 +59,7 @@
       <ul><li class='item'>
   <a href='/'>Home</a></li><li class='item'>
   <a href='/devblog/'>Devblog</a></li><li class='item'>
-  <a href='/reviews/'>Reviews</a></li><li class='item'>
+  <a href='/talks/'>Talks</a></li><li class='item'>
   <a href='/posts/'>Other Posts</a></li><li class='item'>
   <a href='/about/'>About</a></li></ul>
     </div>
@@ -99,7 +99,7 @@
       </li><li class='item'>
         <a href='/devblog/'>Devblog</a>
       </li><li class='item'>
-        <a href='/reviews/'>Reviews</a>
+        <a href='/talks/'>Talks</a>
       </li><li class='item'>
         <a href='/posts/'>Other Posts</a>
       </li><li class='item'>
@@ -172,7 +172,8 @@ Today, a new series begin. A &ldquo;journey&rdquo; into hacking the Nintendo 3DS
 </ul></p>
 
 <p><h2 class='elegantshadow'>Introduction</h1>
-Before doing anything, we need to know what is inside the 3DS. The inner hardware is what defines how the software works. In a first moment, we would open the console and look at the chips to identify them. This is mostly the work of hardware hackers. The Old3DS has this specs (from 3dbrew):
+Before doing anything, we need to know what is inside the 3DS. The inner hardware is what defines how the software works. In a first moment, we would open the console and look at the chips to identify them. This is mostly the work of hardware hackers. The Old3DS has this specs (from 3dbrew):</p>
+
 <ul>
   <li>128mb (2x64) of RAM (FCRam)</li>
   <li>DMP PICA GPU (not really important yet)</li>
@@ -181,25 +182,33 @@ Before doing anything, we need to know what is inside the 3DS. The inner hardwar
   <li>ARM9 46 at 134MHz</li>
 </ul>
 This are the most important pieces of hardware that we should have always in account. For extended details and New3ds information see<a href="https://www.3dbrew.org/wiki/Hardware"> this </a><br/><br/>
-In this series, I&rsquo;ll be talking about the MSET Exploit. Again, back in the late 2014, the Gateway Team released the Gateway 3DS Cartridge, which allowed piracy on 4.1 to 4.5 firmwares. They used an exploit on the DS Profile menu in the 3ds settings which then loaded further code from the Launcher.dat file on the SD Card. Some people were able to reverse their Launcher before they implemented more strong obfuscation, but this still was and is a seriously difficult task. My aim is to gain code execution using this exploit without reversing others&rsquo; work, just by myself and my investigations, as if there were no public information (and actually there&rsquo;s not much information available, and obviously not documentation).<br />
-<h2 class='elegantshadow'> Thoughts</h2>
-So basically, we have no information about anything. We are working with what is often called a &ldquo;Black Box&rdquo; system. The first step is hardware hacking; Is the only thing we have access to so we must start working there. Again, hardware is more complicated with every passing day. This means that I can&rsquo;t do anything here by myself. Unless you have a career in something related and you like it, is unlikely you are able to learn much about hardware hacking, there isn&rsquo;t much information available neither so we have to rely on experts. Unfortunately, most of this people don&rsquo;t like to share their investigations for free. So unless you find someone with the same hardware you have and interest in hacking it, you are screwed. This is the most common scenario in console hacking, there&rsquo;s no public scene because those discoveries are private and only shared with certain people. <br/><br/>
-EDIT: Actually, I have been learning a lot about hardware hacking. I would still not be able to such a complicated and specific set-up, but I suggest you read this: <a href="https://scanlime.org/2009/09/dsi-ram-tracing/" target="_blank">https://scanlime.org/2009/09/dsi-ram-tracing/</a> it&rsquo;s from a girl who did something similar with the Nintendo DSi. It may give you a brief idea!</p>
 
-<p>As for now, lets assume we are skilled enough to perform any of the possible hardware attacks. What shall we do first? <br/>
-We must look in the different data sources in the hardware and decide if they are useful for us. For example, The 3ds has the following:<br/>
+<center>
+<img src="img/3ds.png">
+</center>
+
+In this series, I'll be talking about the MSET Exploit. Again, back in the late 2014, the Gateway Team released the Gateway 3DS Cartridge, which allowed piracy on 4.1 to 4.5 firmwares. They used an exploit on the DS Profile menu in the 3ds settings which then loaded further code from the Launcher.dat file on the SD Card. Some people were able to reverse their Launcher before they implemented more strong obfuscation, but this still was and is a seriously difficult task. My aim is to gain code execution using this exploit without reversing others' work, just by myself and my investigations, as if there were no public information (and actually there's not much information available, and obviously not documentation).  
+<h2 class='elegantshadow'> Thoughts</h2>
+So basically, we have no information about anything. We are working with what is often called a "Black Box" system. The first step is hardware hacking; Is the only thing we have access to so we must start working there. Hardware is more complex with every passing day. This means that I can't do anything here by myself. Usually a career in electronics or related helps, but unfortunately until a few years ago there wasn't much information available. Sadly most people don't share their investigations publicy (for good reasons often, like avoiding legal problems or encouraging piracy). So unless you find someone with the same hardware you have and interest in hacking it, you are screwed. This is the most common scenario in console hacking, there's no public scene because those discoveries are private and only shared with certain people, otherwise the security holes would be patched quickly. <br/><br/>
+
+
+> Actually, I have been learning a lot about hardware hackingas you will see in the next posts.
+
+
+<br>As for now, lets assume we are skilled enough to perform any of the possible hardware attacks. What shall we do first? <br/>
+We must look in the different data sources in the hardware and decide if they are useful for us. For example, The 3ds has the following:<br/><br>
 <ul>
   <li>NAND Chip</li>
   <li>SD Card</li>
   <li>RAM Chips</li>
 </ul>
-Let&rsquo;s start with the NAND. In the 3ds, this is a 1GB samsung storage unit. So investigating it&rsquo;s datasheet and experimenting, we would eventually be able to dump its contents. If we would analyse the dump carefully, we could try the following;<br/>
-<ul>
-  <li>Find Strings: Such as user data, menu&rsquo;s text, etc..<br/></li>
-  <li>Find structures or patterns: such as MAGIC signatures/numbers, headers&rsquo; information (i.e. ELF), etc&hellip;<br/></li>
+Let's start with the NAND. In the 3ds, this is a 1GB samsung storage unit. So investigating it's datasheet and experimenting, we would eventually be able to dump its contents, as explained in post 4(IV). If we would analyse the dump carefully, we could try the following;<br/> 
+<br><ul>
+  <li>Find Strings: Such as user data, menu's text, etc..<br/></li>
+  <li>Find structures or patterns: such as MAGIC signatures/numbers, headers' information (i.e. ELF), etc...<br/></li>
   <li>Modify the dump: Try modify any byte at the dump and restore it to the chip. See if it boots or it raises any error.<br/></li>
   <li>Restore another NAND dump, gotten from another unit (not the same console).<br/><br/></li>
-</ul></p>
+</ul>
 
 <p>For the 3ds, the result for each test are:
 <ul>
@@ -216,12 +225,12 @@ So we can lead to the conclusion that the NAND is somehow encrypted, signed, or 
   <li>Identify which of the things above are signed or encrypted. Try modifying them and see if they still work. Multimedia is likely going to be clear data, but titles, exdata and everything else is probably going to be, at least, console signed.</li>
   <li>Try to exploit the multimedia managers. Use fuzzers to create multimedia files and try loading them. You may find crashes, and who knows, maybe an exploit, like &ldquo;soundhax&rdquo; which was found a lot of years later. </li> <!--Link here for the 3ds soundhax-->
 </ul>
-Sadly, this is very difficult at this point where we know little, if any, details of the system.<br/><br/></p>
+Sadly, this is very difficult at this point when we know little - if any - details of the system.<br/><br/></p>
 
 <p>And our last option, the RAM. We would need a working hardware set-up that would allow us to dump the ram (see scanlime set-up above). This has been done in the 3ds by some hardware hackers <!--neimod-->, but the ones who did it only work for money so you guess their work is not avaiable to the public ;). Assuming we have dumped the RAM, let&rsquo;s proceed to analyse the dumps. We would try, but not only, the same ideas as for the NAND chip. In the 3ds, we find that RAM contents are not encrypted! We can, in fact, find strings from menus (most of them in unicode).</p>
 
 <p><h2 class='elegantshadow'> Conclusion</h2>
-Analysing the RAM requires a whole article or two; I&rsquo;ll be using some mind-blowing techniques which may lead to code execution, and definitively, there&rsquo;s going to be a lot of static reverse engineering.<br/><br/></p>
+Analysing the RAM requires a whole article or two; I will be using some new techniques which may lead to code execution, and definitively, there&rsquo;s going to be a lot of static reverse engineering.<br/></p>
 
 <p>I hope you enjoyed this post. If you consider any suggestion/correction, message me at twitter or mail me.</p>
 
