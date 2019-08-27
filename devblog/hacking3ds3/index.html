@@ -22,7 +22,7 @@ Identifying code Even though I used binvis and could clearly see the differences
   
   
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.cb99c271.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#6aff00;}
 </style>
 
@@ -228,84 +228,83 @@ We are still trying and learning how to reconstruct the jump table and/or map co
 
 <p>I later decided to also run <em>binwalk</em> on the dumps and it was quite satisfying. Here&rsquo;s the output:</p>
 
-<p><code>
-binwalk fcram.bin
-DECIMAL       HEXADECIMAL     DESCRIPTION<br>
-7299258       0x6F60BA        Intel x86 or x64 microcode, sig 0x021e0001, pf_mask 0x00, 1A5A-01-16, rev 0x529c0000, size 2048<br>
-7993402       0x79F83A        Intel x86 or x64 microcode, sig 0x021e0001, pf_mask 0x00, 1A5A-01-16, rev 0x529c0000, size 2048<br>
-8000252       0x7A12FC        Intel x86 or x64 microcode, sig 0x0f15202a, pf_mask 0x3030404, 1F36-15-26, rev 0x37464b5c, size 16843009<br>
-50306088      0x2FF9C28       Intel x86 or x64 microcode, sig 0x00000016, pf_mask 0x803e5ec, 1C4C-08-01, rev 0x3f800000, size 2048<br>
-50567676      0x30399FC       Intel x86 or x64 microcode, pf_mask 0x00, 1AD4-08-05, rev 0x8051ad4, size 2048<br>
-60749628      0x39EF73C       TROC filesystem, 4279375 file entries<br>
-60752768      0x39F0380       TROC filesystem, 4279375 file entries<br>
-66907642      0x3FCEDFA       Base64 standard index table<br>
-66908802      0x3FCF282       TIFF image data, little-endian offset of first image directory: 8<br>
-66908816      0x3FCF290       TIFF image data, big-endian, offset of first image directory: 8<br>
-66909359      0x3FCF4AF       JPEG image data, EXIF standard<br>
-66909371      0x3FCF4BB       TIFF image data, little-endian offset of first image directory: 8<br>
-66909379      0x3FCF4C3       JPEG image data, EXIF standard<br>
-66909391      0x3FCF4CF       TIFF image data, big-endian, offset of first image directory: 8<br>
-66909662      0x3FCF5DE       TIFF image data, little-endian offset of first image directory: 8<br>
-66909674      0x3FCF5EA       TIFF image data, big-endian, offset of first image directory: 8<br>
-67105288      0x3FFF208       SHA256 hash constants, little endian<br>
-67135863      0x4006977       LZMA compressed data, properties: 0xB8, dictionary size: 0 bytes, uncompressed size: 2560 bytes<br>
-67139959      0x4007977       LZMA compressed data, properties: 0xB7, dictionary size: 0 bytes, uncompressed size: 6912 bytes<br>
-67742218      0x409AA0A       Minix filesystem, V1, little endian, 187 zones<br>
-67750612      0x409CAD4       Minix filesystem, V1, little endian, 21760 zones<br>
-67854766      0x40B61AE       Minix filesystem, V1, big endian, 31231 zones<br>
-67954296      0x40CE678       MySQL ISAM index file Version 5<br>
-67954300      0x40CE67C       MySQL ISAM index file Version 5<br>
-68035414      0x40E2356       MySQL MISAM compressed data file Version 7<br>
-68421348      0x41406E4       MySQL MISAM index file Version 3<br>
-69043542      0x41D8556       MySQL ISAM index file Version 5<br>
-69159852      0x41F4BAC       MySQL MISAM compressed data file Version 7<br>
-69349091      0x4222EE3       mcrypt 2.2 encrypted data, algorithm: blowfish-448, mode: CBC, keymode: 8bit<br>
-69403564      0x42303AC       MySQL MISAM compressed data file Version 7<br>
-69473406      0x424147E       MySQL ISAM index file Version 5<br>
-69618190      0x4264A0E       Minix filesystem, V1, big endian, 11810 zones<br>
-69879092      0x42A4534       MySQL ISAM index file Version 5<br>
-69938520      0x42B2D58       MySQL MISAM index file Version 8<br>
-70140594      0x42E42B2       Minix filesystem, V1, little endian, 1036 zones<br>
-70298452      0x430AB54       MySQL ISAM index file Version 5<br>
-70329090      0x4312302       MySQL MISAM index file Version 8<br>
-107215248     0x663F990       Intel x86 or x64 microcode, sig 0x0803b216, pf_mask 0x803b2b4, 19B4-08-01, rev 0x3f800000, size 2048<br>
-107216348     0x663FDDC       Intel x86 or x64 microcode, sig 0x00000016, pf_mask 0x803b2b4, 1E00-08-01, rev 0x3f800000, size 2048<br>
-107280616     0x664F8E8       Intel x86 or x64 microcode, sig 0x0803b216, pf_mask 0x803b2b4, 190C-08-02, rev 0x3f800000, size 2048<br>
-108395492     0x675FBE4       Intel x86 or x64 microcode, sig 0x00000002, pf_mask 0x80000000, 1E14-08-13, rev 0x8131e14, size 2048<br>
-110505168     0x6962CD0       <strong>Nintendo DS Game ROM Image</strong><br>
-111811632     0x6AA1C30       SHA256 hash constants, little endian<br>
-113820944     0x6C8C510       SHA256 hash constants, little endian<br>
-118416828     0x70EE5BC       LZMA compressed data, properties: 0x6E, dictionary size: 0 bytes, uncompressed size: 5600 bytes<br>
-118814824     0x714F868       XML document, version: &ldquo;1.0&rdquo;<br>
-119871116     0x725168C       SHA256 hash constants, little endian<br>
-120699788     0x731BB8C       TROC filesystem, 4279375 file entries<br>
-120882924     0x73486EC       <strong>Certificate in DER format (x509 v3), header length: 4, sequence length: 887</strong><br>
-120883815     0x7348A67       <strong>Certificate in DER format (x509 v3), header length: 4, sequence length: 602</strong><br>
-120884421     0x7348CC5       <strong>Certificate in DER format (x509 v3), header length: 4, sequence length: 885</strong><br>
-120885310     0x734903E       Certificate in DER format (x509 v3), header length: 4, sequence length: 954<br>
-120886268     0x73493FC       Certificate in DER format (x509 v3), header length: 4, sequence length: 863<br>
-120887135     0x734975F       Certificate in DER format (x509 v3), header length: 4, sequence length: 807<br>
-120887946     0x7349A8A       Certificate in DER format (x509 v3), header length: 4, sequence length: 1066<br>
-122021324     0x745E5CC       CRC32 polynomial table, little endian<br>
-122025420     0x745F5CC       CRC32 polynomial table, big endian<br>
-122225616     0x74903D0       SHA256 hash constants, little endian<br>
-122672248     0x74FD478       Certificate in DER format (x509 v3), header length: 4, sequence length: 1056<br>
-122674704     0x74FDE10       Private key in DER format (PKCS header length: 4, sequence length: 1190<br>
-122675936     0x74FE2E0       Certificate in DER format (x509 v3), header length: 4, sequence length: 1219<br>
-122677176     0x74FE7B8       Private key in DER format (PKCS header length: 4, sequence length: 1190<br>
-123549136     0x75D35D0       Certificate in DER format (x509 v3), header length: 4, sequence length: 893<br>
-123550033     0x75D3951       Certificate in DER format (x509 v3), header length: 4, sequence length: 1169<br>
-123551206     0x75D3DE6       Certificate in DER format (x509 v3), header length: 4, sequence length: 1056<br>
-123563013     0x75D6C05       Minix filesystem, V1, little endian, 30 char names, 37 zones<br>
-123936009     0x7631D09       Minix filesystem, V1, little endian, 30 char names, 38 zones<br>
-123936748     0x7631FEC       Intel x86 or x64 microcode, sig 0x08032070, pf_mask 0xffffffff, 2070-08-03, rev 0x8032050, size 2048<br>
-124047924     0x764D234       Base64 standard index table<br>
-124925352     0x77235A8       SHA256 hash constants, little endian<br>
-131945708     0x7DD54EC       SHA256 hash constants, little endian<br>
-132031212     0x7DEA2EC       SHA256 hash constants, little endian<br>
-132644480     0x7E7FE80       TROC filesystem, 4279375 file entries<br>
-132717080     0x7E91A18       SHA256 hash constants, little endian<br>
-</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">binwalk fcram.bin 
+DECIMAL       HEXADECIMAL     DESCRIPTION
+<span style="color:#ae81ff">7299258</span>       <span style="color:#ae81ff">0x6F60BA</span>        Intel x86 or x64 microcode, sig <span style="color:#ae81ff">0x021e0001</span>, pf_mask <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">1</span>A5A<span style="color:#f92672">-</span><span style="color:#ae81ff">01</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>, rev <span style="color:#ae81ff">0x529c0000</span>, size <span style="color:#ae81ff">2048</span>
+<span style="color:#ae81ff">7993402</span>       <span style="color:#ae81ff">0x79F83A</span>        Intel x86 or x64 microcode, sig <span style="color:#ae81ff">0x021e0001</span>, pf_mask <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">1</span>A5A<span style="color:#f92672">-</span><span style="color:#ae81ff">01</span><span style="color:#f92672">-</span><span style="color:#ae81ff">16</span>, rev <span style="color:#ae81ff">0x529c0000</span>, size <span style="color:#ae81ff">2048</span>
+<span style="color:#ae81ff">8000252</span>       <span style="color:#ae81ff">0x7A12FC</span>        Intel x86 or x64 microcode, sig <span style="color:#ae81ff">0x0f15202a</span>, pf_mask <span style="color:#ae81ff">0x3030404</span>, <span style="color:#ae81ff">1F</span><span style="color:#ae81ff">36</span><span style="color:#f92672">-</span><span style="color:#ae81ff">15</span><span style="color:#f92672">-</span><span style="color:#ae81ff">26</span>, rev <span style="color:#ae81ff">0x37464b5c</span>, size <span style="color:#ae81ff">16843009</span>
+<span style="color:#ae81ff">50306088</span>      <span style="color:#ae81ff">0x2FF9C28</span>       Intel x86 or x64 microcode, sig <span style="color:#ae81ff">0x00000016</span>, pf_mask <span style="color:#ae81ff">0x803e5ec</span>, <span style="color:#ae81ff">1</span>C4C<span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">01</span>, rev <span style="color:#ae81ff">0x3f800000</span>, size <span style="color:#ae81ff">2048</span>
+<span style="color:#ae81ff">50567676</span>      <span style="color:#ae81ff">0x30399FC</span>       Intel x86 or x64 microcode, pf_mask <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">1</span>AD4<span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">05</span>, rev <span style="color:#ae81ff">0x8051ad4</span>, size <span style="color:#ae81ff">2048</span>
+<span style="color:#ae81ff">60749628</span>      <span style="color:#ae81ff">0x39EF73C</span>       TROC filesystem, <span style="color:#ae81ff">4279375</span> file entries
+<span style="color:#ae81ff">60752768</span>      <span style="color:#ae81ff">0x39F0380</span>       TROC filesystem, <span style="color:#ae81ff">4279375</span> file entries
+<span style="color:#ae81ff">66907642</span>      <span style="color:#ae81ff">0x3FCEDFA</span>       Base64 standard index table
+<span style="color:#ae81ff">66908802</span>      <span style="color:#ae81ff">0x3FCF282</span>       TIFF image data, little<span style="color:#f92672">-</span>endian offset of first image directory: <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">66908816</span>      <span style="color:#ae81ff">0x3FCF290</span>       TIFF image data, big<span style="color:#f92672">-</span>endian, offset of first image directory: <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">66909359</span>      <span style="color:#ae81ff">0x3FCF4AF</span>       JPEG image data, EXIF standard
+<span style="color:#ae81ff">66909371</span>      <span style="color:#ae81ff">0x3FCF4BB</span>       TIFF image data, little<span style="color:#f92672">-</span>endian offset of first image directory: <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">66909379</span>      <span style="color:#ae81ff">0x3FCF4C3</span>       JPEG image data, EXIF standard
+<span style="color:#ae81ff">66909391</span>      <span style="color:#ae81ff">0x3FCF4CF</span>       TIFF image data, big<span style="color:#f92672">-</span>endian, offset of first image directory: <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">66909662</span>      <span style="color:#ae81ff">0x3FCF5DE</span>       TIFF image data, little<span style="color:#f92672">-</span>endian offset of first image directory: <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">66909674</span>      <span style="color:#ae81ff">0x3FCF5EA</span>       TIFF image data, big<span style="color:#f92672">-</span>endian, offset of first image directory: <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">67105288</span>      <span style="color:#ae81ff">0x3FFF208</span>       SHA256 hash constants, little endian
+<span style="color:#ae81ff">67135863</span>      <span style="color:#ae81ff">0x4006977</span>       LZMA compressed data, properties: <span style="color:#ae81ff">0xB8</span>, dictionary size: <span style="color:#ae81ff">0</span> bytes, uncompressed size: <span style="color:#ae81ff">2560</span> bytes
+<span style="color:#ae81ff">67139959</span>      <span style="color:#ae81ff">0x4007977</span>       LZMA compressed data, properties: <span style="color:#ae81ff">0xB7</span>, dictionary size: <span style="color:#ae81ff">0</span> bytes, uncompressed size: <span style="color:#ae81ff">6912</span> bytes
+<span style="color:#ae81ff">67742218</span>      <span style="color:#ae81ff">0x409AA0A</span>       Minix filesystem, V1, little endian, <span style="color:#ae81ff">187</span> zones
+<span style="color:#ae81ff">67750612</span>      <span style="color:#ae81ff">0x409CAD4</span>       Minix filesystem, V1, little endian, <span style="color:#ae81ff">21760</span> zones
+<span style="color:#ae81ff">67854766</span>      <span style="color:#ae81ff">0x40B61AE</span>       Minix filesystem, V1, big endian, <span style="color:#ae81ff">31231</span> zones
+<span style="color:#ae81ff">67954296</span>      <span style="color:#ae81ff">0x40CE678</span>       MySQL ISAM index file Version <span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">67954300</span>      <span style="color:#ae81ff">0x40CE67C</span>       MySQL ISAM index file Version <span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">68035414</span>      <span style="color:#ae81ff">0x40E2356</span>       MySQL MISAM compressed data file Version <span style="color:#ae81ff">7</span>
+<span style="color:#ae81ff">68421348</span>      <span style="color:#ae81ff">0x41406E4</span>       MySQL MISAM index file Version <span style="color:#ae81ff">3</span>
+<span style="color:#ae81ff">69043542</span>      <span style="color:#ae81ff">0x41D8556</span>       MySQL ISAM index file Version <span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">69159852</span>      <span style="color:#ae81ff">0x41F4BAC</span>       MySQL MISAM compressed data file Version <span style="color:#ae81ff">7</span>
+<span style="color:#ae81ff">69349091</span>      <span style="color:#ae81ff">0x4222EE3</span>       mcrypt <span style="color:#ae81ff">2.2</span> encrypted data, algorithm: blowfish<span style="color:#f92672">-</span><span style="color:#ae81ff">448</span>, mode: CBC, keymode: <span style="color:#ae81ff">8</span>bit
+<span style="color:#ae81ff">69403564</span>      <span style="color:#ae81ff">0x42303AC</span>       MySQL MISAM compressed data file Version <span style="color:#ae81ff">7</span>
+<span style="color:#ae81ff">69473406</span>      <span style="color:#ae81ff">0x424147E</span>       MySQL ISAM index file Version <span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">69618190</span>      <span style="color:#ae81ff">0x4264A0E</span>       Minix filesystem, V1, big endian, <span style="color:#ae81ff">11810</span> zones
+<span style="color:#ae81ff">69879092</span>      <span style="color:#ae81ff">0x42A4534</span>       MySQL ISAM index file Version <span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">69938520</span>      <span style="color:#ae81ff">0x42B2D58</span>       MySQL MISAM index file Version <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">70140594</span>      <span style="color:#ae81ff">0x42E42B2</span>       Minix filesystem, V1, little endian, <span style="color:#ae81ff">1036</span> zones
+<span style="color:#ae81ff">70298452</span>      <span style="color:#ae81ff">0x430AB54</span>       MySQL ISAM index file Version <span style="color:#ae81ff">5</span>
+<span style="color:#ae81ff">70329090</span>      <span style="color:#ae81ff">0x4312302</span>       MySQL MISAM index file Version <span style="color:#ae81ff">8</span>
+<span style="color:#ae81ff">107215248</span>     <span style="color:#ae81ff">0x663F990</span>       Intel x86 or x64 microcode, sig <span style="color:#ae81ff">0x0803b216</span>, pf_mask <span style="color:#ae81ff">0x803b2b4</span>, <span style="color:#ae81ff">19</span>B4<span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">01</span>, rev <span style="color:#ae81ff">0x3f800000</span>, size <span style="color:#ae81ff">2048</span>
+<span style="color:#ae81ff">107216348</span>     <span style="color:#ae81ff">0x663FDDC</span>       Intel x86 or x64 microcode, sig <span style="color:#ae81ff">0x00000016</span>, pf_mask <span style="color:#ae81ff">0x803b2b4</span>, <span style="color:#ae81ff">1E00</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">01</span>, rev <span style="color:#ae81ff">0x3f800000</span>, size <span style="color:#ae81ff">2048</span>
+<span style="color:#ae81ff">107280616</span>     <span style="color:#ae81ff">0x664F8E8</span>       Intel x86 or x64 microcode, sig <span style="color:#ae81ff">0x0803b216</span>, pf_mask <span style="color:#ae81ff">0x803b2b4</span>, <span style="color:#ae81ff">190</span>C<span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">02</span>, rev <span style="color:#ae81ff">0x3f800000</span>, size <span style="color:#ae81ff">2048</span>
+<span style="color:#ae81ff">108395492</span>     <span style="color:#ae81ff">0x675FBE4</span>       Intel x86 or x64 microcode, sig <span style="color:#ae81ff">0x00000002</span>, pf_mask <span style="color:#ae81ff">0x80000000</span>, <span style="color:#ae81ff">1E14</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">13</span>, rev <span style="color:#ae81ff">0x8131e14</span>, size <span style="color:#ae81ff">2048</span>
+<span style="color:#ae81ff">110505168</span>     <span style="color:#ae81ff">0x6962CD0</span>       Nintendo DS Game ROM Image  <span style="color:#f92672">&lt;-----</span>
+<span style="color:#ae81ff">111811632</span>     <span style="color:#ae81ff">0x6AA1C30</span>       SHA256 hash constants, little endian
+<span style="color:#ae81ff">113820944</span>     <span style="color:#ae81ff">0x6C8C510</span>       SHA256 hash constants, little endian
+<span style="color:#ae81ff">118416828</span>     <span style="color:#ae81ff">0x70EE5BC</span>       LZMA compressed data, properties: <span style="color:#ae81ff">0x6E</span>, dictionary size: <span style="color:#ae81ff">0</span> bytes, uncompressed size: <span style="color:#ae81ff">5600</span> bytes
+<span style="color:#ae81ff">118814824</span>     <span style="color:#ae81ff">0x714F868</span>       XML document, version: <span style="color:#e6db74">&#34;1.0&#34;</span>
+<span style="color:#ae81ff">119871116</span>     <span style="color:#ae81ff">0x725168C</span>       SHA256 hash constants, little endian
+<span style="color:#ae81ff">120699788</span>     <span style="color:#ae81ff">0x731BB8C</span>       TROC filesystem, <span style="color:#ae81ff">4279375</span> file entries
+<span style="color:#ae81ff">120882924</span>     <span style="color:#ae81ff">0x73486EC</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">887</span> <span style="color:#f92672">&lt;-----</span>
+<span style="color:#ae81ff">120883815</span>     <span style="color:#ae81ff">0x7348A67</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">602</span> <span style="color:#f92672">&lt;-----</span>
+<span style="color:#ae81ff">120884421</span>     <span style="color:#ae81ff">0x7348CC5</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">885</span> <span style="color:#f92672">&lt;-----</span>
+<span style="color:#ae81ff">120885310</span>     <span style="color:#ae81ff">0x734903E</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">954</span>
+<span style="color:#ae81ff">120886268</span>     <span style="color:#ae81ff">0x73493FC</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">863</span>
+<span style="color:#ae81ff">120887135</span>     <span style="color:#ae81ff">0x734975F</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">807</span>
+<span style="color:#ae81ff">120887946</span>     <span style="color:#ae81ff">0x7349A8A</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">1066</span>
+<span style="color:#ae81ff">122021324</span>     <span style="color:#ae81ff">0x745E5CC</span>       CRC32 polynomial table, little endian
+<span style="color:#ae81ff">122025420</span>     <span style="color:#ae81ff">0x745F5CC</span>       CRC32 polynomial table, big endian
+<span style="color:#ae81ff">122225616</span>     <span style="color:#ae81ff">0x74903D0</span>       SHA256 hash constants, little endian
+<span style="color:#ae81ff">122672248</span>     <span style="color:#ae81ff">0x74FD478</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">1056</span>
+<span style="color:#ae81ff">122674704</span>     <span style="color:#ae81ff">0x74FDE10</span>       Private key in DER format (PKCS header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">1190</span>
+<span style="color:#ae81ff">122675936</span>     <span style="color:#ae81ff">0x74FE2E0</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">1219</span>
+<span style="color:#ae81ff">122677176</span>     <span style="color:#ae81ff">0x74FE7B8</span>       Private key in DER format (PKCS header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">1190</span>
+<span style="color:#ae81ff">123549136</span>     <span style="color:#ae81ff">0x75D35D0</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">893</span>
+<span style="color:#ae81ff">123550033</span>     <span style="color:#ae81ff">0x75D3951</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">1169</span>
+<span style="color:#ae81ff">123551206</span>     <span style="color:#ae81ff">0x75D3DE6</span>       Certificate in DER format (x509 v3), header length: <span style="color:#ae81ff">4</span>, sequence length: <span style="color:#ae81ff">1056</span>
+<span style="color:#ae81ff">123563013</span>     <span style="color:#ae81ff">0x75D6C05</span>       Minix filesystem, V1, little endian, <span style="color:#ae81ff">30</span> <span style="color:#66d9ef">char</span> names, <span style="color:#ae81ff">37</span> zones
+<span style="color:#ae81ff">123936009</span>     <span style="color:#ae81ff">0x7631D09</span>       Minix filesystem, V1, little endian, <span style="color:#ae81ff">30</span> <span style="color:#66d9ef">char</span> names, <span style="color:#ae81ff">38</span> zones
+<span style="color:#ae81ff">123936748</span>     <span style="color:#ae81ff">0x7631FEC</span>       Intel x86 or x64 microcode, sig <span style="color:#ae81ff">0x08032070</span>, pf_mask <span style="color:#ae81ff">0xffffffff</span>, <span style="color:#ae81ff">2070</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span>, rev <span style="color:#ae81ff">0x8032050</span>, size <span style="color:#ae81ff">2048</span>
+<span style="color:#ae81ff">124047924</span>     <span style="color:#ae81ff">0x764D234</span>       Base64 standard index table
+<span style="color:#ae81ff">124925352</span>     <span style="color:#ae81ff">0x77235A8</span>       SHA256 hash constants, little endian
+<span style="color:#ae81ff">131945708</span>     <span style="color:#ae81ff">0x7DD54EC</span>       SHA256 hash constants, little endian
+<span style="color:#ae81ff">132031212</span>     <span style="color:#ae81ff">0x7DEA2EC</span>       SHA256 hash constants, little endian
+<span style="color:#ae81ff">132644480</span>     <span style="color:#ae81ff">0x7E7FE80</span>       TROC filesystem, <span style="color:#ae81ff">4279375</span> file entries
+<span style="color:#ae81ff">132717080</span>     <span style="color:#ae81ff">0x7E91A18</span>       SHA256 hash constants, little endian
+</code></pre></div>
 
 <p>There&rsquo;s some false positives, like Intel x86 microcode (remember, the 3ds has an ARM processor not an x86 arch!). But remark there are certain bold lines. I&rsquo;ve highlighted them because they are pretty interesting. The first one is a NDS Game ROM. Since the 3ds is backwards compatible with the NDS this did not surprise me. Inspecting further, we found data for PAPERPLANE, a dsi/nds game I bought from the eshop and had installed in my 3ds at the moment of the dumps:</p>
 
@@ -381,7 +380,31 @@ This post could not end without special thanks to @wisk who has provided a lot o
 </nav>
 
 
-
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
 
       </main>
 
@@ -434,7 +457,7 @@ This post could not end without special thanks to @wisk who has provided a lot o
     </div>
   </div><script>window.__public_path__='\/assets\/js\/'</script>
 
-<script src='/assets/js/main.9daad1e6.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
 </body>
 
 </html>
