@@ -3,6 +3,140 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://pedro-javierf.github.io/es/</loc>
+    <lastmod>2019-05-07T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedro-javierf.github.io/es/talks/</loc>
+    <lastmod>2019-05-07T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/talks/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/talks/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedro-javierf.github.io/es/devblog/</loc>
+    <lastmod>2017-06-01T20:49:36+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/devblog/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/devblog/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedro-javierf.github.io/es/posts/</loc>
+    <lastmod>2017-05-31T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/posts/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedro-javierf.github.io/es/about/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/about/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedro-javierf.github.io/es/talks/revengatbufferhack/</loc>
+    <lastmod>2019-05-07T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/talks/revengatbufferhack/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/talks/revengatbufferhack/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedro-javierf.github.io/es/talks/malicioushid/</loc>
+    <lastmod>2018-11-29T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/talks/malicioushid/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/talks/malicioushid/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedro-javierf.github.io/es/devblog/hacking3ds0/</loc>
+    <lastmod>2017-06-01T20:49:36+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/devblog/hacking3ds0/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/devblog/hacking3ds0/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedro-javierf.github.io/es/posts/welcome/</loc>
+    <lastmod>2017-05-31T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/posts/welcome/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/posts/welcome/"
+                />
+  </url>
+  
+  <url>
     <loc>https://pedro-javierf.github.io/es/authors/</loc>
     <priority>0</priority>
     <xhtml:link
@@ -29,21 +163,6 @@
                 rel="alternate"
                 hreflang="es"
                 href="https://pedro-javierf.github.io/es/categories/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://pedro-javierf.github.io/es/</loc>
-    <priority>0</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://pedro-javierf.github.io/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://pedro-javierf.github.io/es/"
                 />
   </url>
   

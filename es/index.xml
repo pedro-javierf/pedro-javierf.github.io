@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>PJ&#39;s Playground</title>
+    <title>Raíz on PJ&#39;s Playground</title>
     <link>https://pedro-javierf.github.io/es/</link>
-    <description>Recent content on PJ&#39;s Playground</description>
+    <description>Recent content in Raíz on PJ&#39;s Playground</description>
     <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 07 May 2019 11:39:11 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/es/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ingeniería Inversa en Bufferhack</title>
+      <link>https://pedro-javierf.github.io/es/talks/revengatbufferhack/</link>
+      <pubDate>Tue, 07 May 2019 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/talks/revengatbufferhack/</guid>
+      <description>Descripción El 7 de mayo de 2019 di una charla sobre Ingeniería Inversa (Reversing) con herramientas libres y de código abierto en el evento de ciberseguridad BufferHack, en Madrid. Además, fui parte de la organización del evento (sin ánimo de lucro) desde su nacimiento.</description>
+    </item>
+    
+    <item>
+      <title>Dispositivos HID maliciosos</title>
+      <link>https://pedro-javierf.github.io/es/talks/malicioushid/</link>
+      <pubDate>Thu, 29 Nov 2018 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/talks/malicioushid/</guid>
+      <description>Descripción En noviembre de 2018, tuve la oportunidad de dar una charla en la Universidad Complutense de Madrid sobre dispositivos HID (Human Interface Device) maliciosos, cómo funcionan, y cómo podemos protegernos de ellos. Se mostraron distintas soluciones de código abierto. On November 2018, I gave a talk at Complutense University of Madrid about malicious HID devices and countermeasures against them, featuring open source solutions.</description>
+    </item>
+    
+    <item>
+      <title>Hackeando la 3ds 0: Recursos</title>
+      <link>https://pedro-javierf.github.io/es/devblog/hacking3ds0/</link>
+      <pubDate>Thu, 01 Jun 2017 20:49:36 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/devblog/hacking3ds0/</guid>
+      <description>¿De qué va esto? Esta página contiene recursos adicionales de gran valor relacionados con mis artículos sobre el hacking de la Nintendo 3DS. Incluyendo, pero no solo, herramientas, artículos externos, posts de stack overflow, y cualquier otro recurso que sea de utilidad.
+ ADVERTENCIA: La mayoría de estos recursos se encuentran en inglés.
+ URLs / Artículos booting-process-for-arm
+ARM Reset vector information
+ARM Image Entrypoint Docs
+ARM Boot procedure</description>
+    </item>
+    
+    <item>
+      <title>Bienvenido</title>
+      <link>https://pedro-javierf.github.io/es/posts/welcome/</link>
+      <pubDate>Wed, 31 May 2017 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/posts/welcome/</guid>
+      <description> Estimado lector  Bienvenido a mi nuevo y rediseñado blog. ¡Espero que disfrutes y aprendas!
+- Pedro Javier
+ </description>
+    </item>
     
   </channel>
 </rss>

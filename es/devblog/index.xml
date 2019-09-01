@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Devblog on PJ&#39;s Playground</title>
+    <link>https://pedro-javierf.github.io/es/devblog/</link>
+    <description>Recent content in Devblog on PJ&#39;s Playground</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 01 Jun 2017 20:49:36 +0200</lastBuildDate>
+    
+	<atom:link href="https://pedro-javierf.github.io/es/devblog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hackeando la 3ds 0: Recursos</title>
+      <link>https://pedro-javierf.github.io/es/devblog/hacking3ds0/</link>
+      <pubDate>Thu, 01 Jun 2017 20:49:36 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/devblog/hacking3ds0/</guid>
+      <description>¿De qué va esto? Esta página contiene recursos adicionales de gran valor relacionados con mis artículos sobre el hacking de la Nintendo 3DS. Incluyendo, pero no solo, herramientas, artículos externos, posts de stack overflow, y cualquier otro recurso que sea de utilidad.
+ ADVERTENCIA: La mayoría de estos recursos se encuentran en inglés.
+ URLs / Artículos booting-process-for-arm
+ARM Reset vector information
+ARM Image Entrypoint Docs
+ARM Boot procedure</description>
+    </item>
+    
+  </channel>
+</rss>
