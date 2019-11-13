@@ -9,7 +9,6 @@ body {
     background-color: #FFF !important;
 }
 img,
-video,
 body * [style*="background-image"] {
     filter: hue-rotate(180deg) contrast(100%) invert(100%);
     -webkit-filter: hue-rotate(180deg) contrast(100%) invert(100%);

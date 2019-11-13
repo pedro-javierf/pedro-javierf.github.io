@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
@@ -124,6 +124,16 @@
   <url>
     <loc>https://pedro-javierf.github.io/devblog/hacking3ds1/</loc>
     <lastmod>2017-06-12T11:17:57+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/devblog/hacking3ds1/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/devblog/hacking3ds1/"
+                />
   </url>
   
   <url>
@@ -163,7 +173,6 @@
   
   <url>
     <loc>https://pedro-javierf.github.io/authors/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
@@ -178,7 +187,6 @@
   
   <url>
     <loc>https://pedro-javierf.github.io/categories/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
@@ -193,7 +201,6 @@
   
   <url>
     <loc>https://pedro-javierf.github.io/series/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
@@ -208,7 +215,6 @@
   
   <url>
     <loc>https://pedro-javierf.github.io/tags/</loc>
-    <priority>0</priority>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
