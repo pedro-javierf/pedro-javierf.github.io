@@ -5,10 +5,21 @@
     <link>https://pedro-javierf.github.io/devblog/</link>
     <description>Recent content in Devblog on PJ&#39;s Playground</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 25 Jul 2019 19:35:38 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 14 Nov 2019 19:35:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/devblog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Exploiting Ikariam: Persistent XSS and weaponization WriteUp</title>
+      <link>https://pedro-javierf.github.io/devblog/ikariamexploit/</link>
+      <pubDate>Thu, 14 Nov 2019 19:35:38 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/devblog/ikariamexploit/</guid>
+      <description>Introduction ⚠  DISCLAIMER: EVERYTHING IS PROVIDED &#34;AS IS&#34;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGE OR OTHER LIABILITY.  
+This is a writeup for a serious vulnerability I found on the popular web and mobile game Ikariam
+Game Analysis 🔍 Ikariam is a purely web-based game and was released in 2009, when browser games were at a peak of popularity.</description>
+    </item>
     
     <item>
       <title>Hacking The 3ds IV: Hardware attacks</title>
