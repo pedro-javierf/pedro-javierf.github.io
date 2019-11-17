@@ -153,7 +153,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-8 mins read
+9 mins read
 </span>
 
 
@@ -189,20 +189,24 @@ In addition, I have tried to create a post which explains with the maximum level
 <p>A NAND memory is just a kind of <a href="https://en.wikipedia.org/wiki/Flash_memory#NAND_flash" target="_blank">flash memory chip</a> based on NAND <a href="https://en.wikipedia.org/wiki/Logic_gate" target="_blank">logic gates</a>.
 As we saw in the first post, the 3ds uses an internal 1GB Samsung Nand Chip.</p>
 
-<p>For example, SD Cards are NAND memories, just that these are removable, while the 3ds one is soldered in the SoC. The protocol used by these cards to communicate is called <a href="https://es.wikipedia.org/wiki/Serial_Peripheral_Interface" target="_blank">SPI</a>.</p>
+<p>For example, some SD Cards are NAND memories, just that these are removable, while the 3ds one is soldered in the SoC.
+To learn how SD Cards work, <a href="https://www.cactus-tech.com/wp-content/uploads/2019/03/An-Introduction-To-SD-Card-Interface.pdf" target="_blank">read this nice document</a>
+To sum up, sd cards can use a high speed mode, or a low speed <a href="https://es.wikipedia.org/wiki/Serial_Peripheral_Interface" target="_blank">SPI</a> mode.</p>
 
 <p><center>
 <img src=img/SD_pinout.jpg>
 </center><br></p>
 
-<p>Explaining every detail about how flash memories are designed internally is out of the scope of this post. So as for now, just consider <em>how</em> they work. Often we only need the following 5 pins to do something useful with it, like writing or reading their contents:<br><br>
-- <em>CMD I/O</em> (input of SPI commands)<br>
-- One data line, for example <em>DAT0</em> (to read the content in the memory address passed through the <em>CMD I/O</em>)<br>
-- <em>CLK</em> which is the clock signal<br>
-- <em>VDD</em> and <em>GND</em> to supply electricity to the chip.<br><br>
-<strong>Normally</strong> with only those lines we are able to send the NAND memory read commands and dump it&rsquo;s contents. But different chips may required more lines. VDD can also be left unused, as the console itself can power the chip properly.</p>
+<p>Explaining every detail about how flash memories are designed internally is out of the scope of this post. So as for now, let&rsquo;s just consider <em>how</em> they work (in fast mode). Often we only need the following pins to do something like writing or reading their contents:<br><br></p>
 
-<p>In the 3ds, this pins of the NAND chip were connected to the board and so, we could solder to some pads or components in the board which were indirectly or directly connected to the NAND memory. This means there is no need to desolder the flash just to read it (and usually the chips are difficult to desolder and may break if you try to do it!).</p>
+<ul>
+<li><em>CMD I/O</em></li>
+<li>One data line, for example <em>DAT0</em> (to read the content in the memory address passed through the <em>CMD I/O</em>)</li>
+<li><em>CLK</em> which is the clock signal</li>
+<li><em>VDD</em> and <em>GND</em> to supply electricity to the chip.</li>
+</ul>
+
+<p>In the 3ds, these pins of the NAND chip were accessible from the board and so, we could solder to some pads or components in the board which were indirectly or directly connected to the NAND memory. This means there is no need to de-solder the memory just to read it (and usually the chips are difficult to de-solder and may break if you try to do it!).</p>
 
 <p>This is the pinout for the Old3DS:</p>
 
@@ -212,7 +216,7 @@ As we saw in the first post, the 3ds uses an internal 1GB Samsung Nand Chip.</p>
 Main pins required, and an alternative pin for CLK in another part of the board.
 </center><br></p>
 
-<p>Notice there is no VDD pin. This is because it is unnecessary. The chip will be powered properly if we turn the console on as explained before.
+<p>Notice there is no VDD pin. This is because it is unnecessary. The chip doesn&rsquo;t need to be powered externally, it will be powered properly if the console is turned on.
 As a bonus example, here is the pinout for the Nintendo DSi:</p>
 
 <p><center>
@@ -221,15 +225,15 @@ As a bonus example, here is the pinout for the Nintendo DSi:</p>
 Main pins required, and an alternative pin for DAT0 in another part of the board. (Top Dsi, Bottom DsiXL)
 </center><br></p>
 
-<p>The last issue is getting to dump the contents to a computer. How we do this? That&rsquo;s actually the most straightforward part of all; we are crafting an adapter with cheap components.</p>
+<p>The last issue is getting to dump the contents to a computer. We could use some device like an Arduino, Raspberry Pi, or FPGA to implement the commands to talk with the SD or Nand memory, but there&rsquo;s a better hack. How we do this? That&rsquo;s actually the most straightforward part of all; we are crafting an adapter with cheap components and let the computer&rsquo;s OS handle the complex protocol.</p>
 
 <p><center>
 <img src=img/SD_Reader.jpg>
 </center><br></p>
 
-<p>The concept is simple; microSD cards are one kind of NAND flash memory. And SD cards are another kind of NAND flash. When you plug an SD card into the card reader of a computer, it sends SPI commands to initialize and read/write the cards contents. An adapter from microSD to SD just connects the pins of the microSD to others, bigger, according to the SD standard. Now the key idea is - the chip on the 3ds is just <strong>another</strong> different kind of NAND memory flash -. By connecting its pins to ones of the size of an SD card, we can just plug it to an SD reader in any computer. As you can see in the picture above this can be done modifying a microSD to SD adapter, soldering wires to its pins on one side, and soldering the other end of the wire to the pins in the 3DS board. And that&rsquo;s it! The NAND will communicate with the PC over SPI commands. It appears as if it were a raw drive, we can just dump it with <em>dd</em> (on linux) or <em>win32diskImager</em> (on windows).</p>
+<p>The concept is simple: We have seen that both an SD card and the NAND memory of the 3DS use the same protocol, right?. When you plug an SD card into the card reader of a computer, it sends the appropriate commands to initialize and read/write the card&rsquo;s contents.</p>
 
-<p>Some extra <em>DATX</em> pins can also used in the hardmod, so it is possible to write back to the memory (i.e. restore a NAND backup).</p>
+<p>A more trivial example to make it clear. MicroSD cards also use the same protocol. An adapter from microSD to SD just connects the pins of the microSD to bigger pads so the SD reader of your PC can detect them. Now the question is, would a <em>NAND to SD adapter</em> actually work?. By connecting its pins to ones of the size of an SD card, can we just plug it to an SD reader in any computer? The answer is <strong>YES!</strong>. As you can see in the picture above this can be done modifying a dirt cheap microSD to SD adapter, soldering wires to its pins on one side, and soldering the other end of the wire to the pins in the 3DS board. And that&rsquo;s it! The PC will talk to the NAND as if it were talking to an SD card. It appears as if it were a raw drive, we can just dump it with <em>dd</em> (on linux) or <em>win32diskImager</em> (on windows).</p>
 
 <h4 id="ram-sniffing-ram-tracing-and-ram-injection">RAM Sniffing / RAM tracing and RAM injection</h4>
 
@@ -241,7 +245,7 @@ Main pins required, and an alternative pin for DAT0 in another part of the board
 <a href="https://forum.gbadev.org/viewtopic.php?t=16752&amp;sid=3b27fe4b607fc157d24855fb6ef9c1d4" target="_blank">and here</a></p>
 
 <p>Alternatively, the attack can be extended further, to the point that it allows injection or &ldquo;emulation&rdquo; of data blocks of the RAM.
-Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a> but also involves extreme soldering skills.  We can create a setup to sniff the traffic as in attack 1, by hooking up to the chip lines. Specially, @scanlime hooked to the DSi&rsquo;s <em>CS</em> (Chip Select) line of the board, and when it detected that the console was trying to read some data from the RAM, redirected it to her FPGA, providing the console with modified RAM data blocks. @Scanlime&rsquo;s work is by far the most open and documented setup, check it on the links above.</p>
+Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a> but also involves extreme soldering skills.  We can create a setup to sniff the traffic as in attack 1, by hooking up to the chip lines. Specially, @scanlime hooked to the DSi&rsquo;s <em>CS</em> (Chip Select) line of the board, and when it detected that the console was trying to read some data from the RAM, redirected it to her FPGA, providing the console with modified RAM data blocks. @scanlime&rsquo;s work is by far the most open and documented setup, check it on the links above.</p>
 
 <p><center>
 <img src=img/RAMInjection1.PNG></p>
@@ -281,6 +285,8 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 
 <p>Ok. This is a quite different attack. It is refreshing because even though it also requires an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a>, it involves much less soldering, and the ones that have to be done are quite simple.</p>
 
+<p>17/11/2019 EDIT: Apparently Team Twiizers managed to set up an emulation attack with an Arduino! Check <em>Hacking The 3DS V</em> to see it ;) !</p>
+
 <p>The first implementation I saw of the <em>Emulation Attack</em> was done by Micah Elizabeth Scott (scanlime) and you can see her work <a href="https://www.flickr.com/photos/micahdowty/albums/72157621023570420" target="_blank">here</a>:
 <center>
 <img src=img/scanlime1.PNG>
@@ -289,7 +295,7 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 </center>
 <center><strong>Distributed under the <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Attribution-ShareAlike 2.0 Generic (CC BY-SA 2.0)</a></strong>.</center></p>
 
-<p>With this setup, it is possible to modify the savegame stored in the EEPROM. The game&rsquo;s code uses the savegame as input, so it is a good target for exploits, as we&rsquo;ll see in next post.</p>
+<p>With this setup, it is possible to simulate a cartridge&rsquo;s savegame EEPROM and &ldquo;<em>feed</em>&rdquo; in real time a save to the game. The game&rsquo;s code uses the savegame as input, so it is a good target for exploits, as we&rsquo;ll see in next post.</p>
 
 <p><center>
 <img src=img/interfaceWorking1.PNG></p>
@@ -312,7 +318,7 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 
 <h4 id="glitch-attacks-fault-injection">Glitch attacks / fault injection</h4>
 
-<p>This attack vector has, in my humble opinion, the most simple concept yet the most extense and complex implementations. The idea is to introduce glitches (or faults) into the processor (which is basically a very advanced state machine) so it is possible to skip instructions, change execution flow, dump keys and secrets, etc.
+<p>This attack vector has, in my humble opinion, the most simple concept yet the most extensive and complex implementations. The idea is to introduce glitches (or faults) into the processor (which is basically a very advanced state machine) so it is possible to skip instructions, change execution flow, dump keys and secrets, etc.
 There has been <a href="https://arxiv.org/pdf/1802.00359.pdf" target="_blank">successful glitch attacks</a> to the 3DS bootrom in the last years.</p>
 
 <p><center>
