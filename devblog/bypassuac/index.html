@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
-
-<head>
+<html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Hello My Fellow Readers!
@@ -17,7 +15,7 @@ Today I&rsquo;m back to write about UAC bypassing, that amazing scene that malwa
 Since windows vista, Microsoft implemented the so called User Account Control (UAC); a mechanism which manages processes privileges. Basically, if you have a windows account which has administrator rights, and you run an application that doesn&rsquo;t requiere administrator rights, UAC will drop the unnecessary privilges; This is done to avoid malwares having full control of the computer if they get code execution; to get admin rights UAC will prompt a question windows which will ask the user for permission, making malwares&rsquo; job harder.'>
 <meta property='og:url' content='https://pedro-javierf.github.io/devblog/bypassuac/'>
 <meta property='og:site_name' content='PJ&#39;s Playground'>
-<meta property='og:type' content='article'><meta property='article:section' content='Devblog'><meta property='article:published_time' content='2017-05-31T11:39:11&#43;02:00'/><meta property='article:modified_time' content='2017-05-31T11:39:11&#43;02:00'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2017-05-31T11:39:11&#43;02:00'/><meta property='article:modified_time' content='2017-05-31T11:39:11&#43;02:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.59.1" />
 
@@ -30,17 +28,16 @@ Since windows vista, Microsoft implemented the so called User Account Control (U
 :root{--color-accent:#6aff00;}
 </style>
 
-</head>
+  
 
+</head>
 <script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
 <link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
 <body class='page type-devblog has-sidebar'>
 
-  <div class='site'>
-
-    <div id='sidebar' class='sidebar'>
+  <div class='site'><div id='sidebar' class='sidebar'>
   <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
-  
+
   <div class='container'><section class='widget widget-about sep-after'>
   <header>
     
@@ -51,7 +48,9 @@ Since windows vista, Microsoft implemented the so called User Account Control (U
     </div>
     
     <h2 class='title site-title '>
-    PJ&#39;s Playground
+      <a href='/'>
+      PJ&#39;s Playground
+      </a>
     </h2>
     <div class='desc'>
     Welcome to Pedro Javier&#39;s technollogy website
@@ -70,18 +69,10 @@ Since windows vista, Microsoft implemented the so called User Account Control (U
     </div>
   </nav>
 
-</section>
-  <a id="dark-mode-toggle">Dark Mode</a>
-  </div>
-  
+</section></div>
+
   <div class='sidebar-overlay'></div>
-  
-</div>
-
-    <div class='main'>
-
-      <nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
-  
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
   <div class='container'>
     <a class='screen-reader-text' href='#content'>Skip to Content</a>
 
@@ -115,14 +106,14 @@ Since windows vista, Microsoft implemented the so called User Account Control (U
         <a href='/about/'>About</a>
       </li></ul>
   </div>
-  
-</nav>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
           <div class='header-info'><p class='site-title title'>PJ&#39;s Playground</p><p class='desc site-desc'>Welcome to Pedro Javier&#39;s technollogy website</p>
           </div>
-		  
         </div>
       </header>
 
@@ -137,8 +128,7 @@ Since windows vista, Microsoft implemented the so called User Account Control (U
       
 
     </div>
-    
-<div class='entry-meta'>
+    <div class='entry-meta'>
   <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -199,7 +189,8 @@ or in a faster way. Nevertheless, Twicexploit was one of the first open source i
 
   
 <footer class='entry-footer'>
-  
+  <div class='container sep-before'>
+  </div>
 </footer>
 
 
@@ -286,9 +277,10 @@ or in a faster way. Nevertheless, Twicexploit was one of the first open source i
       </footer>
 
     </div>
-  </div><script>window.__public_path__='\/assets\/js\/'</script>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
 
 <script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+
 </body>
 
 </html>
