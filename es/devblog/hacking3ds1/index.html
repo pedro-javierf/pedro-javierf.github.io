@@ -2,18 +2,20 @@
 <html lang='es'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Bienvenido a una nueva serie de entradas del blog! En esta ocasión recorreré un largo camino hasta conseguir hackear las consolas de la familia Nintendo 3DS. Hay varias razones de ser de estos posts: * Interés personal: Cuándo la scene de 3ds empezó a crecer en 2014, yo estaba allí, y tengo ganas de aprender todo lo que no pude en su momento. * Comunidad Tóxica: Durante muchos años la comunidad se ha centrado solo en la pirateria y los resultados finales; poca gente estaba interesada en aprender * La falta de información en internet sobre ingeniería inversa y hacking de sistemas &ldquo;black box&rdquo;.'>
+<meta name='description' content='Bienvenido a una nueva serie de entradas del blog! En esta ocasión recorreré un largo camino hasta conseguir hackear las consolas de la familia Nintendo 3DS. Hay varias razones de ser de estos posts:
+ Interés personal: Cuándo la scene de 3ds empezó a crecer en 2014, yo estaba allí, y tengo ganas de aprender todo lo que no pude en su momento. Comunidad Tóxica: Durante muchos años la comunidad se ha centrado solo en la pirateria y los resultados finales; poca gente estaba interesada en aprender La falta de información en internet sobre ingeniería inversa y hacking de sistemas &ldquo;black box&rdquo;.'>
 <meta name='theme-color' content='#6aff00'>
 
-<meta property='og:title' content='Hacking The 3ds I: Introduction • PJ&#39;s Playground'>
-<meta property='og:description' content='Bienvenido a una nueva serie de entradas del blog! En esta ocasión recorreré un largo camino hasta conseguir hackear las consolas de la familia Nintendo 3DS. Hay varias razones de ser de estos posts: * Interés personal: Cuándo la scene de 3ds empezó a crecer en 2014, yo estaba allí, y tengo ganas de aprender todo lo que no pude en su momento. * Comunidad Tóxica: Durante muchos años la comunidad se ha centrado solo en la pirateria y los resultados finales; poca gente estaba interesada en aprender * La falta de información en internet sobre ingeniería inversa y hacking de sistemas &ldquo;black box&rdquo;.'>
+<meta property='og:title' content='Hacking The 3ds I: Introducción • PJ&#39;s Playground'>
+<meta property='og:description' content='Bienvenido a una nueva serie de entradas del blog! En esta ocasión recorreré un largo camino hasta conseguir hackear las consolas de la familia Nintendo 3DS. Hay varias razones de ser de estos posts:
+ Interés personal: Cuándo la scene de 3ds empezó a crecer en 2014, yo estaba allí, y tengo ganas de aprender todo lo que no pude en su momento. Comunidad Tóxica: Durante muchos años la comunidad se ha centrado solo en la pirateria y los resultados finales; poca gente estaba interesada en aprender La falta de información en internet sobre ingeniería inversa y hacking de sistemas &ldquo;black box&rdquo;.'>
 <meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/hacking3ds1/'>
 <meta property='og:site_name' content='PJ&#39;s Playground'>
 <meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2017-06-12T11:17:57&#43;02:00'/><meta property='article:modified_time' content='2017-06-12T11:17:57&#43;02:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.59.1" />
 
-  <title>Hacking The 3ds I: Introduction • PJ&#39;s Playground</title>
+  <title>Hacking The 3ds I: Introducción • PJ&#39;s Playground</title>
   <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/hacking3ds1/'>
   
   <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/hacking3ds1/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/hacking3ds1/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/hacking3ds1/'>
@@ -122,7 +124,7 @@
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Hacking The 3ds I: Introduction</h1>
+      <h1 class='title'>Hacking The 3ds I: Introducción</h1>
       
 
     </div>
@@ -147,7 +149,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-6 minutos de lectura
+5 minutos de lectura
 </span>
 
 
@@ -164,21 +166,27 @@
   
 
 <p>Bienvenido a una nueva serie de entradas del blog!
-En esta ocasión recorreré un largo camino hasta conseguir hackear las consolas de la familia Nintendo 3DS. Hay varias razones de ser de estos posts:
-* Interés personal: Cuándo la <em>scene</em> de 3ds empezó a crecer en 2014, yo estaba allí, y tengo ganas de aprender todo lo que no pude en su momento.
-* Comunidad Tóxica: Durante muchos años la comunidad se ha centrado solo en la pirateria y los resultados finales; poca gente estaba interesada en aprender
-* La falta de información en internet sobre ingeniería inversa y hacking de sistemas &ldquo;black box&rdquo;.
-* El desarrollo de exploits es un reto de cierta complejidad, lo cual atrae mi curiosidad.
-* La necesidad de todos estos contenidos, ¡En español!</p>
+En esta ocasión recorreré un largo camino hasta conseguir hackear las consolas de la familia Nintendo 3DS. Hay varias razones de ser de estos posts:</p>
+
+<ul>
+<li>Interés personal: Cuándo la <em>scene</em> de 3ds empezó a crecer en 2014, yo estaba allí, y tengo ganas de aprender todo lo que no pude en su momento.</li>
+<li>Comunidad Tóxica: Durante muchos años la comunidad se ha centrado solo en la pirateria y los resultados finales; poca gente estaba interesada en aprender</li>
+<li>La falta de información en internet sobre ingeniería inversa y hacking de sistemas &ldquo;black box&rdquo;.</li>
+<li>El desarrollo de exploits es un reto de cierta complejidad, lo cual atrae mi curiosidad.</li>
+<li>La necesidad de todos estos contenidos, ¡En español!</li>
+</ul>
 
 <h1 id="introducción">Introducción</h1>
 
-<p>Antes de dar ningún otro paso, necesitamos saber <em>qué</em> hay dentro de las consolas, de las 3Ds. El hardware del interior es lo que define cómo funciona el software y qué puede llegar a hacer. El primer paso es desmontar la consola, mirar a los chips, e identificarlos. Este suele ser el trabajo de los hackers especializados en hardware, aunque más adelante nos especializaremos y veremos más sobre hardware. De momento es información pública que el primer modelo de 3DS (2011) tiene las siguientes características:
-* 128mb (2x64) de memoria RAM (FCRam)
-* GPU DMP PICA
-* 6mb de VRAM (Video RAM, dedicada para la GPU)
-* Procesador ARM11 x2 cores a 268MHz
-* Procesador ARM9 46 a 124MHz</p>
+<p>Antes de dar ningún otro paso, necesitamos saber <em>qué</em> hay dentro de las consolas, de las 3Ds. El hardware del interior es lo que define cómo funciona el software y qué puede llegar a hacer. El primer paso es desmontar la consola, mirar a los chips, e identificarlos. Este suele ser el trabajo de los hackers especializados en hardware, aunque más adelante nos especializaremos y veremos más sobre hardware. De momento es información pública que el primer modelo de 3DS (2011) tiene las siguientes características:</p>
+
+<ul>
+<li>128mb (2x64) de memoria RAM (FCRam)
+-GPU DMP PICA</li>
+<li>6mb de VRAM (Video RAM, dedicada para la GPU)</li>
+<li>Procesador ARM11 x2 cores a 268MHz</li>
+<li>Procesador ARM9 46 a 124MHz</li>
+</ul>
 
 <p>Estos son solo algunos de los componentes más importantes que deberemos tener siempre en cuenta. Para más detalles (incluyendo Nintendo New3DS) puedes visitar <a href="https://www.3dbrew.org/wiki/Hardware"> esta página </a>.</p>
 
@@ -186,52 +194,55 @@ En esta ocasión recorreré un largo camino hasta conseguir hackear las consolas
 <img src="img/3ds.png">
 </center></p>
 
-<p>In this series, I&rsquo;ll be talking about the MSET Exploit. Again, back in the late 2014, the Gateway Team released the Gateway 3DS Cartridge, which allowed piracy on 4.1 to 4.5 firmwares. They used an exploit on the DS Profile menu in the 3ds settings which then loaded further code from the Launcher.dat file on the SD Card. Some people were able to reverse their Launcher before they implemented more strong obfuscation, but this still was and is a seriously difficult task. My aim is to gain code execution using this exploit without reversing others&rsquo; work, just by myself and my investigations, as if there were no public information (and actually there&rsquo;s not much information available, and obviously not documentation).<br />
-<h2 class='elegantshadow'> Thoughts</h2>
-So basically, we have no information about anything. We are working with what is often called a &ldquo;Black Box&rdquo; system. The first step is hardware hacking; Is the only thing we have access to so we must start working there. Hardware is more complex with every passing day. This means that I can&rsquo;t do anything here by myself. Usually a career in electronics or related helps, but unfortunately until a few years ago there wasn&rsquo;t much information available. Sadly most people don&rsquo;t share their investigations publicy (for good reasons often, like avoiding legal problems or encouraging piracy). So unless you find someone with the same hardware you have and interest in hacking it, you are screwed. This is the most common scenario in console hacking, there&rsquo;s no public scene because those discoveries are private and only shared with certain people, otherwise the security holes would be patched quickly. <br/><br/></p>
+<p>Durante esta serie de posts, veremos el conocido exploit MSET. A finales de 2014, el equipo Gateway 3DS lanzó una solución de hardware y software que permitía piratear consolas con firmware comprendido entre 4.1 y 4.5. Para ello utilizaron en primer lugar un exploit en la aplicación de Ajustes del Sistema de la consola, que posteriormente cargaba más código desde la tarjeta SD. Varias personas fueron capaces de hacer ingeniería inversa a estos archivos y liberar una versión gratuita y libre del exploit, antes de que Gateway implementase una ofuscación más efectiva. Mi objetivo es explotar esta vulnerabilidad por mi propia cuenta, sin hacer ingeniería inversa del trabajo de otros, empezando desde 0.</p>
 
-<blockquote>
-<p>Actually, I have been learning a lot about hardware hackingas you will see in the next posts.</p>
-</blockquote>
+<h1 id="ideas-y-objetivos">Ideas y objetivos</h1>
 
-<p><br>As for now, lets assume we are skilled enough to perform any of the possible hardware attacks. What shall we do first? <br/>
-We must look in the different data sources in the hardware and decide if they are useful for us. For example, The 3ds has the following:<br/><br>
+<p>En resumen, <em>no tenemos ninguna información</em>. Estamos trabajando con lo que generalmente se conoce como sistema <em>Black Box</em> o caja negra, es decir, un sistema totalmente desconocido. El primer paso para empezar a descubrir y aprender cómo funciona la consola es el hardware. Es lo único a lo que tenemos acceso. La complejidad de los sistemas informáticos se incrementa con cada año que pasa, así que es complicado atacar el hardware de una consola medianamente moderna. Aun asi, más adelante veremos cómo hacerlo. Desafortunadamente, durante el tiempo de vida de una videoconsola, no se comparten muchos conocimientos de forma desinteresada, por temor a que la compañía creadora pueda arreglar fallos antes de que sean útiles para el público general.</p>
+
+<p>Por el momento, procedamos a enumerar los diferentes componentes del <em>hardware</em> y qúe información viaja a través de ellos. En la 3DS original podemos encontrar&hellip;</p>
+
 <ul>
-  <li>NAND Chip</li>
-  <li>SD Card</li>
-  <li>RAM Chips</li>
+<li>Chip de memoria <em>NAND</em></li>
+<li>Tarjeta SD</li>
+<li>Memoria RAM</li>
 </ul>
-Let&rsquo;s start with the NAND. In the 3ds, this is a 1GB samsung storage unit. So investigating it&rsquo;s datasheet and experimenting, we would eventually be able to dump its contents, as explained in post 4(IV). If we would analyse the dump carefully, we could try the following;<br/>
-<br><ul>
-  <li>Find Strings: Such as user data, menu&rsquo;s text, etc..<br/></li>
-  <li>Find structures or patterns: such as MAGIC signatures/numbers, headers&rsquo; information (i.e. ELF), etc&hellip;<br/></li>
-  <li>Modify the dump: Try modify any byte at the dump and restore it to the chip. See if it boots or it raises any error.<br/></li>
-  <li>Restore another NAND dump, gotten from another unit (not the same console).<br/><br/></li>
-</ul></p>
 
-<p>For the 3ds, the result for each test are:
+<p>Comenzando con la memoria NAND, se puede observar que el fabricante es Samsung, y una búsqueda en internet nos revela que su capacidad es de 1GB. Más adelante veremos como, después de investigar el modelo de chip, aprenderemos a volcar sus contenidos. Si analizamos cuidadosamente el volcado, podríamos probar a:</p>
+
 <ul>
-  <li>Can&rsquo;t find any string</li>
-  <li>Can&rsquo;t find any known pattern, signature or magic. </li>
-  <li>Errors when we restore a modified NAND dump. May be encrypted, signed or both</li>
-  <li>Errors when we restore a foreign NAND dump. May be signed with unique keys per console.</li>
+<li>Encontrar cadenas de texto de las aplicaciones</li>
+<li>Buscar estructuras o patrones de datos; imagenes, formatos conocidos como <em>ELF</em>&hellip;</li>
+<li>Modificar el volcado y escribirlo de nuevo a la memoria. Arrancar la consola y observar si arranca o devuelve algún error.</li>
+<li>Restaurar un volcado anterior, de la misma consola, o de otra unidad diferente.</li>
 </ul>
-So we can lead to the conclusion that the NAND is somehow encrypted, signed, or both.<br/></p>
 
-<p>Let&rsquo;s move on to the next possible entry-point, the SD card. It is accessible from a PC and we can browse the files. We could try to:
+<p>Para la 3DS, estos tests muestran que:</p>
+
 <ul>
-  <li>Identify what kind of files we have. It can have content such as, pictures, videos, music, titles (applications or games), exdata(extra data), others.</li>
-  <li>Identify which of the things above are signed or encrypted. Try modifying them and see if they still work. Multimedia is likely going to be clear data, but titles, exdata and everything else is probably going to be, at least, console signed.</li>
-  <li>Try to exploit the multimedia managers. Use fuzzers to create multimedia files and try loading them. You may find crashes, and who knows, maybe an exploit, like &ldquo;soundhax&rdquo; which was found a lot of years later. </li> <!--Link here for the 3ds soundhax-->
+<li>No se puede encontrar ninguna cadena de texto en todo el volcado</li>
+<li>No existen archivos ni patrones conocidos</li>
+<li>La consola no arranca con datos modificados. Puede estar cifrada o firmada digitalmente.</li>
+<li>La consola no arranca con datos de otra máquina. Fuerte indicativo de que podría estar firmada digitalmente con una clave única que varía para cada consola.</li>
 </ul>
-Sadly, this is very difficult at this point when we know little - if any - details of the system.<br/><br/></p>
 
-<p>And our last option, the RAM. We would need a working hardware set-up that would allow us to dump the ram (see scanlime set-up above). This has been done in the 3ds by some hardware hackers, but the ones who did it did not release much details, and likely sold the work for money, so it is not available to the public ;). Assuming we have dumped the RAM, let&rsquo;s proceed to analyse the dumps. We would try, but not only, the same ideas as for the NAND chip. In the 3ds, we find that RAM contents are not encrypted! We can, in fact, find strings from menus (most of them in unicode).</p>
+<p>Podemos concluir que los contenidos de la memoria NAND estén seguramente cifrados, y además, reforzados por alguna firma criptográfica.</p>
 
-<p><h2 class='elegantshadow'> Conclusion</h2>
-Analysing the RAM requires a whole article or two; I will be using some new techniques which may lead to code execution, and definitively, there&rsquo;s going to be a lot of static reverse engineering.<br/></p>
+<p>El siguiente punto de interés es la tarjeta SD. Sus contenidos pueden leerse desde un PC y examinar los archivos es trivial. Podemos intentar:</p>
 
-<p>I hope you enjoyed this post. If you consider any suggestion/correction, message me at twitter or mail me.</p>
+<ul>
+<li>Identificar los archivos existentes. Puede haber imágenes, videos, música, aplicaciones e incluso metadatos.</li>
+<li>Identificar cuáles de los contenidos anteriores están cifrados, firmados, o tienen alguna suma de comprobación. Podemos modificarlos y ver si la consola los reconoce y los lee correctamente.</li>
+<li>Explotar la aplicación que gestiona esos contenidos multimedia. Utilizando unas herramientas conocidas como <em>fuzzers</em> es posible crashear las aplicaciones. Aun asi, en este momento sería difícil explotar satisfactoriamente ninguna vulnerabilidad, ya que no conocemos como funciona el sistema.</li>
+</ul>
+
+<p>La última baza, la memoria RAM. Necesitaríamos una modificación del hardware que nos permitiese leer o volcar los contenidos de esta. Algunos hackers han logrado con éxito este ataque, accediendo a los valiosos datos de la memoria RAM. Más adelante profundizaremos en ello.</p>
+
+<h1 id="conclusiones">Conclusiones</h1>
+
+<p>Esta ha sido una breve introducción a los posibles puntos de entrada que nos proporcionarán conocimientos más adelante, con el fin de explotar el software de la Nintendo 3DS. Puedo adelantar que trabajaremos con la memoria RAM, y para ello dedicaré más de un artículo. ¡Habrá un montón de hacking, reversing, y exploiting!</p>
+
+<p>Espero que te haya gustado. ¡Nos vemos en la próxima!</p>
 
 </div>
 

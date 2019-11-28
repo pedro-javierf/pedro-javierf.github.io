@@ -175,7 +175,7 @@ Before doing anything, we need to know what is inside the 3DS. The inner hardwar
 
 <ul>
   <li>128mb (2x64) of RAM (FCRam)</li>
-  <li>DMP PICA GPU (not really important yet)</li>
+  <li>"DMP PICA" GPU</li>
   <li>6mb of VRAM (Video RAM, This is a dedicated RAM for the GPU)</li>
   <li>ARM11 2x MPCORE at 268MHz</li>
   <li>ARM9 46 at 134MHz</li>
@@ -189,9 +189,6 @@ This are the most important pieces of hardware that we should have always in acc
 In this series, I'll be talking about the MSET Exploit. Again, back in the late 2014, the Gateway Team released the Gateway 3DS Cartridge, which allowed piracy on 4.1 to 4.5 firmwares. They used an exploit on the DS Profile menu in the 3ds settings which then loaded further code from the Launcher.dat file on the SD Card. Some people were able to reverse their Launcher before they implemented more strong obfuscation, but this still was and is a seriously difficult task. My aim is to gain code execution using this exploit without reversing others' work, just by myself and my investigations, as if there were no public information (and actually there's not much information available, and obviously not documentation).  
 <h2 class='elegantshadow'> Thoughts</h2>
 So basically, we have no information about anything. We are working with what is often called a "Black Box" system. The first step is hardware hacking; Is the only thing we have access to so we must start working there. Hardware is more complex with every passing day. This means that I can't do anything here by myself. Usually a career in electronics or related helps, but unfortunately until a few years ago there wasn't much information available. Sadly most people don't share their investigations publicy (for good reasons often, like avoiding legal problems or encouraging piracy). So unless you find someone with the same hardware you have and interest in hacking it, you are screwed. This is the most common scenario in console hacking, there's no public scene because those discoveries are private and only shared with certain people, otherwise the security holes would be patched quickly. <br/><br/>
-
-
-> Actually, I have been learning a lot about hardware hackingas you will see in the next posts.
 
 
 <br>As for now, lets assume we are skilled enough to perform any of the possible hardware attacks. What shall we do first? <br/>
