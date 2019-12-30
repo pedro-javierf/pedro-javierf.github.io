@@ -5,10 +5,21 @@
     <link>https://pedro-javierf.github.io/es/devblog/</link>
     <description>Recent content in Devblog on PJ&#39;s Playground</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 12 Jun 2017 11:17:57 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jan 2018 11:30:48 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/es/devblog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hacking The 3ds II: Encontrando el Patrón</title>
+      <link>https://pedro-javierf.github.io/es/devblog/hacking3ds2/</link>
+      <pubDate>Tue, 30 Jan 2018 11:30:48 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/devblog/hacking3ds2/</guid>
+      <description>Bienvenidos de nuevo! Estamos de vuelta en esta parte 2 &amp;ldquo;Encontrando el Patrón&amp;rdquo; si aun no has leido la parte 1&amp;hellip; ¡échale un vistazo ahora!
+Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada podría utilizar para conocer más sobre la Nintendo 3DS. La conclusión fue que, al parecer, los contenidos de la memoria RAM no estaban encriptados. Podéis verlo aquí:
+ Ejemplo de cadena de texto UNICODE que se encuentra en los volcados de memoria RAM</description>
+    </item>
     
     <item>
       <title>Hacking The 3ds I: Introducción</title>

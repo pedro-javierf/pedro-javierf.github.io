@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang='es'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Bienvenidos de nuevo! Estamos de vuelta en esta parte 2 &ldquo;Encontrando el Patrón&rdquo; si aun no has leido la parte 1&hellip; ¡échale un vistazo ahora!
+Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada podría utilizar para conocer más sobre la Nintendo 3DS. La conclusión fue que, al parecer, los contenidos de la memoria RAM no estaban encriptados. Podéis verlo aquí:
+ Ejemplo de cadena de texto UNICODE que se encuentra en los volcados de memoria RAM'>
+<meta name='theme-color' content='#6aff00'>
+
+<meta property='og:title' content='Hacking The 3ds II: Encontrando el Patrón • PJ&#39;s Playground'>
+<meta property='og:description' content='Bienvenidos de nuevo! Estamos de vuelta en esta parte 2 &ldquo;Encontrando el Patrón&rdquo; si aun no has leido la parte 1&hellip; ¡échale un vistazo ahora!
+Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada podría utilizar para conocer más sobre la Nintendo 3DS. La conclusión fue que, al parecer, los contenidos de la memoria RAM no estaban encriptados. Podéis verlo aquí:
+ Ejemplo de cadena de texto UNICODE que se encuentra en los volcados de memoria RAM'>
+<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/hacking3ds2/'>
+<meta property='og:site_name' content='PJ&#39;s Playground'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2018-01-30T11:30:48&#43;02:00'/><meta property='article:modified_time' content='2018-01-30T11:30:48&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <title>Hacking The 3ds II: Encontrando el Patrón • PJ&#39;s Playground</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/hacking3ds2/'>
+  
+  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/hacking3ds2/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/hacking3ds2/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/hacking3ds2/'>
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#6aff00;}
+</style>
+
+  
+
+</head>
+<script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
+<link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
+<body class='page type-devblog has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Saltar al menú principal</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/es/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/es/'>
+      PJ&#39;s Playground
+      </a>
+    </h2>
+    <div class='desc'>
+    Welcome to Pedro Javier&#39;s technollogy website
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Menú lateral'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/es/'>Raíz</a></li><li class='item'>
+  <a href='/es/talks/'>Charlas</a></li><li class='item'>
+  <a href='/es/devblog/'>Devblog</a></li><li class='item'>
+  <a href='/es/posts/'>OTROS</a></li><li class='item'>
+  <a href='/es/about/'>Sobre Mi</a></li></ul>
+    </div>
+  </nav>
+
+</section>
+  <a id="dark-mode-toggle">Dark Mode</a>
+  </div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Menú principal'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Saltar al contenido</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Alternar barra lateral</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/es/'>Raíz</a>
+      </li><li class='item'>
+        <a href='/es/talks/'>Charlas</a>
+      </li><li class='item'>
+        <a href='/es/devblog/'>Devblog</a>
+      </li><li class='item'>
+        <a href='/es/posts/'>OTROS</a>
+      </li><li class='item'>
+        <a href='/es/about/'>Sobre Mi</a>
+      </li><li class='item'>
+        <a href='/es/'></a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>PJ&#39;s Playground</p><p class='desc site-desc'>Welcome to Pedro Javier&#39;s technollogy website</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='es' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Hacking The 3ds II: Encontrando el Patrón</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posteado en </span>
+  <time class='entry-date' datetime='2018-01-30T11:30:48&#43;02:00'>2018, Jan 30</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+6 minutos de lectura
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<p>Bienvenidos de nuevo!
+Estamos de vuelta en esta parte 2 <em>&ldquo;Encontrando el Patrón&rdquo;</em> si aun no has leido la parte 1&hellip; ¡échale un vistazo ahora!</p>
+
+<h1 id="resumen-rápido">Resumen Rápido</h1>
+
+<p>Anteriormente, había analizado que posibles puntos de entrada podría utilizar para conocer más sobre la Nintendo 3DS. La conclusión fue que, al parecer, los contenidos de la memoria RAM no estaban encriptados. Podéis verlo aquí:</p>
+
+<p><center>
+<img src=img/ramstr.png><br>
+<i>Ejemplo de cadena de texto UNICODE que se encuentra en los volcados de memoria RAM</i><br><br><br>
+</center></p>
+
+<p>Como se puede observar, si buscamos por cadenas de texto (en encoding UNICODE y no ASCII, ya que la 3DS trae soporte para idiomas extensos, como japonés o español) podemos encontrarlas en texto plano.
+He buscado lineas de texto que sabía que podrían estar en la memoria, como mi nombre de Perfil de usuario o el nombre de carpetas que tenía en el menú de la consola.</p>
+
+<h1 id="los-volcados-de-memoria">Los volcados de memoria</h1>
+
+<p>Podemos encontrar cadenas de texto, pero de por si mismo no es algo interesante. ¿O sí?.
+Antes de adentrarnos en el oscuro mundo del análisis forense de volcados de memoria, quiero repasar algunos conceptos:</p>
+
+<ol>
+<li><p><strong>Memoria Virtual:</strong> Cualquier computador medianamente moderno, desde ordenadores hasta teléfonos móviles, tiene un procesador capaz de ejecutar varias aplicaciones de forma simultanea. Esto implica que las diferentes aplicaciones comparten los mismos recursos. Si no existiese ningún tipo de separación, esto sería un absoluto desastre. Cualquier aplicación podría leer y modificar los datos de otra. Dado que no se puede &ldquo;separar&rdquo; fisicamente los chips de RAM en pequeños trozos.. se inventó la memoria virtual. En resumidas cuentas, cuando se le ordena al procesador ejecutar un nuevo proceso, este lo lanzará haciéndole creer que se está ejecutando como si TODO el sistema estuviese vacío y libre para él. Puede acceder a cualquier dirección de memoria (dentro de la cantidad de RAM que tenga el sistema) que le permitamos que acceda. Y de hecho, esas direcciones, que se llaman <em>virtuales</em>, se corresponden con direcciones de memoria de los chips de RAM instalados en el sistema. La aplicación cree que se está ejecutando sola, aunque en verdad comparte espacio con otras, pero está aislada.</p></li>
+
+<li><p><strong>Localización de las páginas de memoria:</strong> Sin embargo, los ordenadores modernos son aún más.. complejos y eficients. En un PC, esas direcciones de memoria virtual puede que no correspondan a los chips de memoria RAM: ¡es posible que correspondan al disco duro! (o a otros medios de almacenamiento). Si nuestro programa utiliza mucha memoria, es posible que una parte se encuentre en la RAM, otra parte en el disco duro, etc. El procesador divide esta memoria en <em>unidades</em> que denominamos páginas de memoria.</p></li>
+
+<li><p><strong>Tipos de páginas de memoria:</strong> Por supuesto, no todas las páginas son iguales. Pueden ser de distinto tamaño, desde unos pocos <em>kilobytes</em> hasta un <em>megabyte</em>. Pero también tienen distintas propiedades. Existen páginas en las cuales puedes excribir datos (w-write) y leer datos (r-read), pero no puedes tratar de ejecutar esos datos como si fueran código (x-execute). De igual manera existen páginas en las cuales puedes tratar los datos que contiene como si fueran código y ejecutarlo, pero no puedes (sobre)escribir ese código por el tuyo propio. En concreto, acabo de describir una protección de seguridad llamada DEP (Data Execution Prevention) o también llamada NX bit (No eXecute bit), que trata de prevenir vulnerabilidades del tipo <em>stack overflow</em>.</p></li>
+</ol>
+
+<h1 id="encontrando-el-patrón">Encontrando el Patrón</h1>
+
+<p>Conocemos ligeramente cómo puede funcionar nuestra consola internamente. Y tenemos volcados de memoria. Podemos intentar varias cosas:
+¿Y si pudieramos distinguir y diferenciar los diferentes tipos de páginas de memoria que había en la RAM?
+Las páginas que solo puedan ejecutarse, deben contener código. Y las páginas donde se podía escribir y leer, tal vez contengan datos.</p>
+
+<p>El truco se encuentra en la entropía. ¿<em>Eso qué es</em>? En resumen y sin entrar en aburridas definiciones físicas, es la forma de medir la aleatoriedad. ¿¡Chulo verdad!? Pero.. ¿de qué nos ayuda a nosotros?
+Todo se resume a la forma en la que pensamos las personas y en la forma en la que funcionan los procesadores modernos. Es común que los diseñadores de procesadores intenten hacer las instrucciones del procesador lo más compactas y eficientes posibles, mientras que los programadores&hellip; rara vez intentamos almacenar datos de forma eficiente.</p>
+
+<p>Es predecible que las páginas marcadas como ejecutables, las que contengan código, tendran una alta entropía (o aleatoriedad). Mientras que, por el contrario, las páginas que contienen datos, tendrán una entropía baja.</p>
+
+<p>Intentemos comprobarlo. Desafortunadamente no puedo compartir mis propios volcados, ya que estos contienen código propietario con copyright, pero en los próximos posts enseñaré como obtenerlos de nuestras consolas.</p>
+
+<p>Vamos a utilizar una herramienta web llamada <a href="http://binvis.io" target="_blank">binvis</a> para analizar de forma visual la entropía. Se ejecuta en el navegador, así que no hay riesgo de que nadie nos robe nuestros preciados archivos.</p>
+
+<p><center>
+<img src="img/binvis1.png" alt="Binvis1" />
+Primer vistazo a los volcados de memoria.
+</center></p>
+
+<p>Existe un montón de memoria vacía (byte 0x00) ya que realizé los volcados con pocas aplicaciones ejecutándose. Activemos la opción de visualización de entropía:</p>
+
+<p><center>
+<img src="img/binvis2.png" alt="Binvis2" />
+Ajá!.. esto promete..
+</center></p>
+
+<p>Si analizamos con más cuidado las secciones de color <em>rosa</em> (entropía alta) no podemos encontrar ninguna cadena de texto, lo cual tiene sentido. De hecho, parece código!</p>
+
+<p><center>
+<img src="img/binvis3.png" alt="Binvis3" />
+Posible código identificado.
+</center></p>
+
+<p>Intentemos hacer zoom (botón +) y movernos al principio del volcado. Podemos observar lo siguiente:</p>
+
+<p><center>
+<img src="img/binvis4.png" alt="Binvis4" />
+Hmmm.. ¿algún tipo de identificador de secciones?
+</center></p>
+
+<p>Esto puede ser lo que estabamos buscando.</p>
+
+<blockquote>
+<p>Un dato curioso, es que el código máquina de un procesador no es lo único con entropía alta. Bloques de datos encriptados e imágenes comprimidas, también tienen un alto grado de aleatoriedad.</p>
+</blockquote>
+
+<p>Podemos repetir el proceso e ir examinando los distintos bloques rosas, a la vez que tomamos nota de las direcciones, relativas al archivo, en los que se encuentran. Más adelante extraeremos estos bloques y tal vez los analicemos con más cuidado.</p>
+
+<blockquote>
+<p>Cuando un programa se ejecuta, no todo el contenido del archivo se carga en memoria, solo partes importantes, como el código o algunos datos, así que es de esperar que sea fácil identificar el código ni extraerlo de forma precisa.</p>
+</blockquote>
+
+<h1 id="conclusiones">Conclusiones</h1>
+
+<p>En este breve post hemos comprobado que nuestra teoría inicial era correcta, y seguramente seamos capaces de extraer código y otros datos interesantes.
+En la siguiente entrada veremos cómo analizar más en profundidad esta información, así como otras técnicas y herramientas.</p>
+
+<p>Quiero agradecerle a las siguientes personas por su ayuda o por ideas interesantes:<br>
+  -@nicowaisman: Me dio algunas ideas sobre cómo analizar la memoria.<br>
+  -@ws: La idea de analizar la entropía fue suya, así como me ayudó bastante con otras dudas.<br>
+  -@cortesi: Creador de binvis<br>
+  -@GovanifY: ehhh, me respondiste a todos los emails xD<br></p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/es/devblog/hacking3ds1/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Anterior</span>
+        <span class='screen-reader-text'>Anterior entrada: </span>Hacking The 3ds I: Introducción</a>
+    </div></div>
+</nav>
+
+
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Menú social'>
+    <ul><li>
+        <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Github en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/pedro_javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Twitter en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Linkedin en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2019 Pedro Javier Fernández </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

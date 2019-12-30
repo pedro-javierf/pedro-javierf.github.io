@@ -124,6 +124,16 @@
   <url>
     <loc>https://pedro-javierf.github.io/devblog/hacking3ds2/</loc>
     <lastmod>2018-01-30T11:30:48+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/devblog/hacking3ds2/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/devblog/hacking3ds2/"
+                />
   </url>
   
   <url>
