@@ -34,7 +34,7 @@
   
   <url>
     <loc>https://pedro-javierf.github.io/es/devblog/</loc>
-    <lastmod>2018-01-30T11:30:48+02:00</lastmod>
+    <lastmod>2019-01-30T19:35:38+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -88,6 +88,21 @@
                 rel="alternate"
                 hreflang="es"
                 href="https://pedro-javierf.github.io/es/talks/revengatbufferhack/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedro-javierf.github.io/es/devblog/hacking3ds3/</loc>
+    <lastmod>2019-01-30T19:35:38+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/devblog/hacking3ds3/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/devblog/hacking3ds3/"
                 />
   </url>
   

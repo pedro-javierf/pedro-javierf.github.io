@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang='en'><head>
+<html lang='es'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Introduction Welcome again. Finally, it&rsquo;s time to go back and continue hacking the Nintendo 3ds. Previously, I got raw RAM dumps where several unicode strings could be found, evidencing the data was not encrypted or secured at all in RAM. This also applies for code, binary&rsquo;s code sections may be also loaded in memory (as we saw using entropy) so we can extract them and reverse them.
-Identifying code Even though I used binvis and could clearly see the differences between data and code, it wasn&rsquo;t precise enough to get addresses.'>
+<meta name='description' content='Introduccción Bienvenidos de nuevo. Finalmente, es hora de continuar hackeando la Nintendo 3DS. Anteriormente tratamos volcados de memoria donde pudimos encontrar cadenas de texto y otros contenidos, confirmando que los datos no estaban cifrados.
+Identificando el código A pesar de haber utilizado binvis y haber podido observar diferencias claras entre datos y código, no fue una herramienta suficientemente precisa para continuar. Antes de hacer nada más, intenté jugar todas mis bazas y analizar los volcados con cualquier programa que fuese posible.'>
 <meta name='theme-color' content='#6aff00'>
 
-<meta property='og:title' content='Hacking The 3ds III: Browsing the memory • PJ&#39;s Playground'>
-<meta property='og:description' content='Introduction Welcome again. Finally, it&rsquo;s time to go back and continue hacking the Nintendo 3ds. Previously, I got raw RAM dumps where several unicode strings could be found, evidencing the data was not encrypted or secured at all in RAM. This also applies for code, binary&rsquo;s code sections may be also loaded in memory (as we saw using entropy) so we can extract them and reverse them.
-Identifying code Even though I used binvis and could clearly see the differences between data and code, it wasn&rsquo;t precise enough to get addresses.'>
-<meta property='og:url' content='https://pedro-javierf.github.io/devblog/hacking3ds3/'>
+<meta property='og:title' content='Hacking The 3ds III: Análisis de memoria • PJ&#39;s Playground'>
+<meta property='og:description' content='Introduccción Bienvenidos de nuevo. Finalmente, es hora de continuar hackeando la Nintendo 3DS. Anteriormente tratamos volcados de memoria donde pudimos encontrar cadenas de texto y otros contenidos, confirmando que los datos no estaban cifrados.
+Identificando el código A pesar de haber utilizado binvis y haber podido observar diferencias claras entre datos y código, no fue una herramienta suficientemente precisa para continuar. Antes de hacer nada más, intenté jugar todas mis bazas y analizar los volcados con cualquier programa que fuese posible.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/hacking3ds3/'>
 <meta property='og:site_name' content='PJ&#39;s Playground'>
 <meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2019-01-30T19:35:38&#43;02:00'/><meta property='article:modified_time' content='2019-01-30T19:35:38&#43;02:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.59.1" />
 
-  <title>Hacking The 3ds III: Browsing the memory • PJ&#39;s Playground</title>
-  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/hacking3ds3/'>
+  <title>Hacking The 3ds III: Análisis de memoria • PJ&#39;s Playground</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/hacking3ds3/'>
   
-  <link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/hacking3ds3/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/hacking3ds3/'><link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/hacking3ds3/'>
+  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/hacking3ds3/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/hacking3ds3/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/hacking3ds3/'>
   <link rel='icon' href='/favicon.ico'>
 <link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#6aff00;}
@@ -33,19 +33,19 @@ Identifying code Even though I used binvis and could clearly see the differences
 <body class='page type-devblog has-sidebar'>
 
   <div class='site'><div id='sidebar' class='sidebar'>
-  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+  <a class='screen-reader-text' href='#main-menu'>Saltar al menú principal</a>
 
   <div class='container'><section class='widget widget-about sep-after'>
   <header>
     
     <div class='logo'>
-      <a href='/'>
+      <a href='/es/'>
         <img src='/images/logo.png'>
       </a>
     </div>
     
     <h2 class='title site-title '>
-      <a href='/'>
+      <a href='/es/'>
       PJ&#39;s Playground
       </a>
     </h2>
@@ -55,14 +55,14 @@ Identifying code Even though I used binvis and could clearly see the differences
   </header>
 
 </section>
-<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Menú lateral'>
     <div class='container'>
       <ul><li class='item'>
-  <a href='/'>Home</a></li><li class='item'>
-  <a href='/devblog/'>Devblog</a></li><li class='item'>
-  <a href='/talks/'>Talks</a></li><li class='item'>
-  <a href='/posts/'>Other Posts</a></li><li class='item'>
-  <a href='/about/'>About</a></li></ul>
+  <a href='/es/'>Inicio</a></li><li class='item'>
+  <a href='/es/talks/'>Charlas</a></li><li class='item'>
+  <a href='/es/devblog/'>Devblog</a></li><li class='item'>
+  <a href='/es/posts/'>OTROS</a></li><li class='item'>
+  <a href='/es/about/'>Sobre Mi</a></li></ul>
     </div>
   </nav>
 
@@ -73,12 +73,12 @@ Identifying code Even though I used binvis and could clearly see the differences
   </div>
 
   <div class='sidebar-overlay'></div>
-</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Menú principal'>
   <div class='container'>
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+    <a class='screen-reader-text' href='#content'>Saltar al contenido</a>
 
 <button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
-  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='screen-reader-text'>Alternar barra lateral</span>
   <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="3" y1="12" x2="21" y2="12" />
@@ -96,17 +96,17 @@ Identifying code Even though I used binvis and could clearly see the differences
 </span>
 </button>
     <ul><li class='item'>
-        <a href='/'>Home</a>
+        <a href='/es/'>Inicio</a>
       </li><li class='item'>
-        <a href='/devblog/'>Devblog</a>
+        <a href='/es/talks/'>Charlas</a>
       </li><li class='item'>
-        <a href='/talks/'>Talks</a>
+        <a href='/es/devblog/'>Devblog</a>
       </li><li class='item'>
-        <a href='/posts/'>Other Posts</a>
+        <a href='/es/posts/'>OTROS</a>
       </li><li class='item'>
-        <a href='/about/'>About</a>
+        <a href='/es/about/'>Sobre Mi</a>
       </li><li class='item'>
-        <a href='/es/'><i class='fa fa-language'></i></a>
+        <a href='/en/'><i class='fa fa-language'></i></a>
       </li></ul>
   </div>
 </nav><div class='header-widgets'>
@@ -123,11 +123,11 @@ Identifying code Even though I used binvis and could clearly see the differences
       <main id='content'>
 
 
-<article lang='en' class='entry'>
+<article lang='es' class='entry'>
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Hacking The 3ds III: Browsing the memory</h1>
+      <h1 class='title'>Hacking The 3ds III: Análisis de memoria</h1>
       
 
     </div>
@@ -140,7 +140,7 @@ Identifying code Even though I used binvis and could clearly see the differences
   <line x1="3" y1="10" x2="21" y2="10"/>
   
 </svg>
-<span class='screen-reader-text'>Posted on </span>
+<span class='screen-reader-text'>Posteado en </span>
   <time class='entry-date' datetime='2019-01-30T19:35:38&#43;02:00'>2019, Jan 30</time>
 </span>
 
@@ -152,7 +152,7 @@ Identifying code Even though I used binvis and could clearly see the differences
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-10 mins read
+8 minutos de lectura
 </span>
 
 
@@ -168,69 +168,65 @@ Identifying code Even though I used binvis and could clearly see the differences
   <div class='container entry-content'>
   
 
-<h1 id="introduction">Introduction</h1>
+<h1 id="introduccción">Introduccción</h1>
 
-<p>Welcome again. <strong>Finally</strong>, it&rsquo;s time to go back and continue hacking the Nintendo 3ds. Previously, I got raw RAM dumps
-where several unicode strings could be found, evidencing the data was not encrypted or secured at all in RAM. This also applies for code, binary&rsquo;s code sections may be also loaded in memory (as we saw using entropy) so we can extract them and reverse them.</p>
+<p>Bienvenidos de nuevo. Finalmente, es hora de continuar hackeando la Nintendo 3DS. Anteriormente tratamos volcados de memoria donde pudimos encontrar cadenas de texto y otros contenidos, confirmando que los datos no estaban cifrados.</p>
 
-<h5 id="identifying-code">Identifying code</h5>
+<h5 id="identificando-el-código">Identificando el código</h5>
 
-<p>Even though I used <a href="http://binvis.io" target="_blank"><em>binvis</em></a> and could clearly see the differences between data and code, it wasn&rsquo;t precise enough to get addresses. And we may want to have the best accuracy when extracting code, ensuring we don&rsquo;t get anything else, to make later reversing easier.
-Firstly, before moving into more specific (command line) tools, I would like to mention an useful and handy
-program called <a href="https://codisec.com/veles/" target="_blank"><em>Veles</em></a>, an open source tool for binary data analysis. It is worth mention because
-it has an extensive collection of different views (entropy, density, different 3D and 2D models, etc&hellip;) which
-you may find good for your own usage. Here&rsquo;s some screenshots from the RAM dump being analyzed and shown:</p>
+<p>A pesar de haber utilizado <a href="http://binvis.io" target="_blank"><em>binvis</em></a> y haber podido observar diferencias claras entre datos y código, no fue una herramienta suficientemente precisa para continuar. Antes de hacer nada más, intenté jugar todas mis bazas y analizar los volcados con cualquier programa que fuese posible.
+Concretamente, antes de probar ninguna herramienta de consola, quiero mencionar el programa <a href="https://codisec.com/veles/" target="_blank"><em>Veles</em></a>, una herramienta de código libre y multiplataforma para análisis visual. Puede ser bastante útil a la hora de analizar ciertos binarios. Algunas capturas:</p>
 
 <p><center>
-<img src=gif/Veles_GIF_1.gif></center><br></p>
+<img src=gif/Veles_GIF_1.gif>
+</center><br></p>
 
-<p>As you can see, it can be a game-changer tool. Human vision is good at identifying visual patterns, so this might give new points of view (and in this case, confirm what we first saw with binvis: that there are zones with higger entropy than the rest of the dump.)</p>
+<p>Como se puede ver, es potencialmente una buena baza. La visión humana es buena a la hora de identificar patrones visuales.</p>
 
 <p><center>
 <img src=img/Veles_PIC_CaptionsAddr.PNG><br>
-Veles with caption mode enabled, showing reference addresses</center><br></p>
+Veles</center><br></p>
 
 <p><center>
 <img src=gif/Veles_GIF_2.gif><br>
-We can select how much we want to represent, selecting different regions using the slider.
+Podemos seleccionar las diferentes parrtes del archivo que queremos analizar.
 </center><br></p>
 
-<p>Actually, we&rsquo;ll be back at Veles once we get some addresses, and use its built in functions to extract a chunk of the FCRam dump. Now let&rsquo;s move on.</p>
+<p>Tal vez más adelante utilizemos otras de sus características para extraer partes concretas del volcado.</p>
 
-<p>The next tool I will be using is <a href="https://github.com/airbus-seclab/cpu_rec" target="_blank">cpu_rec</a> an utility created by the people at airbus seclab.
-As its repository says, cpu_rec is a tool that recognizes cpu instructions in an arbitrary binary files. It supports a good bunch of architectures, including among others ARM64 or ARMel (Arm32 or Arm endian little), the later being the one the 3DS uses. Therefore, there was a chance it could
-detect chunks of code, so I had to try it.</p>
+<p>La siguiente herramienta que probé fue  <a href="https://github.com/airbus-seclab/cpu_rec" target="_blank">cpu_rec</a> de código libre y desarrollada por airbus seclab.
+En teoría, es capaz de detectar código de diferentes arquitecturas en un mismo archivo.</p>
 
-<p>A first run of cpu_rec in my Linux machine gave this output:</p>
+<p>Una primera ejecución devolvió lo siguiente:</p>
 
 <p><center>
 <img src=img/cpu_rec_fcram_dump.png>
 </center><br></p>
 
-<p>The output is not crystal clear for me, even though there is (apparently) an ARM (ARMel) chunk of code starting at address 0x9f000, with a size of 318 (bytes?). I haven&rsquo;t been able to get a more precise result from cpurec.
-Surely there are other similar tools waiting for us to try. Let&rsquo;s look into it.</p>
+<p>Aunque parece detectar un bloque de código ARM (ARMel) que empieza en la dirección 0x9f000 del archivo. No he sido capaz de obtener resultados más precisos.</p>
 
-<h1 id="stronger-together">Stronger Together</h1>
+<h1 id="aunando-fuerzas">Aunando Fuerzas</h1>
 
-<p>Back a month ago I decided to ask for more &ldquo;blackbox hacking&rdquo; information on the stack exchange RE page. I met wisk (@wiskitki) who has come up with some really great ideas to progress on this research. Firstly, we loaded one of the FCRam dumps on IDA. It is enough to set the processor to ARM, like this:</p>
+<p>Hace algunos meses, decidí preguntar en &ldquo;stack exchange&rdquo; (más conocido como stack overflow) sobre técnicas conocidas o comunes a la hora de hackear entornos cerrados y hacer ingeniería inversa de cajas negras.
+Conocí a wisk (@wiskitki) y después de comentar el caso, tuvo muy buenas ideas, además de tener mucha práctica en cuanto a ingeniería inversa práctica se refiere. En primer lugar decidimos empezat con el análisis manual y cargar los volcados enteros en un desensamblador como IDA Pro.
+En su momento pensamos que era suficiente configurar el procesador a ARM, de la siguiente manera:</p>
 
 <p><center>
 <img src=img/IDA1.jpg>
 <img src=img/IDA2.jpg>
 </center><br></p>
 
-<p>After the initial analysis, wisk got some insight:</p>
+<p>Inmediatamente después del autoanálisis, empezamos a observar cosas interesantes:</p>
 
 <p><center>
 <img src=img/IDA_Tables_MMU.jpg>
 </center><br></p>
 
-<p>Dumps are really interesting. They contain code, string, data, for instance, with this piece of code above, it&rsquo;s possible to figure out the image base, the only issue is the difference between the case address and the jump table is not right, the case address should be higher than the address in the jump table. It means a MMU is involved and probably isolated from another part of the code. Focusing on the memory layout and page tables is important to reconstruct the real memory view and cut the image with different applications.
-We are still trying and learning how to reconstruct the jump table and/or map code.</p>
+<p>Estos volcados son extremadamente útiles. Contienen código y datos, especialmente estructuras como la de arriba, mediante la cual vamos a poder identificar la dirección bases en la que se cargan los programas (más sobre esto en los próximos posts). Simplemente mencionar que la diferencia entre la dirección del bloque <em>case</em> y la dirección de la tabla de salto es negativa, lo que supone que no podemos extraer de aquí la dirección base y que una MMU está implicada en el asunto. Es importante reconstruir con exactitud el espacio de memoria para poder hacer reversing, y aun estamos en ello.</p>
 
-<p>But there&rsquo;s more content!</p>
+<p>Pero aún hay más!</p>
 
-<p>I later decided to also run <em>binwalk</em> on the dumps and it was quite satisfying. Here&rsquo;s the output:</p>
+<p>Más tarde decidí probar a ejecutar la herramienta <em>binwalk</em>. Aquí la salida:</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">binwalk fcram.bin 
 DECIMAL       HEXADECIMAL     DESCRIPTION
@@ -310,40 +306,41 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 <span style="color:#ae81ff">132717080</span>     <span style="color:#ae81ff">0x7E91A18</span>       SHA256 hash constants, little endian
 </code></pre></div>
 
-<p>There&rsquo;s some false positives, like Intel x86 microcode (remember, the 3ds has an ARM processor not an x86 arch!). But remark there are certain bold lines. I&rsquo;ve highlighted them because they are pretty interesting. The first one is a NDS Game ROM. Since the 3ds is backwards compatible with the NDS this did not surprise me. Inspecting further, we found data for PAPERPLANE, a dsi/nds game I bought from the eshop and had installed in my 3ds at the moment of the dumps:</p>
+<p>Tenemos algunos falsos positivos, como código Intel X86 (imposible, dado que la 3DS utiliza un procesador ARM). Sin embargo, he resaltado algunos resultados interesantes. El primero de ellos, es la detección de un binario de Nintendo DS. Dado que la 3DS es retrocompatible esto no es sorprendente. Lo que si es curioso, es que, analizando en detalle el volcado, encontramos los datos de un juego llamado PAPERPLANE (O simplemente &ldquo;avión de papel&rdquo;), un juego de dsi que compré en la eshop y que tenía instalado cuando realizé los volcados.</p>
 
 <p><center>
 <img src=img/PAPERPLANE3DS.jpeg>
 </center><br></p>
 
-<p>Even though I did not run it before dumping the fcram memory, it is there! I did, in fact, load some nds-mode programs but not that one, so heh, who knows why! but we later found that the whole PAPERPLANE NDS executable had been loaded into fcram!</p>
+<p>¿Pero qué es lo raro entonces? Lo extraño es que no ejecuté el código antes ni durante el volcado. Y sin embargo, ¡ahi está el código!</p>
 
 <p><center>
 <img src=img/PAPERPLANE.jpg>
 </center><br></p>
 
-<p>While I haven&rsquo;t done the following yet, in theory, this would mean this is the first piece of code I can completely dump (with a good integrity) since the NDS format has been completely documented for a long time. You may have noticed that it is not a native 3ds piece of code, but hey! it would be an amazing entrypoint to start with. Since the binary is dump-eable and the extension known, and there&rsquo;s amazing NDS/dsi debuggers out there (No$Gba mainly) we could dump this videogame (and surely any other dsi mode game that was installed) and <a href="https://github.com/pedro-javierf/JAFE" target="_blank"><em>look for vulnerabilities</em></a> in the backwards nds mode. That would be a way to get initial unsigned code running, and try to escalate / break out of the emulator sandbox into native code.</p>
+<p>Aunque no lo he puesto en práctica, en teoría, este código podría extraerse al completo. El formato de los binarios de Nintendo DS lleva mucho tiempo documentado. No es código nativo que se ejecute con los máximos privilegios, pero, también sería un excelente punto de entrada para comenzar. Además, existiendo depuradores excelentes como no$gba y muchos otros, podríamos <a href="https://github.com/pedro-javierf/JAFE" target="_blank"><em>buscar vulnerabilidades</em></a> en el modo retrocompatible. Sería una buena forma de dar el primer paso dentro del sistema para posteriormente intentar escalar privilegios o escapar del modo de retrocompatibilidad.</p>
 
-<p>And yet, we got even more data from binwalk. We did a <code><em>binwalk -e</em></code> run, which extracts all the formats found into separate files. Sadly we did not obtain much stuff, but some <em>Certificates in DER format</em>. After that, wisk was able to read them with OpenSSL:</p>
+<p>Aun así, quedan algunos resultados interesantes de binwalk. Utilizando el parámetro <code>_binwalk -e_</code> extraemos todos los formatos encontrados en carpetas separadas. Desafortunadamente no obtuvimos mucho más, salvo algunos certificados en formato <em>.DER</em> que wisk leyó con OpenSSL:</p>
 
 <p><center>
 <img src=img/CERT.jpg>
 </center><br></p>
 
-<h1 id="a-final-throwback-to-strings-with-ida">A final throwback to strings with IDA</h1>
+<h1 id="últimas-consideraciones-sobre-reversing">Últimas consideraciones sobre reversing</h1>
 
-<p>Least but not less important, I did a bit more of research into native 3ds binaries. After brainstorming, there&rsquo;s plans to try and find out MAGIC numbers for unknown file formats and try to link them to 3ds executable binaries, thus being able to investigate them further. Meanwhile I tried to follow strings to code in IDA, but at this moment I&rsquo;ve (mostly) failed.</p>
+<p>Por último, intentamos descubrir más sobre que formatos privativos y personalizados pudieran usar los binarios de 3DS. En el futuro intentaremos encontrar firmas (a.k.a. MAGIC numbers) que identifiquen formatos desconocidos. Además, aunque hemos sido capaces de localizar el código dentro de los volcados no hemos logrado mapearlos correctamente.</p>
 
 <p><center>
 <img src=img/CONFIG.jpg>
 </center><br></p>
 
-<p>One of the tests I did; looking up at the strings of this app, for example <em>Configuración de la consola</em> (having activated UNICODE string search in IDA) pointed to a bunch of other strings of the same app. Which were also close in memory to the same strings in other languages. Unfortunately I haven&rsquo;t been able to reference (or Xref) this strings to any code. Surely that&rsquo;s because there exists some type of string array / structure which is used to access the multiple strings, but eh.. I don&rsquo;t know that much to figure it out yet.</p>
+<p>Uno de los tests que llevé a cabo fue el de seguir la pista de las cadenas de texto. Pongamos por ejemplo &ldquo;<em>Configuración de la consola</em>&rdquo; , la cual aparece en la lista de Strings de IDA Pro. Están cerca de las direcciones de memoria donde se encuentran las mismas cadenas de texto en otros idiomas. Sin embargo, no existe ninguna referencia por parte del código a estas direcciones de memoria (xref). Esto sugiere que para acceder a estas cadenas tal vez se utilize un array de cadenas de texto o alguna estructura, pero, por el momento no he llegado a desentrañar este funcionamiento.</p>
 
-<h1 id="conclusions">Conclusions</h1>
+<h1 id="conclusiones">Conclusiones</h1>
 
-<p>There has been progress. Native code execution in the black box fashion has not been achieved yet, but It&rsquo;s being worked out. In my view, future research will point towards correctly mapping the dumps, handling the MMU mess and being able to browse the FCRam images apropiately. <br>
-This post could not end without special thanks to @wisk who has provided a lot of knowledge and motivation into the research!</p>
+<p>Hemos progresado. Aun no he logrado ejecutar código de forma nativa, pero estoy mucho más cerca de ello y dispongo de mucha más información del sistema que anteriormente.</p>
+
+<p>No podría terminar este post sin agradecerle su ayuda a @wisk, ¡quien ha aportado mucho a la investigación!</p>
 
 </div>
 
@@ -358,25 +355,15 @@ This post could not end without special thanks to @wisk who has provided a lot o
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/devblog/hacking3ds2/'>
+      <a href='/es/devblog/hacking3ds2/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
   <polyline points="10 18 4 12 10 6"/>
   
 </svg>
- Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Hacking The 3ds II: Finding the Pattern</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/devblog/hacking3ds4/'>
-        <span class='screen-reader-text'>Next post: </span>Hacking The 3ds IV: Hardware attacks<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
+ Anterior</span>
+        <span class='screen-reader-text'>Anterior entrada: </span>Hacking The 3ds II: Encontrando el Patrón</a>
     </div></div>
 </nav>
 
@@ -410,10 +397,10 @@ This post could not end without special thanks to @wisk who has provided a lot o
       </main>
 
       <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Menú social'>
     <ul><li>
         <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+          <span class='screen-reader-text'>Abrir cuenta de Github en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
   
@@ -421,7 +408,7 @@ This post could not end without special thanks to @wisk who has provided a lot o
 </a>
       </li><li>
         <a href='https://twitter.com/pedro_javierf' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+          <span class='screen-reader-text'>Abrir cuenta de Twitter en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
   
@@ -429,7 +416,7 @@ This post could not end without special thanks to @wisk who has provided a lot o
 </a>
       </li><li>
         <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+          <span class='screen-reader-text'>Abrir cuenta de Linkedin en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
   <rect x="2" y="9" width="4" height="12"/>
