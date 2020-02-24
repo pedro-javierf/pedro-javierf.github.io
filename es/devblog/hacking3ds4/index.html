@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang='es'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Introducción En este post vamos a introducirnos de lleno en el mundo de los ataques a nivel de hardware, especificamente orientados a la 3ds pero totalmente aplicables a otros dispositivos. He descrito todo con el máximo nivel de detalle posible, intentando explicar conceptos previos. Espero que sea de utilidad, y además, que sirva para preservar del olvido algunos increibles ataques que la pequeña consola de Nintendo ha visto.
+Ataques Hardware Hace unos años, cuando escribí mi primer artículo sobre hacking de la 3ds, pensaba que los ataques en el hardware pertenecían a ese tipo de habilidades mágicas que son imposibles de aprender si no has nacido con ellas.'>
+<meta name='theme-color' content='#6aff00'>
+
+<meta property='og:title' content='Hacking The 3ds IV: Ataques Hardware • PJ&#39;s Playground'>
+<meta property='og:description' content='Introducción En este post vamos a introducirnos de lleno en el mundo de los ataques a nivel de hardware, especificamente orientados a la 3ds pero totalmente aplicables a otros dispositivos. He descrito todo con el máximo nivel de detalle posible, intentando explicar conceptos previos. Espero que sea de utilidad, y además, que sirva para preservar del olvido algunos increibles ataques que la pequeña consola de Nintendo ha visto.
+Ataques Hardware Hace unos años, cuando escribí mi primer artículo sobre hacking de la 3ds, pensaba que los ataques en el hardware pertenecían a ese tipo de habilidades mágicas que son imposibles de aprender si no has nacido con ellas.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/hacking3ds4/'>
+<meta property='og:site_name' content='PJ&#39;s Playground'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2019-07-25T19:35:38&#43;02:00'/><meta property='article:modified_time' content='2019-07-25T19:35:38&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <title>Hacking The 3ds IV: Ataques Hardware • PJ&#39;s Playground</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/hacking3ds4/'>
+  
+  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/hacking3ds4/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/hacking3ds4/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/hacking3ds4/'>
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#6aff00;}
+</style>
+
+  
+
+</head>
+<meta name="twitter:image:src" content="https://pedro-javierf.github.io/images/logo.png"> 
+<script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
+<link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
+<body class='page type-devblog has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Saltar al menú principal</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/es/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/es/'>
+      PJ&#39;s Playground
+      </a>
+    </h2>
+    <div class='desc'>
+    Welcome to Pedro Javier&#39;s technollogy website
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Menú lateral'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/es/'>Inicio</a></li><li class='item'>
+  <a href='/es/talks/'>Charlas</a></li><li class='item'>
+  <a href='/es/devblog/'>Devblog</a></li><li class='item'>
+  <a href='/es/posts/'>OTROS</a></li><li class='item'>
+  <a href='/es/about/'>Sobre Mi</a></li></ul>
+    </div>
+  </nav>
+
+</section>
+  <a id="dark-mode-toggle">Dark Mode</a><br>
+  
+  
+  </div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Menú principal'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Saltar al contenido</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Alternar barra lateral</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/es/'>Inicio</a>
+      </li><li class='item'>
+        <a href='/es/talks/'>Charlas</a>
+      </li><li class='item'>
+        <a href='/es/devblog/'>Devblog</a>
+      </li><li class='item'>
+        <a href='/es/posts/'>OTROS</a>
+      </li><li class='item'>
+        <a href='/es/about/'>Sobre Mi</a>
+      </li><li class='item'>
+        <a href='/en/'><i class='fa fa-language'></i></a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>PJ&#39;s Playground</p><p class='desc site-desc'>Welcome to Pedro Javier&#39;s technollogy website</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='es' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Hacking The 3ds IV: Ataques Hardware</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posteado en </span>
+  <time class='entry-date' datetime='2019-07-25T19:35:38&#43;02:00'>2019, Jul 25</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+9 minutos de lectura
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h1 id="u-introducción-u"><u>Introducción</u></h1>
+
+<p>En este post vamos a introducirnos de lleno en el mundo de los ataques a nivel de hardware, especificamente orientados a la 3ds pero totalmente aplicables a otros dispositivos.
+He descrito todo con el máximo nivel de detalle posible, intentando explicar conceptos previos. Espero que sea de utilidad, y además, que sirva para preservar del olvido algunos increibles ataques que la pequeña consola de Nintendo ha visto.</p>
+
+<h1 id="u-ataques-hardware-u"><u>Ataques Hardware</u></h1>
+
+<p>Hace unos años, cuando escribí mi primer artículo sobre hacking de la 3ds, pensaba que los ataques en el hardware pertenecían a ese tipo de habilidades mágicas que son imposibles de aprender si no has nacido con ellas. Sin embargo, haciendo retrospectiva, estoy muy contento con lo conseguido hasta ahora, y a medida que aprendo más y más no todo parece tan oscuro y misterioso. En parte, algunos conocimientos que me han ayudado los he aprendido en la universidad, pero no temas querido lector, puedes encontrar toda esta información en internet, y yo hoy aquí voy a intentar explicar lo máximo posible.</p>
+
+<h4 id="volcado-de-memoria-nand">Volcado de memoria NAND</h4>
+
+<p>Para preservar algunos de los ataques que ha vivido la scene de esta consola, empezaré hablando sobre los volcados de la memoria NAND. Este tipo de modificaciones en el hardware han sido recurrentes tanto en la 3ds como en prácticamente todas las consolas de Nintendo.</p>
+
+<h5 id="qué-es-una-memoria-nand">¿Qué es una memoria <em>NAND</em>?</h5>
+
+<p>Una memoria NAND no es más que uno de los muchos tipos de <a href="https://en.wikipedia.org/wiki/Flash_memory#NAND_flash" target="_blank">memorias flash</a> basedas en <a href="https://en.wikipedia.org/wiki/Logic_gate" target="_blank">puertas lógicas</a> NAND.
+Como vimos en el primer post, la 3ds utiliza una memoria NAND interna de 1GB fabricada por Samsung.</p>
+
+<p>Sin embargo, otros ejemplos de memorias NAND son algunas tarjetas SD. Estas simplemente son extraíbles, mientras que la memoria interna de la 3ds está soldada.</p>
+
+<p>Para conocer más en detalle como funcionan las tarjetas SD, recomiendo <a href="https://www.cactus-tech.com/wp-content/uploads/2019/03/An-Introduction-To-SD-Card-Interface.pdf" target="_blank">este documento</a>
+Pero en resumen,las tarjetas SD pueden funcionar en un modo de alta velocidad, o en un modo de baja velocidad basado en el protocolo <a href="https://es.wikipedia.org/wiki/Serial_Peripheral_Interface" target="_blank">SPI</a>.</p>
+
+<p><center>
+<img src=img/SD_pinout.jpg>
+</center><br></p>
+
+<p>No es mi objetivo explicar hasta el último detalle de como estan construidas estas memorias. Así que, por el momento, veamos <em>como</em> funcionan, al menos en modo rápido.
+Normalmente para utilizar este modo solo necesitamos utilizar los siguientes pines de la tarjeta:<br><br></p>
+
+<ul>
+<li><em>CMD I/O</em> , que es una línea para enviar comandos</li>
+<li>Un pin de datos, por ejemplo <em>DAT0</em> (para leer los contenidos que especifiquemos a través de <em>CMD I/O</em>)</li>
+<li><em>CLK</em> que corresponde a la señal de reloj que marca la velocidad.</li>
+<li><em>VDD</em> y <em>GND</em> para suministrar electricidad a la memoria.</li>
+</ul>
+
+<p>En la 3ds, debido al diseño del circuito de la PCB (la &ldquo;placa base&rdquo;), estos pines están comunicados con algunos componentes y pines de la placa. Es decir, no hace falta desoldar el chip para leerlo. Sencillamente con soldar unos cables en esos contactos nuestra información y comandos llegarán directos hasta el chip.</p>
+
+<p>Estos son dichos contactos en la consola Old3DS:</p>
+
+<p><center>
+<img src=img/O3DSpinout1.png>
+<img src=img/O3DSpinout2.png><br>
+Pines necesarios + un pin alternativo para el clock (CLK) en otra parte de la placa.
+</center><br></p>
+
+<p>El lector ávido habrá notado que no hay pin VDD ;) esto se debe a que no es necesario. No necesitamos alimentar el chip manualmente. Al estar la consola encendida este se encenderá.</p>
+
+<p>Como ejemplo <em>bonus</em> aquí están los pines para acceder a la memoria nand de la Nintendo DSi:</p>
+
+<p><center>
+<img src=img/DSiSideBNANDPinout.png>
+<img src=img/DSiXLSideBNANDPinout.png>
+Pines necesarios + una localización alternativa para el pin <em>DAT0</em> en otra parte de la placa. (La foto superior corresponde al modelo normal de Dsi, y la foto inferior a la Nintendo DsiXL)
+</center><br></p>
+
+<p>El último detalle que hay que solucionar es cómo hacer llegar esos contenidos a un ordenador. Podríamos invertir en implementar los comandos para hablar con la memoria en un Arduino, Raspberry Pi, o FPGA, pero existe un truco mejor. ¿Cuál es este truco?
+Realmente se trata de la parte más sencilla de todo el ataque. Vamos a crear un adaptador casero con componentes súper baratos y vamos a dejar que el sistema operativo de nuestro PC se encargue del trabajo duro, la comunicación.</p>
+
+<p><center>
+<img src=img/SD_Reader.jpg>
+</center><br></p>
+
+<p>El concepto es sencillo. Os había dicho que una tarjeta SD y la memoria NAND compartían el mismo protocolo, ¿verdad?. ¿Por qué no hacer creer al ordenador que la memoria es una tarjeta SD para que la lea?</p>
+
+<p>Un ejemplo más &ldquo;común&rdquo;. Los adaptadores de microSD a SD hacen lo mismo. Simplemente conectan los pines de la microSD, que son pequeños, a unos más grandes del tamaño de una tarjeta SD, para que el lector de SD de un PC pueda leer la tarjeta. Entonces&hellip; ¿y si fabricamos un adaptador de <em>NAND</em> a <em>SD</em>?¿Funcionaría? La respuesta es <strong>SI</strong>. Como puedes ver en la imagen de arriba, es precisamente en lo que consiste esta técnica. La parte inferior de los cables va soldada a la placa de la consola, y la superior la soldamos a un adaptador de microSD a SD que vale menos de un euro. Y eso es todo. Conectamos este adaptador a un ordenador y listo, hablará con la memoria como si una tarjeta SD fuese. Un detalle importante, es que aparecerá sin formato. Podemos volcar su contenido con un software que permita hacer imágenes de discos <em>raw</em>, como <em>dd</em> (en linux) o <em>win32diskimager</em> (en windows).</p>
+
+<h4 id="ram-sniffing-ram-tracing-y-ram-injection">RAM Sniffing, RAM tracing y RAM injection</h4>
+
+<p>La lectura y escritura de la NAND ha sido un concepto simple, para entrar en calor. Veamos ahora un ataque más complejo. La idea es la siguiente: Interceptar las líneas (normalmente llamadas buses) que conectan la memoria RAM con la placa, y registrar las operaciones de escritura y lectura que hace el procesador en la memoria RAM, para asi generar una imagen o volcado de la memoria en un momento específico. Esto puede hacerse con una <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a>.</p>
+
+<p>Este ataque se conoce como <strong>RAM Tracing</strong> y la única implementación pública y conocida en consolas fue realizada por @scanlime hace algunos años. Lo hizo con la RAM de la Nintendo DSi. Puedes encontrar más información</p>
+
+<p><a href="https://scanlime.org/category/projects/dsi/" target="_blank">aquí</a>,
+<a href="https://www.flickr.com/search/?user_id=22238428%40N05&amp;view_all=1&amp;text=dsi" target="_blank">aquí</a>,
+<a href="https://forum.gbadev.org/viewtopic.php?t=16752&amp;sid=3b27fe4b607fc157d24855fb6ef9c1d4" target="_blank">y aquí</a></p>
+
+<p>Alternativamente, podemos extender el ataque, hasta el punto en el que también permita inyección o emulación de los contenidos de la memoria RAM.</p>
+
+<p>Aunque utilizamos el mismo hardware, una <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a> ,debo decir que se necesitan unas habilidades de soldadura (y de-soldadura) extremas. Para este ataque, lo que haremos será interceptar las lineas de datos de la memoria como en el ataque anterior. Pero además, tal y como hizo @scanlime, hay que interceptar la línea <em>CS</em> (Chip Select) de la memoria, para que, cuando detectemos que la CPU está intentanto leer algunos datos de la RAM,nuestra FPGA redireccione esos contenidos a su propia memoria, de forma que proveeremos a la consola con datos &ldquo;falsos&rdquo; o modificados.El trabajo de @scanlime es impresivo ya que es, de lejos, la única implementación libre y documentada.Puede verse en los links de arriba.</p>
+
+<p><center>
+<img src=img/RAMInjection1.PNG></p>
+
+<p><em>Modificación/inyección de cadenas de texto en la RAM</em></p>
+
+<p><img src=img/RAMInjection2.PNG>
+</center></p>
+
+<p>Sin embargo, también es remarcable el trabajo de @neimod, quien presumiblemente fue la primera persona en hackear la 3ds. Gracias a las siguientes imágenes de su trabajo (que han estado desaparecidas de internet durante mucho tiempo) puedo deciros que utilizó una placa personalizada con una FPGA para hacer un ataque muy muy similar, en la 3ds:</p>
+
+<p><center>
+<img src=img/neimod1.jpg>
+<img src=img/neimod2.jpg>
+<img src=img/neimod3.jpg>
+<img src=img/neimod4.jpg>
+<img src=img/neimod5.jpg>
+<img src=img/neimod6.jpg>
+<img src=img/neimod7.jpg>
+<img src=img/neimod8.jpg>
+<img src=img/neimod9.jpg>
+<img src=img/neimodA.jpg>
+<img src=img/neimodB.jpg>
+<img src=img/neimodC.jpg>
+<img src=img/neimodD.jpg>
+<img src=img/neimodE.jpg>
+<br>
+</center><br></p>
+
+<p>Desafortunadamente se cree que neimod vendió todo su trabajo e información. Más tarde todas las fotos fueron borradas pero en este post puedes apreciar semejante trabajo de soldadura e ingeniería.</p>
+
+<blockquote>
+<p>No puedo asegurar la veracidad de la foto que dice &ldquo;#Opening JTAG&hellip;&rdquo;. Puede que sea falsa y la persona que la posteó intentó crear un engaño diciendo que se había conectado a la 3ds utilizando JTAG(lo cual es, en teoría, imposible) o alguien fue capaz de restaurar el depurador JTAG del procesador y no había sido elimidado después de todo. O tal vez sea el output del programador de la FPGA.. nunca lo sabremos.</p>
+</blockquote>
+
+<h4 id="emulación-de-eeprom-exploit-en-partida-guardada">Emulación de EEPROM + Exploit en partida guardada</h4>
+
+<p>Vamos a ver ahora un ataque algo diferente. Es muy interesante ya que es algo bastante nuevo e innovador. Y sí, también requiere una <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a>. Sin embargo, hay que soldar mucho menos, y las soldaduras son muy simples.</p>
+
+<p>La primera implementación que descubrí de este ataque fue el trabajo de Micah Elizabeth Scott (scanlime) y podéis encontrarlo <a href="https://www.flickr.com/photos/micahdowty/albums/72157621023570420" target="_blank">aquí</a>:
+<center>
+<img src=img/scanlime1.PNG>
+<img src=img/scanlime2.PNG>
+<img src=img/scanlime3.PNG>
+</center>
+<center><strong>Distribuido bajo la licencia <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Attribution-ShareAlike 2.0 Generic (CC BY-SA 2.0)</a></strong>.</center></p>
+
+<p>17/11/2019 EDIT: Al parecer, el Team Twiizers consiguió incluso antes hacer un ataque de emulación utilizando.. Arduino! Échale un vistazo en la Parte 5 de esta serie.</p>
+
+<p>Con este hardware es posible emular la EEPROM donde guarda las partidas guardadas el cartucho y &ldquo;<em>alimentar</em>&rdquo; en tiempo real al juego con una partida modificada. Lo interesante es que el juego utiliza estos datos, asi que es un buen lugar para buscar exploits, como veremos en el próximo post.</p>
+
+<p><center>
+<img src=img/interfaceWorking1.PNG></p>
+
+<p>Hardware de scanlime ejecutando un exploit de modo DS</p>
+
+<p><img src=img/interfaceWorking2.PNG>
+</center></p>
+
+<p>Volviendo al presente, hace poco tiempo que mi amigo Gericom desarrolló una interfaz similar para la DS, con la sutil diferencia de que su hardware emula la memoira ROM, siendo capaz de cargar juegos de DS y DSi desde su FPGA. Fue un paso más allá y hasta diseño y fabricó su propia PCB en lugar de manipular un cartucho existente.</p>
+
+<p><center>
+<img src=img/interfaceGericom1.jpg>
+<img src=img/interfaceGericom2.jpg>
+</center></p>
+
+<p>Las FPGAs son dispositivos  que pueden actuar como practicamente cualquier componente electrónico digital. Los proyectos mostrados nos dan el poder para emular memorias ROM o EEPROM e interactuar con la consola. Esto es muy curioso, ya que los cartuchos de 3Ds son practicamente similares, salvo que estos incluyen memorias de mayor capacidad, en conclusión, podemos reproducir estos mismos ataques. Cambiando los datos de la partida guardada podemos atacar el código del juego y encontrar vulnerabilidades.</p>
+
+<p>Me encuentro trabajando en un proyecto de hardware similar, donde usaré una FPGA para crear mi propia interfaz ;)</p>
+
+<h4 id="glitch-attacks-fault-injection-inyección-de-glitches">Glitch attacks / fault injection (inyección de glitches)</h4>
+
+<p>Este tipo de ataques es, en mi humilde opinión, el más sencillo de entender y aun asi el más caro y complejo de implementar en el mundo real. La idea es introducir <em>glitches</em> (pequeños fallos lógicos) en el procesador (que es en resumidas cuentas, una máquina de estados) de forma que sea posible saltar instrucciones o modificar las ya existentes, entre otros trucos de magia.</p>
+
+<p>Y sorpresa. Ha habido <a href="https://arxiv.org/pdf/1802.00359.pdf" target="_blank">ataques de inyección de glitches exitosos</a> contra el <em>bootloader</em> de la 3DS en los últimos años.</p>
+
+<p><center>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/6Pf3pY3GxBM" frameborder="0" allowfullscreen></iframe><br>
+Ejemplo práctico de un ataque del tipo <em>fault injection</em>.
+</center></p>
+
+<p>Es interesante resaltar que existe hardware específico para realizar estos ataques, como el <a href="https://newae.com/tools/chipwhisperer/" target="_blank">Chipwhisperer</a> aunque tiene un precio elevado.</p>
+
+<h1 id="conclusiones">Conclusiones</h1>
+
+<p>¡Y hasta aquí hemos llegado! En el próximo post mostraré un exploit totalmente funcional en el modo sandbox, como atacar código nativo desde nuestro exploit y también algunos de mis hardwares terminados!!
+Nos acercamos a pwnear la 3Ds por completo.</p>
+
+<p>Quiero agradecer en especial a @Nitehack (que salvó todo el trabajo de neimod hace años y gracias al cual no ha desaparecido) a @Gericom (un tipo increible y con una &ldquo;<em>sabiduría</em>&rdquo; técnica enorme) y a @ChampionLeake</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/es/devblog/hacking3ds3/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Anterior</span>
+        <span class='screen-reader-text'>Anterior entrada: </span>Hacking The 3ds III: Análisis de memoria</a>
+    </div></div>
+</nav>
+
+
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Menú social'>
+    <ul><li>
+        <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Github en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/pedro_javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Twitter en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Linkedin en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2020 Pedro Javier Fernández </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

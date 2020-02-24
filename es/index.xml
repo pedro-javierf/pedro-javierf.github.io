@@ -5,10 +5,20 @@
     <link>https://pedro-javierf.github.io/es/</link>
     <description>Recent content in Inicio on PJ&#39;s Playground</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 07 May 2019 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jul 2019 19:35:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/es/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hacking The 3ds IV: Ataques Hardware</title>
+      <link>https://pedro-javierf.github.io/es/devblog/hacking3ds4/</link>
+      <pubDate>Thu, 25 Jul 2019 19:35:38 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/devblog/hacking3ds4/</guid>
+      <description>Introducción En este post vamos a introducirnos de lleno en el mundo de los ataques a nivel de hardware, especificamente orientados a la 3ds pero totalmente aplicables a otros dispositivos. He descrito todo con el máximo nivel de detalle posible, intentando explicar conceptos previos. Espero que sea de utilidad, y además, que sirva para preservar del olvido algunos increibles ataques que la pequeña consola de Nintendo ha visto.
+Ataques Hardware Hace unos años, cuando escribí mi primer artículo sobre hacking de la 3ds, pensaba que los ataques en el hardware pertenecían a ese tipo de habilidades mágicas que son imposibles de aprender si no has nacido con ellas.</description>
+    </item>
     
     <item>
       <title>Ingeniería Inversa en Bufferhack</title>
