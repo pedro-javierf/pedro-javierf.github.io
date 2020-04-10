@@ -16,7 +16,8 @@
       <pubDate>Mon, 06 Apr 2020 12:30:38 +0200</pubDate>
       
       <guid>https://pedro-javierf.github.io/devblog/tutorialwritingaghidraloader/</guid>
-      <description>Introduction All aboard the reversing train! It&amp;rsquo;s april 2020 and the whole world is slowed down by the covid-19 virus. I am as well in self-quarantine, so what a good oportunity to keep learning. Since I&amp;rsquo;m trying to move on from privative/paid software reverse engineering tools and starting to embrace free and open source alternatives, I decided it would be decent to learn more about Ghidra internals. Specially I wanted to write a loader for an unsupported format.</description>
+      <description>Introduction All aboard the reversing train! It&amp;rsquo;s april 2020 and the whole world has slowed down due to COVID-19. I figured this is a good oportunity to keep learning. Since I&amp;rsquo;m trying to move on from paid software reverse-engineering ,I started to embrace free and open-sourced alternatives.This would be decent to learn about Ghidra internals. Specially I wanted to write a loader for an unsupported format.
+What is a loader?</description>
     </item>
     
     <item>
