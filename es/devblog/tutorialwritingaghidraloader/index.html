@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang='es'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Introducción Todos abordo del tren del reversing! Abril de 2020 y el mundo entero parece haberse detenido debido al covid-19. Yo mismo me encuentro en cuarentena estos días, lo cual dentro de lo malo es una buena oportunidad para seguir aprendiendo. Llevo un tiempo dedicando mi esfuerzo en mejorar mi conocimiento de herramientas libres de ingeniería inversa (reversing) y dejar a un lado el software de pago, asi que decidí que sería una idea excelente aprender más sobre Ghidra y su funcionamiento.'>
+<meta name='theme-color' content='#6aff00'>
+
+<meta property='og:title' content='Tutorial: Escribir un loader para Ghidra • Dangling Pointr'>
+<meta property='og:description' content='Introducción Todos abordo del tren del reversing! Abril de 2020 y el mundo entero parece haberse detenido debido al covid-19. Yo mismo me encuentro en cuarentena estos días, lo cual dentro de lo malo es una buena oportunidad para seguir aprendiendo. Llevo un tiempo dedicando mi esfuerzo en mejorar mi conocimiento de herramientas libres de ingeniería inversa (reversing) y dejar a un lado el software de pago, asi que decidí que sería una idea excelente aprender más sobre Ghidra y su funcionamiento.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/tutorialwritingaghidraloader/'>
+<meta property='og:site_name' content='Dangling Pointr'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-04-06T12:30:38&#43;02:00'/><meta property='article:modified_time' content='2020-04-06T12:30:38&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <title>Tutorial: Escribir un loader para Ghidra • Dangling Pointr</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/tutorialwritingaghidraloader/'>
+  
+  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/tutorialwritingaghidraloader/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/tutorialwritingaghidraloader/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/tutorialwritingaghidraloader/'>
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#6aff00;}
+</style>
+
+  
+
+</head>
+<meta name="twitter:image:src" content="https://pedro-javierf.github.io/images/logo.png"> 
+<script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
+<link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
+<body class='page type-devblog has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Saltar al menú principal</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/es/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/es/'>
+      Dangling Pointr
+      </a>
+    </h2>
+    <div class='desc'>
+    Your blog about hacking &amp; learning
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Menú lateral'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/es/'>Inicio</a></li><li class='item'>
+  <a href='/es/talks/'>Charlas</a></li><li class='item'>
+  <a href='/es/devblog/'>Devblog</a></li><li class='item'>
+  <a href='/es/posts/'>OTROS</a></li><li class='item'>
+  <a href='/es/about/'>Sobre Mi</a></li></ul>
+    </div>
+  </nav>
+
+</section>
+  <a id="dark-mode-toggle">Dark Mode</a><br>
+  
+  
+  </div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Menú principal'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Saltar al contenido</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Alternar barra lateral</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/es/'>Inicio</a>
+      </li><li class='item'>
+        <a href='/es/talks/'>Charlas</a>
+      </li><li class='item'>
+        <a href='/es/devblog/'>Devblog</a>
+      </li><li class='item'>
+        <a href='/es/posts/'>OTROS</a>
+      </li><li class='item'>
+        <a href='/es/about/'>Sobre Mi</a>
+      </li><li class='item'>
+        <a href='/en/'><i class='fa fa-language'></i></a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking &amp; learning</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='es' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Tutorial: Escribir un loader para Ghidra</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posteado en </span>
+  <time class='entry-date' datetime='2020-04-06T12:30:38&#43;02:00'>2020, Apr 06</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+9 minutos de lectura
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h1 id="u-introducción-u"><u>Introducción</u></h1>
+
+<p>Todos abordo del tren del reversing! Abril de 2020 y el mundo entero parece haberse detenido debido al covid-19. Yo mismo me encuentro en cuarentena estos días, lo cual dentro de lo malo es una buena oportunidad para seguir aprendiendo. Llevo un tiempo dedicando mi esfuerzo en mejorar mi conocimiento de herramientas libres de ingeniería inversa (reversing) y dejar a un lado el software de pago, asi que decidí que sería una idea excelente aprender más sobre Ghidra y su funcionamiento. En especial tenía ganas de programar un loader para un formato no soportado.</p>
+
+<h1 id="qué-es-un-loader">¿Qué es un loader?</h1>
+
+<p>Un loader o cargador, y el concepto se aplica a la mayoría de herramientas de reversing, es una extensión de código que como su nombre indica permite cargar (load) tipos de archivos específicos. Es decir, el código entiende el formato del archivo. Ghidra está escrito en Java y también lo estará nuestra extensión.</p>
+
+<h1 id="qué-no-es-un-loader">¿Qué no es un loader?</h1>
+
+<p>Un loader o cargador se encarga exclusivamente de entender la estructura del archivo, <em>trocearlo</em>, y tratarlo de forma que Ghidra lo entienda. Por lo tanto, un cargador <strong>no</strong> añade soporte para nuevas arquitecturas, lenguajes o procesadores. Sin embargo, si instruye a Ghidra para que utilize el desensamblador adecuado para el código contenido en el archivo, por ejemplo.</p>
+
+<h1 id="entorno-de-desarrollo">Entorno de desarrollo</h1>
+
+<p>Tener Ghidra instalado es el primer requisito. Eclipse es el IDE o entorno preferido y tiene soporte oficial por parte de Ghidra. Descargaremos la última versión desde <a href="https://www.eclipse.org/downloads/" target="_blank">aquí</a> y lo instalaremos.</p>
+
+<p>En segundo lugar, hay que instalar la extensión de Ghidra para Eclipse. Para ello, abriremos Eclipse, haremos click en <strong>Help</strong>/<strong>Ayuda</strong>, después en <strong>Install New Software</strong>/<strong>Instalar Nuevo Software</strong>, encontraremos el botón <strong>Add</strong>/<strong>Añadir</strong> y seleccionaremos el archivo <em>GhidraDev.zip</em> que deberíamos poder encontrar en el directorio <em>/Extensions/Eclipse/GhidraDev/</em> en la carpeta de instalación de Ghidra. Reiniciamos Eclipse y estamos listos para crear un nuevo proyecto.</p>
+
+<h1 id="configurar-un-proyecto">Configurar un proyecto</h1>
+
+<p>La extensión GhidraDev nos provee con plantillas y ejemplos de código para todo tipo de extensiones como cargadores(loaders), analizadores(analyzers), etc.</p>
+
+<p><img src="img/im1.png" alt="Example image" /></p>
+
+<p>Creamos un nuevo proyecto y seleccionamos &ldquo;Ghidra Modula Project&rdquo; como el tipo de proyecto.</p>
+
+<p><img src="img/im2.PNG" alt="Example image" /></p>
+
+<p>A continuación, seremos preguntados sobre el nombre del proyecto. Seguido, podemos escoger que tipo de extensión queremos crear, podemos seleccionar más de una, y se crearán plantillas automáticamente, en este caso seleccionaremos exclusivamente Loader.</p>
+
+<p><img src="img/im3.PNG" alt="Example image" /></p>
+
+<p>Hacemos click en next/siguiente y finalmente seremos preguntados por la ruta donde tenemos nuestra instalación de Ghidra.</p>
+
+<h1 id="estructura-del-proyecto-de-cargador">Estructura del proyecto de cargador</h1>
+
+<p><img src="img/im4.PNG" alt="Example image" /></p>
+
+<p>Eclipse habrá creado un archivo .java con el nombre de nuestro cargador(ExampleLoaderLoader.java en este ejemplo) con algunos métodos básicos que debemos implementar. Veamos para que sirven.</p>
+
+<p><code>public String getName()</code>: Devuelve el nombre de nuestro loader. Simplemente reemplazamos la string con una que describa el tipo de archivo que queremos cargar, y adicionalmente, la extensión más común de ese tipo de archivos.</p>
+
+<p><code>public Collection&lt;LoadSpec&gt; findSupportedLoadSpecs(ByteProvider provider)</code>: Comprueba si el archivo introducido puede ser cargado por esta extensión.</p>
+
+<p><code>protected void load(ByteProvider provider, LoadSpec loadSpec, List&lt;Option&gt; options, Program program, TaskMonitor monitor, MessageLog log)</code>: Si el archivo era válido, este método trabajará con el, lo leerá, lo tratará si es necesario, y configurará la <em>database</em> de Ghidra de forma acorde.</p>
+
+<p>No necesitamos implementar más métodos.</p>
+
+<h1 id="un-caso-práctico">Un caso práctico</h1>
+
+<p>Hasta ahora hemos visto los detalles genéricos de un loader, pero lo que habrá que hacer a continuación depende del tipo de archivo que queramos cargar. En mi caso, estoy desarrollando NTRGhidra, un cargador para archivos de Nintendo DS (NTR). La última versión del código puede encontrarse en <a href="https://github.com/pedro-javierf/NTRGhidra" target="_blank">github</a>.</p>
+
+<p>Después de leer el código de numerosos cargadores de Ghidra de código público, llegué a la conclusión de que existen numerosas metodologías y modelos a la hora de programar una extensión de este tipo asi que veamos de que forma se puede hacer.</p>
+
+<h2 id="1-findsupportedloadspecs">1. findSupportedLoadSpecs</h2>
+
+<p>En este método tenemos que comprobar si el archivo corresponde al tipo que nuestro cargador es capaz de entender. La forma más común de hacer esto consiste en comprobar si existe alguna constante (normalmente llamada <em>magic number</em>) en el archivo que confirme su tipo. Veamos un ejemplo genérico, archivos PNG:</p>
+
+<p><img src="img/im5.PNG" alt="Example image" /></p>
+
+<p>Estos archivos siempre tienen o deberáin tener los primeros 4 bytes de esta forma. A la hora de tratar con nuestro nuevo tipo de archivo, debemos encontrar alguna constante o firma similar, que nos permita identificar el archivo. Comprobando la estructura de la <a href="https://problemkaputt.de/gbatek.htm#dscartridgeheader" target="_blank">cabecera de un archivo de Nintendo DS</a> podemos observar la siguiente entrada:</p>
+
+<pre><code>Addr   Size   Description
+15Ch    2     Nintendo Logo Checksum, CRC-16 of [0C0h-15Bh], fixed CF56h
+</code></pre>
+
+<p>El valor 0xCF56 (2 bytes) debería aparecer siempre en la dirección 0x15C del archivo, y dado que es un checksum del logo de Nintendo, que es constante, el checksum también es constante. Veamos como implementar lo descubierto hasta ahora:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java"><span style="color:#a6e22e">@Override</span>
+<span style="color:#960050;background-color:#1e0010">public Collection</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">LoadSpec&gt; findSupportedLoadSpecs</span>(<span style="color:#960050;background-color:#1e0010">ByteProvider provider</span>) <span style="color:#960050;background-color:#1e0010">throws IOException </span>{
+<span style="color:#75715e">// In this callback loader should decide whether it able to process the file and return instance of the class LoadSpec, telling user how file can be processed*/
+</span><span style="color:#75715e"></span>		
+	<span style="color:#75715e">//Create a binary reader	
+</span><span style="color:#75715e"></span>	<span style="color:#960050;background-color:#1e0010">BinaryReader reader </span><span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BinaryReader(provider, <span style="color:#66d9ef">true</span>);	
+	<span style="color:#960050;background-color:#1e0010">boolean targetCPU</span>;
+		
+  <span style="color:#75715e">//Read the magic number from the file  
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> ((reader.<span style="color:#a6e22e">readInt</span>(0x15C) <span style="color:#f92672">&amp;</span> 0x0000FFFF) <span style="color:#f92672">==</span> (0xCF56))
+	{
+		<span style="color:#75715e">//Nintendo DS has two CPUs. Ask the user which code he/she wants to work with, the ARM7 one or the ARM9 one.
+</span><span style="color:#75715e"></span>		targetCPU <span style="color:#f92672">=</span> promptToAskCPU();
+			
+		<span style="color:#75715e">//Setup Ghidra with the chosen CPU.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span>(targetCPU)
+			<span style="color:#66d9ef">return</span> List.<span style="color:#a6e22e">of</span>(<span style="color:#66d9ef">new</span> LoadSpec(<span style="color:#66d9ef">this</span>, 0, <span style="color:#66d9ef">new</span> LanguageCompilerSpecPair(<span style="color:#e6db74">&#34;ARM32:v4t&#34;</span>, <span style="color:#e6db74">&#34;default&#34;</span>), <span style="color:#66d9ef">true</span>));
+		<span style="color:#66d9ef">else</span>
+			<span style="color:#66d9ef">return</span> List.<span style="color:#a6e22e">of</span>(<span style="color:#66d9ef">new</span> LoadSpec(<span style="color:#66d9ef">this</span>, 0, <span style="color:#66d9ef">new</span> LanguageCompilerSpecPair(<span style="color:#e6db74">&#34;ARM32:v5t&#34;</span>, <span style="color:#e6db74">&#34;default&#34;</span>), <span style="color:#66d9ef">true</span>));
+	}
+		
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+}</code></pre></div>
+
+<p>Como se puede observar, se intenta leer la dirección 0x15C y comprobar si la constante coincide. Si esto falla, el método devuelve una ArrayList vacía, lo que significa que nuestro cargador no sabe como interpretar el susodicho archivo.</p>
+
+<p>Por el contrario, si el archivo es válido, el cargador llama a un método que pregunta al usuario que parte del archivo quiere cargar. Esto se debe a que los archivos .nds contienen <strong>2</strong> binarios de diferentes versiones de la arquitectura ARM, uno del procesador ARM7TDMI que utiliza la arquitectura ARMv4t y el otro de un procesador ARM9 que utiliza la arquitectura ARMv5t.</p>
+
+<p>Cómo encontrar la combinación exacta que pasar a LoadSpec es sencillo. Todas las soportadas se encuentran en el archivo Ghidra/Processors/ARM/data/languages/ARM.opinion.</p>
+
+<blockquote>
+<p>¿Qué representa cada parte de la cadena ARM:LE:32:v4t? ARM especifica que se trata de un procesador ARM. LE significa Little Endian. 32 representa un procesador de x32 bits. Y v4t se trata de la versión de la arquitectura del ARM.</p>
+</blockquote>
+
+<p>promptToAskCPU es simplemente un método que crea una ventana y pregunta al usuario que parte del archivo quiere cargar. El código se encuentra en github. Si el archivo a cargar solo contiene código para una sola arquitectura o CPU podemos devolver un solo LoadSpec : <code>return new LoadSpec(...)</code> con esa arquitectura, sin preguntar al usuario.</p>
+
+<h2 id="2-load">2. load()</h2>
+
+<p>El método load es tal vez el más importante de un cargador. Se encarga de entender nuestro nuevo tipo de archivo. Hay varias formas de programarlo</p>
+
+<p>La primera de ellas es crear una clase de la forma <em>{nombreDelFormato}Cabecera</em> que se encargue de parsear la cabecera del archivo (si existe) y que devuelva las direcciones de los segmentos en los que se divide el archivo. Alternativamente, si el formato es sencillo o los segmentos siempre se encuentran en las mismas direcciones en el hardware real (como en el caso de Nintendo DS) podemos sencillamente programar lo que necesitemos dentro del método load.</p>
+
+<p>Antes de proseguir considero importante explicar una pequeña cantidad de teoría sobre Ghidra. Esta dispone de dos APIs que pueden usarse para programar extensiones: la api &ldquo;completa&rdquo; con la que podemos hacer prácticamente cualquier cosa. Estos métodos pueden cambiar de versión en versión. Y la API flat, la cual en teoría no cambia entre versiones, pero tiene capacidades limitadas. He utilizado ambas en NTRGhidra.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java"><span style="color:#a6e22e">@Override</span>
+<span style="color:#960050;background-color:#1e0010">protected void </span>load(<span style="color:#960050;background-color:#1e0010">ByteProvider provider</span>, <span style="color:#960050;background-color:#1e0010">LoadSpec loadSpec</span>, <span style="color:#960050;background-color:#1e0010">List&lt;Option&gt; options</span>,<span style="color:#960050;background-color:#1e0010">Program program</span>, <span style="color:#960050;background-color:#1e0010">TaskMonitor monitor</span>, <span style="color:#960050;background-color:#1e0010">MessageLog log</span>) <span style="color:#960050;background-color:#1e0010">throws CancelledException</span>, IOException{
+	<span style="color:#960050;background-color:#1e0010">BinaryReader reader </span><span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BinaryReader(provider, <span style="color:#66d9ef">true</span>);
+	<span style="color:#960050;background-color:#1e0010">FlatProgramAPI api </span><span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FlatProgramAPI(program, monitor);
+	<span style="color:#960050;background-color:#1e0010">Memory mem </span><span style="color:#f92672">=</span> program.<span style="color:#a6e22e">getMemory</span>();
+	...</code></pre></div>
+
+<p>Empezemos por el principio. El argumento <em>provider</em> es un objeto que nos permite leer bytes de nuestro archivo. Lo envolveremos en un objeto del tipo BinaryReader para mayor facilidad. Después, creamos un objeto para utilizar la Flat API, y finalmente, obtenemos una referencia a la memoria (también llamada database) del proyecto actual.</p>
+
+<p>Y podemos proceder a crear los segmentos de memoria y a llenarlos de datos:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java"><span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>chosenCPU) <span style="color:#75715e">//ARM9
+</span><span style="color:#75715e"></span>{
+	monitor.<span style="color:#a6e22e">setMessage</span>(<span style="color:#e6db74">&#34;Loading Nintendo DS ARM9 binary...&#34;</span>);
+
+	<span style="color:#75715e">//Read the important values from the header. Can be implemented in a separate class.
+</span><span style="color:#75715e"></span>	<span style="color:#960050;background-color:#1e0010">int arm9_file_offset </span><span style="color:#f92672">=</span> reader.<span style="color:#a6e22e">readInt</span>(0x020);
+	<span style="color:#960050;background-color:#1e0010">int arm9_entrypoint </span><span style="color:#f92672">=</span> reader.<span style="color:#a6e22e">readInt</span>(0x024);
+	<span style="color:#960050;background-color:#1e0010">int arm9_ram_base </span><span style="color:#f92672">=</span> reader.<span style="color:#a6e22e">readInt</span>(0x028);
+	<span style="color:#960050;background-color:#1e0010">int arm9_size </span><span style="color:#f92672">=</span> reader.<span style="color:#a6e22e">readInt</span>(0x02C);
+	
+	<span style="color:#75715e">// Main RAM block: has to be created without the Flat API.
+</span><span style="color:#75715e"></span>	<span style="color:#960050;background-color:#1e0010">ghidra.program.model.address.Address addr </span><span style="color:#f92672">=</span> program.<span style="color:#a6e22e">getAddressFactory</span>().<span style="color:#a6e22e">getDefaultAddressSpace</span>().<span style="color:#a6e22e">getAddress</span>(arm9_ram_base);
+	<span style="color:#960050;background-color:#1e0010">MemoryBlock block </span><span style="color:#f92672">=</span> program.<span style="color:#a6e22e">getMemory</span>().<span style="color:#a6e22e">createInitializedBlock</span>(<span style="color:#e6db74">&#34;ARM9 Main Memory&#34;</span>, addr, arm9_size, (<span style="color:#66d9ef">byte</span>)0x00, monitor, <span style="color:#66d9ef">false</span>);	
+	
+	<span style="color:#75715e">//Set properties
+</span><span style="color:#75715e"></span>	block.<span style="color:#a6e22e">setRead</span>(<span style="color:#66d9ef">true</span>);
+	block.<span style="color:#a6e22e">setWrite</span>(<span style="color:#66d9ef">false</span>);
+	block.<span style="color:#a6e22e">setExecute</span>(<span style="color:#66d9ef">true</span>);		
+		
+	<span style="color:#75715e">//read arm9 blob
+</span><span style="color:#75715e"></span>	<span style="color:#960050;background-color:#1e0010">byte romBytes</span>[] <span style="color:#f92672">=</span> provider.<span style="color:#a6e22e">readBytes</span>(arm9_file_offset, arm9_size); 
+				
+	<span style="color:#75715e">//Fill the main memory segment with the data from the binary directly
+</span><span style="color:#75715e"></span>	mem.<span style="color:#a6e22e">setBytes</span>(api.<span style="color:#a6e22e">toAddr</span>(arm9_ram_base), romBytes);
+
+	<span style="color:#75715e">// Empty Memory segments. Can be created with the Flat API.
+</span><span style="color:#75715e"></span>	api.<span style="color:#a6e22e">createMemoryBlock</span>(<span style="color:#e6db74">&#34;Shared WRAM&#34;</span>, api.<span style="color:#a6e22e">toAddr</span>(0x03000000), <span style="color:#66d9ef">null</span>, 0x01000000, <span style="color:#66d9ef">true</span>);
+	api.<span style="color:#a6e22e">createMemoryBlock</span>(<span style="color:#e6db74">&#34;ARM9 I/O Ports&#34;</span>, api.<span style="color:#a6e22e">toAddr</span>(0x04000000), <span style="color:#66d9ef">null</span>, 0x01000000, <span style="color:#66d9ef">true</span>);
+	api.<span style="color:#a6e22e">createMemoryBlock</span>(<span style="color:#e6db74">&#34;Standard Palettes&#34;</span>, api.<span style="color:#a6e22e">toAddr</span>(0x05000000), <span style="color:#66d9ef">null</span>, 0x01000000, <span style="color:#66d9ef">true</span>);
+	api.<span style="color:#a6e22e">createMemoryBlock</span>(<span style="color:#e6db74">&#34;VRAM - Engine A BG VRAM&#34;</span>, api.<span style="color:#a6e22e">toAddr</span>(0x06000000), <span style="color:#66d9ef">null</span>, 0x00200000, <span style="color:#66d9ef">true</span>);
+	api.<span style="color:#a6e22e">createMemoryBlock</span>(<span style="color:#e6db74">&#34;VRAM - Engine B BG VRAM&#34;</span>, api.<span style="color:#a6e22e">toAddr</span>(0x06200000), <span style="color:#66d9ef">null</span>, 0x00200000, <span style="color:#66d9ef">true</span>);
+	api.<span style="color:#a6e22e">createMemoryBlock</span>(<span style="color:#e6db74">&#34;VRAM - Engine A OBJ VRAM&#34;</span>, api.<span style="color:#a6e22e">toAddr</span>(0x06400000), <span style="color:#66d9ef">null</span>, 0x00200000, <span style="color:#66d9ef">true</span>);
+	api.<span style="color:#a6e22e">createMemoryBlock</span>(<span style="color:#e6db74">&#34;VRAM - Engine B OBJ VRAM&#34;</span>, api.<span style="color:#a6e22e">toAddr</span>(0x06600000), <span style="color:#66d9ef">null</span>, 0x00200000, <span style="color:#66d9ef">true</span>);
+	api.<span style="color:#a6e22e">createMemoryBlock</span>(<span style="color:#e6db74">&#34;VRAM - LCDC&#34;</span>, api.<span style="color:#a6e22e">toAddr</span>(0x06800000), <span style="color:#66d9ef">null</span>, 0x00200000, <span style="color:#66d9ef">true</span>);
+	
+	<span style="color:#75715e">//Set entrypoint
+</span><span style="color:#75715e"></span>	api.<span style="color:#a6e22e">addEntryPoint</span>(api.<span style="color:#a6e22e">toAddr</span>(arm9_entrypoint));
+	api.<span style="color:#a6e22e">disassemble</span>(api.<span style="color:#a6e22e">toAddr</span>(arm9_entrypoint));
+	api.<span style="color:#a6e22e">createFunction</span>(api.<span style="color:#a6e22e">toAddr</span>(arm9_entrypoint), <span style="color:#e6db74">&#34;_entry_arm9&#34;</span>);
+}</code></pre></div>
+
+<p>En el ejemplo de arriba, el cargador lee y trata el binario del procesador ARM9. El segmento más importante es el que se llena con datos desde el archivo, y hay que crearlo con el método createInitializedBlock() (api &ldquo;completa&rdquo;) si no, obtendremos una excepción al llenarlo más adelante con el método setBytes(). Los segmentos restantes están vacíos. Su dirección de memoria y su tamaño son constantes y están hardcodeados en el código (aunque cuando haya implementado otras características extra que son importantes tal vez limpie un poco más este código). De cualquier manera, esto es correcto ya que en el hardware real estas direcciones nunca cambian.</p>
+
+<h1 id="a-futuro">A futuro</h1>
+
+<p>Espero que este nuevo tutorial contribuya a tener más contenido sobre Ghidra y ejemplos en la web. Para cualquier sugerencia o corrección, deja un comentario al final de la entrada!</p>
+
+<h1 id="referencias">Referencias</h1>
+
+<p>No es posible tener una guía todo en uno sobre reversing ni sobre Ghidra, por ello, a continuación encontrarás una lista con más recursos, código y tutoriales sobre cargadores para Ghidra. Los he utilizado como referencia (aviso: se encuentran en inglés):</p>
+
+<ul>
+<li><a href="https://habr.com/en/post/443318/" target="_blank">WASM Loader</a></li>
+<li><a href="https://oshogbo.vexillium.org/blog/70/" target="_blank">Linear eXecutable format Loader</a></li>
+<li><a href="https://wrongbaud.github.io/writing-a-ghidra-loader/" target="_blank">STM 32 Ghidra Loader</a></li>
+</ul>
+
+<p>Ejemplos de código en github:</p>
+
+<ul>
+<li><a href="https://github.com/VGKintsugi/Ghidra-SegaMasterSystem-Loader" target="_blank">Sega MasterSystem Loader</a></li>
+<li><a href="https://github.com/lab313ru/ghidra_psx_ldr/" target="_blank">PSX Loader</a></li>
+</ul>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/es/devblog/ikariamexploit/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Anterior</span>
+        <span class='screen-reader-text'>Anterior entrada: </span>Hackeando Ikariam: Cross Site Scripting (xss) persistente y &#39;weaponización&#39;</a>
+    </div></div>
+</nav>
+
+
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Menú social'>
+    <ul><li>
+        <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Github en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/DanglingPointr' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Twitter en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Linkedin en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2020  </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

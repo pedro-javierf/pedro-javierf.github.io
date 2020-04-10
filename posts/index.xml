@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Other Posts on PJ&#39;s Playground</title>
+    <title>Other Posts on Dangling Pointr</title>
     <link>https://pedro-javierf.github.io/posts/</link>
-    <description>Recent content in Other Posts on PJ&#39;s Playground</description>
+    <description>Recent content in Other Posts on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 31 May 2017 11:39:11 +0200</lastBuildDate>
     
@@ -17,7 +17,6 @@
       
       <guid>https://pedro-javierf.github.io/posts/welcome/</guid>
       <description> Fellow Reader  Welcome to my new, redesigned, website. I hope you enjoy and learn from the contents here.
-- Pedro Javier
  </description>
     </item>
     

@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Home on PJ&#39;s Playground</title>
+    <title>Home on Dangling Pointr</title>
     <link>https://pedro-javierf.github.io/</link>
-    <description>Recent content in Home on PJ&#39;s Playground</description>
+    <description>Recent content in Home on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 15 Nov 2019 19:35:38 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2020 12:30:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tutorial: Writing a Ghidra loader</title>
+      <link>https://pedro-javierf.github.io/devblog/tutorialwritingaghidraloader/</link>
+      <pubDate>Mon, 06 Apr 2020 12:30:38 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/devblog/tutorialwritingaghidraloader/</guid>
+      <description>Introduction All aboard the reversing train! It&amp;rsquo;s april 2020 and the whole world is slowed down by the covid-19 virus. I am as well in self-quarantine, so what a good oportunity to keep learning. Since I&amp;rsquo;m trying to move on from privative/paid software reverse engineering tools and starting to embrace free and open source alternatives, I decided it would be decent to learn more about Ghidra internals. Specially I wanted to write a loader for an unsupported format.</description>
+    </item>
     
     <item>
       <title>Exploiting Ikariam: Persistent XSS and weaponization WriteUp</title>
@@ -111,7 +120,6 @@ Since windows vista, Microsoft implemented the so called User Account Control (U
       
       <guid>https://pedro-javierf.github.io/posts/welcome/</guid>
       <description> Fellow Reader  Welcome to my new, redesigned, website. I hope you enjoy and learn from the contents here.
-- Pedro Javier
  </description>
     </item>
     

@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Devblog on PJ&#39;s Playground</title>
+    <title>Devblog on Dangling Pointr</title>
     <link>https://pedro-javierf.github.io/es/devblog/</link>
-    <description>Recent content in Devblog on PJ&#39;s Playground</description>
+    <description>Recent content in Devblog on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 25 Jul 2019 19:35:38 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2020 12:30:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/es/devblog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tutorial: Escribir un loader para Ghidra</title>
+      <link>https://pedro-javierf.github.io/es/devblog/tutorialwritingaghidraloader/</link>
+      <pubDate>Mon, 06 Apr 2020 12:30:38 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/devblog/tutorialwritingaghidraloader/</guid>
+      <description>Introducción Todos abordo del tren del reversing! Abril de 2020 y el mundo entero parece haberse detenido debido al covid-19. Yo mismo me encuentro en cuarentena estos días, lo cual dentro de lo malo es una buena oportunidad para seguir aprendiendo. Llevo un tiempo dedicando mi esfuerzo en mejorar mi conocimiento de herramientas libres de ingeniería inversa (reversing) y dejar a un lado el software de pago, asi que decidí que sería una idea excelente aprender más sobre Ghidra y su funcionamiento.</description>
+    </item>
+    
+    <item>
+      <title>Hackeando Ikariam: Cross Site Scripting (xss) persistente y &#39;weaponización&#39;</title>
+      <link>https://pedro-javierf.github.io/es/devblog/ikariamexploit/</link>
+      <pubDate>Fri, 15 Nov 2019 19:35:38 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/devblog/ikariamexploit/</guid>
+      <description>Introducción ⚠  TODO EL CONTENIDO SE PROPORCIONA &amp;ldquo;COMO ESTÁ&amp;rdquo;, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A GARANTÍAS DE COMERCIALIZACIÓN, IDONEIDAD PARA UN PROPÓSITO PARTICULAR E INCUMPLIMIENTO. EN NINGÚN CASO LOS AUTORES O PROPIETARIOS DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE NINGUNA RECLAMACIÓN, DAÑOS U OTRAS RESPONSABILIDADES, YA SEA EN UNA ACCIÓN DE CONTRATO, AGRAVIO O CUALQUIER OTRO MOTIVO, DERIVADAS DE EL CONTENIDO O SU USO U OTRO TIPO DE ACCIONES EN EL CONTENIDO.</description>
+    </item>
     
     <item>
       <title>Hacking The 3ds IV: Ataques Hardware</title>
