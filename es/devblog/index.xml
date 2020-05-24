@@ -5,10 +5,21 @@
     <link>https://pedro-javierf.github.io/es/devblog/</link>
     <description>Recent content in Devblog on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 06 Apr 2020 12:30:38 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2020 12:30:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/es/devblog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Loader Avanzado en Ghidra: labels, overlays y Function ID</title>
+      <link>https://pedro-javierf.github.io/es/devblog/advancedghidraloader/</link>
+      <pubDate>Sun, 24 May 2020 12:30:38 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/devblog/advancedghidraloader/</guid>
+      <description>Antecedentes El mes pasado hablábamos sobre los conceptos básicos de un Loader para Ghidra. Esta vez cubriré algunas características adicionales para mejorar nuestra extensión y hacerla más útil y manejable.
+Veremos estas nuevas características en orden ascendente de complejidad.
+Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquitecturas que son &amp;ldquo;simples&amp;rdquo; conceptualmente. Las medidas de seguridad son pocas, y el código de un programa suele compilarse de forma estática, y se carga siempre en la misma dirección de memoria.</description>
+    </item>
     
     <item>
       <title>Tutorial: Escribir un loader para Ghidra</title>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang='es'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Antecedentes El mes pasado hablábamos sobre los conceptos básicos de un Loader para Ghidra. Esta vez cubriré algunas características adicionales para mejorar nuestra extensión y hacerla más útil y manejable.
+Veremos estas nuevas características en orden ascendente de complejidad.
+Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquitecturas que son &ldquo;simples&rdquo; conceptualmente. Las medidas de seguridad son pocas, y el código de un programa suele compilarse de forma estática, y se carga siempre en la misma dirección de memoria.'>
+<meta name='theme-color' content='#6aff00'>
+
+<meta property='og:title' content='Loader Avanzado en Ghidra: labels, overlays y Function ID • Dangling Pointr'>
+<meta property='og:description' content='Antecedentes El mes pasado hablábamos sobre los conceptos básicos de un Loader para Ghidra. Esta vez cubriré algunas características adicionales para mejorar nuestra extensión y hacerla más útil y manejable.
+Veremos estas nuevas características en orden ascendente de complejidad.
+Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquitecturas que son &ldquo;simples&rdquo; conceptualmente. Las medidas de seguridad son pocas, y el código de un programa suele compilarse de forma estática, y se carga siempre en la misma dirección de memoria.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'>
+<meta property='og:site_name' content='Dangling Pointr'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-05-24T12:30:38&#43;02:00'/><meta property='article:modified_time' content='2020-05-24T12:30:38&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <title>Loader Avanzado en Ghidra: labels, overlays y Function ID • Dangling Pointr</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'>
+  
+  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'>
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#6aff00;}
+</style>
+
+  
+
+</head>
+<meta name="twitter:image:src" content="https://pedro-javierf.github.io/images/logo.png"> 
+<script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
+<link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
+<body class='page type-devblog has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Saltar al menú principal</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/es/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/es/'>
+      Dangling Pointr
+      </a>
+    </h2>
+    <div class='desc'>
+    Your blog about hacking &amp; learning
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Menú lateral'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/es/'>Inicio</a></li><li class='item'>
+  <a href='/es/talks/'>Charlas</a></li><li class='item'>
+  <a href='/es/devblog/'>Devblog</a></li><li class='item'>
+  <a href='/es/posts/'>OTROS</a></li><li class='item'>
+  <a href='/es/about/'>Sobre Mi</a></li></ul>
+    </div>
+  </nav>
+
+</section>
+  <a id="dark-mode-toggle">Dark Mode</a><br>
+  
+  
+  </div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Menú principal'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Saltar al contenido</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Alternar barra lateral</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/es/'>Inicio</a>
+      </li><li class='item'>
+        <a href='/es/talks/'>Charlas</a>
+      </li><li class='item'>
+        <a href='/es/devblog/'>Devblog</a>
+      </li><li class='item'>
+        <a href='/es/posts/'>OTROS</a>
+      </li><li class='item'>
+        <a href='/es/about/'>Sobre Mi</a>
+      </li><li class='item'>
+        <a href='/en/'><i class='fa fa-language'></i></a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking &amp; learning</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='es' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Loader Avanzado en Ghidra: labels, overlays y Function ID</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posteado en </span>
+  <time class='entry-date' datetime='2020-05-24T12:30:38&#43;02:00'>2020, May 24</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+6 minutos de lectura
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h1 id="u-antecedentes-u"><u>Antecedentes</u></h1>
+
+<p>El mes pasado hablábamos sobre los conceptos básicos de un Loader para Ghidra. Esta vez cubriré algunas características adicionales para mejorar nuestra extensión y hacerla más útil y manejable.</p>
+
+<p>Veremos estas nuevas características en orden ascendente de complejidad.</p>
+
+<h1 id="labels">Labels</h1>
+
+<p>Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquitecturas que son &ldquo;simples&rdquo; conceptualmente. Las medidas de seguridad son pocas, y el código de un programa suele compilarse de forma estática, y se carga siempre en la misma dirección de memoria. Esto también ocurre con las librerias.</p>
+
+<p>Además, es común tener dispositivos I/O (entrada/salida) mapeados a direcciones de memoria o controlados a través de registros mapeados en memoria, como puede ser el caso de DMA y muchos otros.</p>
+
+<p>Accedemos a estos registros utilizando una dirección física <em>constante</em> de memoria, es decir, que no cambia al reiniciar el dispositivo. En estos casos, podemos asignar nombres a esas direcciones (el nombre o trabajo del registro, por ejemplo) y hacer que Ghidra reemplaze todas las referencias a esa dirección con el nombre, haciéndo el código decompilado o el de-ensamblado mucho más comprensible para las personas.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NDSLabelList</span> {
+	<span style="color:#75715e">//This internal class represents a location of interest (registers, i/o, etc)
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NDSLabel</span> {
+		String name;
+		<span style="color:#66d9ef">int</span> addr;
+
+		<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">NDSLabel</span>(String name, <span style="color:#66d9ef">int</span> addr) {
+				<span style="color:#66d9ef">this</span>.name <span style="color:#f92672">=</span> name;
+				<span style="color:#66d9ef">this</span>.addr <span style="color:#f92672">=</span> addr;
+		}
+		<span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">name</span>() {<span style="color:#66d9ef">return</span> name;}
+		<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">addr</span>() {<span style="color:#66d9ef">return</span> addr;}
+
+	}
+
+	<span style="color:#75715e">//This class uses a singleton pattern
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> NDSLabelList _instance <span style="color:#f92672">=</span> null;
+</code></pre></div>
+
+<p>Es práctico crear una clase del tipo <em>XYZLabelList</em>, en este caso, utilizando un patrón Singleton para que solo exista una instancia de esta clase.
+Internamente, esta clase contiene una lista de objetos del tipo <em>XYZLabel</em>, una clase que solo contiene la dirección de memoria y el nombre que le asignamos a esta, es decir, representa una de estas etiquetas o &ldquo;labels&rdquo;.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>NDSLabel<span style="color:#f92672">&gt;</span> _ARM9labels <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>NDSLabel<span style="color:#f92672">&gt;</span>();
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>NDSLabel<span style="color:#f92672">&gt;</span> _ARM7labels <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>NDSLabel<span style="color:#f92672">&gt;</span>();
+
+<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">NDSLabelList</span>()
+{	
+	<span style="color:#75715e">/*ARM 9*/</span>
+	_ARM9labels.add(<span style="color:#66d9ef">new</span> NDSLabel(<span style="color:#e6db74">&#34;REG_DISPCNT&#34;</span>, <span style="color:#ae81ff">0x4000000</span>));
+	_ARM9labels.add(<span style="color:#66d9ef">new</span> NDSLabel(<span style="color:#e6db74">&#34;REG_DISPSTAT&#34;</span>, <span style="color:#ae81ff">0x4000004</span>));
+	...
+</code></pre></div>
+
+<p>En el constructor podemos añadir tantas clases como queramos.
+Y finalmente, en el código de nuestro loader iteramos esta lista y registramos cada etiqueta en Ghidra:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//Labels (REGISTERS, others, etc.)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>(NDSLabel l: NDSLabelList.getInstance().getARM9Labels())
+{
+	api.createLabel(api.toAddr(l.addr()),l.name(),true);
+}
+</code></pre></div>
+
+<p>¿El resultado? Un mapa de memoria más documentado, y un código más leible.</p>
+
+<p><img src="img/labels.PNG" alt="Example image" /></p>
+
+<h1 id="overlays">Overlays</h1>
+
+<p>Los overlays (<em>traducción:</em> superposición) no son más que eso, secciones de memoria cuya dirección es la misma, y por lo tanto se superponen unas a otras. No es difícil encontrar código que utilize overlays en dispositivos embebidos, con poca memoria RAM pero con mucha ROM.</p>
+
+<p>Por ejemplo, disponemos de dos rutinas diferentes. Supongamos que ambas ocupan 0x100 bytes y que nuestra RAM empieza en 0xA0000000. Podríamos decidir cargar la primera en 0xA0000100 y la siguiente en 0xA0000200. Pero, ¿Y si no tenemos tanta memoria? En ese caso, podríamos utilizar una de ellas hasta que ya no la necesitemos, y proceder a cargar la siguiente en el mismo trozo de memoria, leyéndola desde la memoria ROM. Otro ejemplo conocido es el de los llamados &ldquo;bancos de memoria&rdquo; en videoconsolas antiguas.</p>
+
+<p>Por supuesto, en el dispositivo real, solo un overlay puede estar a la vez en la memoria ram principal. Pero ambos están en la ROM. Así que, ¿por qué no ponérselo fácil a la persona que use nuestro plugin y cargar ambos en Ghidra a la vez?</p>
+
+<p>Podemos hacerlo con una sencilla línea de código:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">createInitializedBlock(program, true, <span style="color:#e6db74">&#34;overlay_&#34;</span><span style="color:#f92672">+</span>i, api.toAddr(overlay.RamAddress), stream, overlay.RamSize, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, true, true, true, log, monitor);
+</code></pre></div>
+
+<p>Por descontado debemos proveer los argumentos <em>program</em> (el objeto de programa de nuestro Loader). También &ldquo;overlay_&ldquo;+i que es el nombre del overlay (dentro de un bucle for), seguido por la dirección de memoria en la que se mapea el overlay, un stream de entrada con los datos binarios que cargaremos en el overlay, el tamaño, y un puñado de flags adicionales (read/write/execute).</p>
+
+<p>El código de <a href="https://github.com/pedro-javierf/NTRGhidra" target="_blank">NTRGhidra</a> contiene todo esto en contexto.</p>
+
+<p><img src="img/overlays.PNG" alt="Example image" /></p>
+
+<h1 id="function-id-fid-databases-y-tablas-de-hashes">Function ID, fid databases y tablas de hashes</h1>
+
+<p>Una funcionalidad interesante que nos permite facilitar el análisis de muestras de binarios similares es Function ID. <em>Nota:</em> <strong>Function ID puede utilizarse sin un loader pero</strong> si acompañamos nuestra extensión de bases de datos de function id(<em>fidDb</em> de ahora en adelante) pregeneradas, tendremos un software mucho más útil. Sin ir más lejos, esto es algo en lo que me encuentro trabajando actualmente para NTRGhidra.</p>
+
+<blockquote>
+<p>Function ID sería el simil a F.L.I.R.T. de IDA Pro. Afortunadamente, si estás pensando en dejar IDA y pasar a Ghidra, estás de suerte, hay una herramienta para convertir automaticamente bases de datos flirt a fidDb.</p>
+</blockquote>
+
+<p>¿Cómo funciona? Function ID genera hashes de las funciones que le indiquemos, de forma que si aparecen en otros programas, no necesitaremos volver a analizarlas y descubrir que hacen. Tendremos su nombre.</p>
+
+<p>Hay varias formas de crear y llenar nuestra <em>fidDb</em>. La forma manual es trabajar con una muestra, renombrar/analizar un cierto número de funciones, y después utilizar la opción &ldquo;llenar fiDb desde programa&rdquo; (&ldquo;populate fidDb from program&rdquo;). Otra posibilidad es generar las firmas de funciones a partir de archivos .o (librerias).</p>
+
+<p><img src="img/populatefid.png" alt="Example image" /></p>
+
+<p>Esta opción genera un archivo .fidb que contendrá nuestras preciadas funciones.</p>
+
+<p><img src="img/fidtables.png" alt="Example image" /></p>
+
+<p>Hay algunos casos en los que una función no puede añadirse a la base de datos, como puede ser una función extremadamente pequeña (su hash colisionaría con muchos fragmentos binarios) pero, para la mayoría de casos, Function Id está a la altura y hace el trabajo de forma excelente.</p>
+
+<h1 id="bonus-peculiaridades-de-java">Bonus: peculiaridades de Java</h1>
+
+<p>Si tratamos de implementar alguna rutina adicional, como puede ser de decompresión, en Java, tal vez encontremos algunos comportamientos&hellip; <em>peculiares</em>.</p>
+
+<ul>
+<li>Java no contiene tipos de datos sin signo (unsigned)</li>
+</ul>
+
+<p>Sí, asi es. Esto es especialmente inconveniente cuando portamos código desde otro lenguaje compilado. El mejor tipo de datos para valores muy altos (como los de un unsigned int) suele ser el <em>long</em></p>
+
+<ul>
+<li>Java no tiene soporte <em>real</em> para hacer operaciones con bytes en tipos que no sean <em>int</em> o <em>long</em>.</li>
+</ul>
+
+<p>Si intentamos hacer alguna operación de bits (shifts, and, or,..) en tipos como <em>byte</em>, la variable se convertirá de forma invisible a <em>int</em> antes de la operación. ¡Cuidado! porque esto puede causar problemas si nuestro bit tiene que ser tratado como unsigned pero se trata como con signo (bit más significante igual a 1). Dado que se utiliza complemento a 2 para la representación, al convertir a int los 8 bits se extenderán a 32, pero se hará con 1&rsquo;s, no con 0&rsquo;s.</p>
+
+<ul>
+<li>Right shift sin signo</li>
+</ul>
+
+<p>En un intento por reducir el calvario de los tipos con signo, encontramos el operador <code>&gt;&gt;&gt;</code>, que es un right shift que siempre extiende con ceros. Por otro lado tenemos el operador <code>&gt;&gt;</code> que en Java es right shift que extiende con el signo, es decir 1 si el bit mas significante es 1 (número negativo), o 0 si el bit más significativo es 0.</p>
+
+<h1 id="conclusiones">Conclusiones</h1>
+
+<p>Con estas características de Ghidra podemos mejorar nuestras extensiones y hacerlas mucho mejores y más profesionales. ¿Estás de acuerdo? ¡Deja tu opinión en los comentarios!</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/es/devblog/tutorialwritingaghidraloader/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Anterior</span>
+        <span class='screen-reader-text'>Anterior entrada: </span>Tutorial: Escribir un loader para Ghidra</a>
+    </div></div>
+</nav>
+
+
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Menú social'>
+    <ul><li>
+        <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Github en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/DanglingPointr' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Twitter en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Linkedin en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2020  </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

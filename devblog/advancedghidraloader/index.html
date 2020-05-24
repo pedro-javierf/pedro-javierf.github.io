@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Foundation Last month we saw the basics of a Ghidra Loader, a type of extension for Ghidra. Now we&rsquo;ll see some additional features to step up the functionality, usability and quality of our loader.
+I will cover these features in increasing complexity order.
+Labels Often when working with embedded systems we find architectures that are conceptually simple. Usually, code is loaded statically (always at the same address) or libraries are static.'>
+<meta name='theme-color' content='#6aff00'>
+
+<meta property='og:title' content='Advanced Ghidra Loader: labels, overlays and Function ID • Dangling Pointr'>
+<meta property='og:description' content='Foundation Last month we saw the basics of a Ghidra Loader, a type of extension for Ghidra. Now we&rsquo;ll see some additional features to step up the functionality, usability and quality of our loader.
+I will cover these features in increasing complexity order.
+Labels Often when working with embedded systems we find architectures that are conceptually simple. Usually, code is loaded statically (always at the same address) or libraries are static.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/devblog/advancedghidraloader/'>
+<meta property='og:site_name' content='Dangling Pointr'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-05-24T12:30:38&#43;02:00'/><meta property='article:modified_time' content='2020-05-24T12:30:38&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <title>Advanced Ghidra Loader: labels, overlays and Function ID • Dangling Pointr</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'>
+  
+  <link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'><link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'>
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#6aff00;}
+</style>
+
+  
+
+</head>
+<meta name="twitter:image:src" content="https://pedro-javierf.github.io/images/logo.png"> 
+<script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
+<link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
+<body class='page type-devblog has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+      Dangling Pointr
+      </a>
+    </h2>
+    <div class='desc'>
+    Your blog about hacking &amp; learning
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/devblog/'>Devblog</a></li><li class='item'>
+  <a href='/talks/'>Talks</a></li><li class='item'>
+  <a href='/posts/'>Other Posts</a></li><li class='item'>
+  <a href='/about/'>About</a></li></ul>
+    </div>
+  </nav>
+
+</section>
+  <a id="dark-mode-toggle">Dark Mode</a><br>
+  
+  
+  </div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/devblog/'>Devblog</a>
+      </li><li class='item'>
+        <a href='/talks/'>Talks</a>
+      </li><li class='item'>
+        <a href='/posts/'>Other Posts</a>
+      </li><li class='item'>
+        <a href='/about/'>About</a>
+      </li><li class='item'>
+        <a href='/es/'><i class='fa fa-language'></i></a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking &amp; learning</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Advanced Ghidra Loader: labels, overlays and Function ID</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2020-05-24T12:30:38&#43;02:00'>2020, May 24</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+6 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h1 id="u-foundation-u"><u>Foundation</u></h1>
+
+<p>Last month we saw the basics of a Ghidra Loader, a type of extension for Ghidra. Now we&rsquo;ll see some additional features to step up the functionality, usability and quality of our loader.</p>
+
+<p>I will cover these features in increasing complexity order.</p>
+
+<h1 id="labels">Labels</h1>
+
+<p>Often when working with embedded systems we find architectures that are conceptually simple. Usually, code is loaded statically (always at the same address) or libraries are static.</p>
+
+<p>With microcontrollers it&rsquo;s common to have memory-mapped registers to control I/O, or to control other hardware modules, like DMA, and many others.</p>
+
+<p>These registers are (in the hardware) addressed using a <em>constant</em> physical address. In such cases, we can assign these addresses a name (the name of the register, for example) so that Ghidra will replace every reference to that address with the name, making it much easier for humans to reverse engineer and understand dissasembled and decompiled code.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NDSLabelList</span> {
+	<span style="color:#75715e">//This internal class represents a location of interest (registers, i/o, etc)
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NDSLabel</span> {
+		String name;
+		<span style="color:#66d9ef">int</span> addr;
+
+		<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">NDSLabel</span>(String name, <span style="color:#66d9ef">int</span> addr) {
+				<span style="color:#66d9ef">this</span>.name <span style="color:#f92672">=</span> name;
+				<span style="color:#66d9ef">this</span>.addr <span style="color:#f92672">=</span> addr;
+		}
+		<span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">name</span>() {<span style="color:#66d9ef">return</span> name;}
+		<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">addr</span>() {<span style="color:#66d9ef">return</span> addr;}
+
+	}
+
+	<span style="color:#75715e">//This class uses a singleton pattern
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> NDSLabelList _instance <span style="color:#f92672">=</span> null;
+</code></pre></div>
+
+<p>It is convenient to create a new clase called XYZLabelList, in this case I use a Singleton pattern so that there can only be one instance of this class.</p>
+
+<p>Internally it contains another class, XYZLabel, which is a class with the address of the register, and the name we will assign to it.</p>
+
+<p>We will have a list of this XYZLabels.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>NDSLabel<span style="color:#f92672">&gt;</span> _ARM9labels <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>NDSLabel<span style="color:#f92672">&gt;</span>();
+<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> List<span style="color:#f92672">&lt;</span>NDSLabel<span style="color:#f92672">&gt;</span> _ARM7labels <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;</span>NDSLabel<span style="color:#f92672">&gt;</span>();
+
+<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">NDSLabelList</span>()
+{	
+	<span style="color:#75715e">/*ARM 9*/</span>
+	_ARM9labels.add(<span style="color:#66d9ef">new</span> NDSLabel(<span style="color:#e6db74">&#34;REG_DISPCNT&#34;</span>, <span style="color:#ae81ff">0x4000000</span>));
+	_ARM9labels.add(<span style="color:#66d9ef">new</span> NDSLabel(<span style="color:#e6db74">&#34;REG_DISPSTAT&#34;</span>, <span style="color:#ae81ff">0x4000004</span>));
+	...
+</code></pre></div>
+
+<p>On the constructor we will add as many labels for register as we want.
+And finally, in our main loader&rsquo;s class, we will iterate the list and register each label in Ghidra:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//Labels (REGISTERS, others, etc.)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>(NDSLabel l: NDSLabelList.getInstance().getARM9Labels())
+{
+	api.createLabel(api.toAddr(l.addr()),l.name(),true);
+}
+</code></pre></div>
+
+<p>The result? a rich and comprehensive memory map, with more readable code:</p>
+
+<p><img src="img/labels.PNG" alt="Example image" /></p>
+
+<h1 id="overlays">Overlays</h1>
+
+<p>Overlays are not rare in embedded devices with limited amount of RAM memory but with abundant ROM. The bottom line is that overlays are memory sections which location (i.e. start address and end address) is the same as other memory section, or another overlay, so one of them may overlap the other.</p>
+
+<p>For example, you may have two different code routines. Let&rsquo;s say both occupy 0x100 bytes, and our RAM starts at 0xA0000000. We could totally load one at 0xA0000100 and the next one at 0xA0000200. But what if we don&rsquo;t have that much memory? We could use any of them until we don&rsquo;t need them and then load the next one from ROM at the same address. Another example are hardware memory banks in old consoles.</p>
+
+<p>Of course, in the real device, only one overlay can be loaded at the same time in main memory. But both are stored in ROM. So why not spoon-feed the reverse engineer and allow him or her to load both in Ghidra?</p>
+
+<p>We can do so with just one line of code:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">createInitializedBlock(program, true, <span style="color:#e6db74">&#34;overlay_&#34;</span><span style="color:#f92672">+</span>i, api.toAddr(overlay.RamAddress), stream, overlay.RamSize, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#e6db74">&#34;&#34;</span>, true, true, true, log, monitor);
+</code></pre></div>
+
+<p>Just make sure that <em>program</em> is your loader&rsquo;s Program object. &ldquo;overlay_&ldquo;+i is the name of the overlay (inside a for loop), then the starting address, a stream with the binary data of the overlay (this depends on your file type), the size, and a couple of flags (read/write/execute are enabled).</p>
+
+<p>You can see <a href="https://github.com/pedro-javierf/NTRGhidra" target="_blank">NTRGhidra</a>&rsquo;s code for the whole picture.</p>
+
+<p><img src="img/overlays.PNG" alt="Example image" /></p>
+
+<h1 id="function-id-fid-databases-and-table-population">Function ID, fid databases and table population</h1>
+
+<p>Most interesting feature that makes reversing similar samples easy is Function ID. <em>You can use Function ID without a loader but</em> if we pack some pre-generated function id databases (<em>fidDb</em> from now on) with our loader, we&rsquo;ll have a much more useful software. For instance, this is a Work In Progress feature for <a href="https://github.com/pedro-javierf/NTRGhidra" target="_blank">NTRGhidra</a>.</p>
+
+<blockquote>
+<p>Ghidra&rsquo;s Function ID is similar to IDA Pro&rsquo;s F.L.I.R.T.. In fact, if you are moving from IDA to Ghidra, let me tell you Ghidra has an automatic utility to convert flirt to fid.</p>
+</blockquote>
+
+<p>What is its purpose? It generates hashes from known functions or procedures, so that if they appear in other programs you don&rsquo;t need to figure out what they do. You&rsquo;ll have their name.</p>
+
+<p>There are several ways to create from scratch a <em>fidDb</em>. Usually I document and rename a bunch of functions, and then choose the option &ldquo;populate fidDb from program&rdquo;. Another way is to generate them from .o files (aka: libraries!).</p>
+
+<p><img src="img/populatefid.png" alt="Example image" /></p>
+
+<p>This will generate a .fidb file that at the end contains all our precious reversed functions.</p>
+
+<p><img src="img/fidtables.png" alt="Example image" /></p>
+
+<p>There are some cases where functions cannot be added to a database (for example, a very small function) but for most programs it does an excellent job.</p>
+
+<p>At the moment I am generating full sets of function signatures for NTRGhidra.</p>
+
+<h1 id="bonus-quirks-of-java">Bonus: quirks of Java</h1>
+
+<p>If you are trying to implement some extra, custom routine into your Loader, like for example, decompression of some parts of the file, or overlays, you may find some very curious Java behaviours.</p>
+
+<ul>
+<li>Java does not have support for unsigned data types</li>
+</ul>
+
+<p>Yup, this is specially inconvenient if you are moving from other compiled languages or porting code. The best way to support greater values than an unsigned int is to use the <em>long</em> type.</p>
+
+<ul>
+<li>Java does not have <em>real</em> support for bitwise operations on types other than int or long.</li>
+</ul>
+
+<p>If you try to perform some bitwise operation (shifts, and, or,..) on the <em>byte</em> type it will be silently casted to an <em>int</em> before the operation. Beware this may cause problems if your byte should be treated as unsigned, but its most significant bit is a 1. Signeds are encoded using 2&rsquo;s complement so when casting to an int it will be bit-extended with 1&rsquo;s, not 0&rsquo;s</p>
+
+<ul>
+<li>The <em>unsigned right shift</em></li>
+</ul>
+
+<p>An attempt to reduce the mess with incorrect signed shifts was done introducing the <code>&gt;&gt;&gt;</code> operator, which is a right shift that always extends with 0&rsquo;s. On the other hand, the <code>&gt;&gt;</code> will extend bits using either 0&rsquo;s or 1&rsquo;s depending on the sign of the integer.</p>
+
+<h1 id="summing-up">Summing Up</h1>
+
+<p>These Ghidra features can possibly make your Loader or Ghidra extension much more helpful and serviceable. Let me know down in the comments your tricks or favorite Ghidra extension features!</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/devblog/tutorialwritingaghidraloader/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Tutorial: Writing a Ghidra loader</a>
+    </div></div>
+</nav>
+
+
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/DanglingPointr' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2020  </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+
