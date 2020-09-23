@@ -11,18 +11,18 @@ Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada p
 <meta property='og:description' content='Bienvenidos de nuevo! Estamos de vuelta en esta parte 2 &ldquo;Encontrando el Patrón&rdquo; si aun no has leido la parte 1&hellip; ¡échale un vistazo ahora!
 Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada podría utilizar para conocer más sobre la Nintendo 3DS. La conclusión fue que, al parecer, los contenidos de la memoria RAM no estaban encriptados. Podéis verlo aquí:
  Ejemplo de cadena de texto UNICODE que se encuentra en los volcados de memoria RAM'>
-<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/hacking3ds2/'>
+<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/Hacking3ds2/'>
 <meta property='og:site_name' content='Dangling Pointr'>
 <meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2018-01-30T11:30:48&#43;02:00'/><meta property='article:modified_time' content='2018-01-30T11:30:48&#43;02:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.59.1" />
 
   <title>Hacking The 3ds II: Encontrando el Patrón • Dangling Pointr</title>
-  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/hacking3ds2/'>
+  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/Hacking3ds2/'>
   
-  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/hacking3ds2/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/hacking3ds2/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/hacking3ds2/'>
+  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/Hacking3ds2/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/Hacking3ds2/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/Hacking3ds2/'>
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#6aff00;}
 </style>
 
@@ -55,7 +55,7 @@ Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada p
       </a>
     </h2>
     <div class='desc'>
-    Your blog about hacking &amp; learning
+    Your blog about hacking, learning and tech
     </div>
   </header>
 
@@ -64,9 +64,10 @@ Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada p
     <div class='container'>
       <ul><li class='item'>
   <a href='/es/'>Inicio</a></li><li class='item'>
-  <a href='/es/talks/'>Charlas</a></li><li class='item'>
-  <a href='/es/devblog/'>Devblog</a></li><li class='item'>
-  <a href='/es/posts/'>OTROS</a></li><li class='item'>
+  <a href='/es/talks/'>Charlas 🗣️</a></li><li class='item'>
+  <a href='/es/devblog/'>Devblog 🖥️</a></li><li class='item'>
+  <a href='/es/gaming/'>Gaming 🎮</a></li><li class='item'>
+  <a href='/es/misc/'>Miscelánea 🎵</a></li><li class='item'>
   <a href='/es/about/'>Sobre Mi</a></li></ul>
     </div>
   </nav>
@@ -103,15 +104,17 @@ Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada p
     <ul><li class='item'>
         <a href='/es/'>Inicio</a>
       </li><li class='item'>
-        <a href='/es/talks/'>Charlas</a>
+        <a href='/es/talks/'>Charlas 🗣️</a>
       </li><li class='item'>
-        <a href='/es/devblog/'>Devblog</a>
+        <a href='/es/devblog/'>Devblog 🖥️</a>
       </li><li class='item'>
-        <a href='/es/posts/'>OTROS</a>
+        <a href='/es/gaming/'>Gaming 🎮</a>
+      </li><li class='item'>
+        <a href='/es/misc/'>Miscelánea 🎵</a>
       </li><li class='item'>
         <a href='/es/about/'>Sobre Mi</a>
       </li><li class='item'>
-        <a href='/en/'><i class='fa fa-language'></i></a>
+        <a href='/en/'><i class='fa fa-language'></i> Cambiar Idioma</a>
       </li></ul>
   </div>
 </nav><div class='header-widgets'>
@@ -120,7 +123,7 @@ Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada p
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
-          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking &amp; learning</p>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking, learning and tech</p>
           </div>
         </div>
       </header>
@@ -278,7 +281,7 @@ En la siguiente entrada veremos cómo analizar más en profundidad esta informac
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/es/devblog/hacking3ds1/'>
+      <a href='/es/devblog/Hacking3ds1/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -288,7 +291,7 @@ En la siguiente entrada veremos cómo analizar más en profundidad esta informac
  Anterior</span>
         <span class='screen-reader-text'>Anterior entrada: </span>Hacking The 3ds I: Introducción</a>
     </div><div class='next-entry sep-before'>
-      <a href='/es/devblog/hacking3ds3/'>
+      <a href='/es/devblog/Hacking3ds3/'>
         <span class='screen-reader-text'>Siguiente entrada: </span>Hacking The 3ds III: Análisis de memoria<span aria-hidden='true'>Siguiente <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
@@ -369,7 +372,7 @@ En la siguiente entrada veremos cómo analizar más en profundidad esta informac
     </div>
   </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script>
 
 </body>
 

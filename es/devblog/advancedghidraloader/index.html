@@ -11,18 +11,18 @@ Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquite
 <meta property='og:description' content='Antecedentes El mes pasado hablábamos sobre los conceptos básicos de un Loader para Ghidra. Esta vez cubriré algunas características adicionales para mejorar nuestra extensión y hacerla más útil y manejable.
 Veremos estas nuevas características en orden ascendente de complejidad.
 Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquitecturas que son &ldquo;simples&rdquo; conceptualmente. Las medidas de seguridad son pocas, y el código de un programa suele compilarse de forma estática, y se carga siempre en la misma dirección de memoria.'>
-<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'>
+<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/AdvancedGhidraLoader/'>
 <meta property='og:site_name' content='Dangling Pointr'>
 <meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-05-24T12:30:38&#43;02:00'/><meta property='article:modified_time' content='2020-05-24T12:30:38&#43;02:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.59.1" />
 
   <title>Loader Avanzado en Ghidra: labels, overlays y Function ID • Dangling Pointr</title>
-  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'>
+  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/AdvancedGhidraLoader/'>
   
-  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'>
+  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/AdvancedGhidraLoader/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/'>
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#6aff00;}
 </style>
 
@@ -55,7 +55,7 @@ Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquite
       </a>
     </h2>
     <div class='desc'>
-    Your blog about hacking &amp; learning
+    Your blog about hacking, learning and tech
     </div>
   </header>
 
@@ -64,9 +64,10 @@ Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquite
     <div class='container'>
       <ul><li class='item'>
   <a href='/es/'>Inicio</a></li><li class='item'>
-  <a href='/es/talks/'>Charlas</a></li><li class='item'>
-  <a href='/es/devblog/'>Devblog</a></li><li class='item'>
-  <a href='/es/posts/'>OTROS</a></li><li class='item'>
+  <a href='/es/talks/'>Charlas 🗣️</a></li><li class='item'>
+  <a href='/es/devblog/'>Devblog 🖥️</a></li><li class='item'>
+  <a href='/es/gaming/'>Gaming 🎮</a></li><li class='item'>
+  <a href='/es/misc/'>Miscelánea 🎵</a></li><li class='item'>
   <a href='/es/about/'>Sobre Mi</a></li></ul>
     </div>
   </nav>
@@ -103,15 +104,17 @@ Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquite
     <ul><li class='item'>
         <a href='/es/'>Inicio</a>
       </li><li class='item'>
-        <a href='/es/talks/'>Charlas</a>
+        <a href='/es/talks/'>Charlas 🗣️</a>
       </li><li class='item'>
-        <a href='/es/devblog/'>Devblog</a>
+        <a href='/es/devblog/'>Devblog 🖥️</a>
       </li><li class='item'>
-        <a href='/es/posts/'>OTROS</a>
+        <a href='/es/gaming/'>Gaming 🎮</a>
+      </li><li class='item'>
+        <a href='/es/misc/'>Miscelánea 🎵</a>
       </li><li class='item'>
         <a href='/es/about/'>Sobre Mi</a>
       </li><li class='item'>
-        <a href='/en/'><i class='fa fa-language'></i></a>
+        <a href='/en/'><i class='fa fa-language'></i> Cambiar Idioma</a>
       </li></ul>
   </div>
 </nav><div class='header-widgets'>
@@ -120,7 +123,7 @@ Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquite
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
-          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking &amp; learning</p>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking, learning and tech</p>
           </div>
         </div>
       </header>
@@ -312,7 +315,7 @@ Y finalmente, en el código de nuestro loader iteramos esta lista y registramos 
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/es/devblog/tutorialwritingaghidraloader/'>
+      <a href='/es/devblog/TutorialWritingAGhidraLoader/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -393,7 +396,7 @@ Y finalmente, en el código de nuestro loader iteramos esta lista y registramos 
     </div>
   </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script>
 
 </body>
 

@@ -2,23 +2,25 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Introduction On this post I will talk about hardware hacking targeting 3ds but certainly related to electronics and other distinct attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, and finally the addition of my comments.'>
+<meta name='description' content='Introduction Let&rsquo;s talk about hardware hacking, mostly targeting the Nintendo 3ds hardware, but certainly related to other distinct targets.
+I have tried to create a post which explains with the maximum level of detail each attack / reversing procedure. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, texts, plus some of my comments.'>
 <meta name='theme-color' content='#6aff00'>
 
 <meta property='og:title' content='Hacking The 3ds IV: Hardware attacks • Dangling Pointr'>
-<meta property='og:description' content='Introduction On this post I will talk about hardware hacking targeting 3ds but certainly related to electronics and other distinct attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations. In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, and finally the addition of my comments.'>
-<meta property='og:url' content='https://pedro-javierf.github.io/devblog/hacking3ds4/'>
+<meta property='og:description' content='Introduction Let&rsquo;s talk about hardware hacking, mostly targeting the Nintendo 3ds hardware, but certainly related to other distinct targets.
+I have tried to create a post which explains with the maximum level of detail each attack / reversing procedure. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, texts, plus some of my comments.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/devblog/Hacking3ds4/'>
 <meta property='og:site_name' content='Dangling Pointr'>
 <meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2019-07-25T19:35:38&#43;02:00'/><meta property='article:modified_time' content='2019-07-25T19:35:38&#43;02:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.59.1" />
 
   <title>Hacking The 3ds IV: Hardware attacks • Dangling Pointr</title>
-  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/hacking3ds4/'>
+  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/Hacking3ds4/'>
   
-  <link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/hacking3ds4/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/hacking3ds4/'><link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/hacking3ds4/'>
+  <link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/Hacking3ds4/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/Hacking3ds4/'><link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/Hacking3ds4/'>
   <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#6aff00;}
 </style>
 
@@ -51,7 +53,7 @@
       </a>
     </h2>
     <div class='desc'>
-    Your blog about hacking &amp; learning
+    Your blog about hacking, learning and tech
     </div>
   </header>
 
@@ -60,9 +62,10 @@
     <div class='container'>
       <ul><li class='item'>
   <a href='/'>Home</a></li><li class='item'>
-  <a href='/devblog/'>Devblog</a></li><li class='item'>
-  <a href='/talks/'>Talks</a></li><li class='item'>
-  <a href='/posts/'>Other Posts</a></li><li class='item'>
+  <a href='/devblog/'>Devblog 🖥️</a></li><li class='item'>
+  <a href='/talks/'>Talks 🗣️</a></li><li class='item'>
+  <a href='/gaming/'>Gaming 🎮</a></li><li class='item'>
+  <a href='/misc/'>Misc 🎵</a></li><li class='item'>
   <a href='/about/'>About</a></li></ul>
     </div>
   </nav>
@@ -99,15 +102,17 @@
     <ul><li class='item'>
         <a href='/'>Home</a>
       </li><li class='item'>
-        <a href='/devblog/'>Devblog</a>
+        <a href='/devblog/'>Devblog 🖥️</a>
       </li><li class='item'>
-        <a href='/talks/'>Talks</a>
+        <a href='/talks/'>Talks 🗣️</a>
       </li><li class='item'>
-        <a href='/posts/'>Other Posts</a>
+        <a href='/gaming/'>Gaming 🎮</a>
+      </li><li class='item'>
+        <a href='/misc/'>Misc 🎵</a>
       </li><li class='item'>
         <a href='/about/'>About</a>
       </li><li class='item'>
-        <a href='/es/'><i class='fa fa-language'></i></a>
+        <a href='/es/'><i class='fa fa-language'></i> Change Language</a>
       </li></ul>
   </div>
 </nav><div class='header-widgets'>
@@ -116,7 +121,7 @@
 
       <header id='header' class='header site-header'>
         <div class='container sep-after'>
-          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking &amp; learning</p>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking, learning and tech</p>
           </div>
         </div>
       </header>
@@ -153,7 +158,7 @@
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-9 mins read
+8 mins read
 </span>
 
 
@@ -171,8 +176,9 @@
 
 <h1 id="u-introduction-u"><u>Introduction</u></h1>
 
-<p>On this post I will talk about hardware hacking targeting 3ds but certainly related to electronics and other distinct attack surfaces. Hardware attacks explained (finally!) with the best possible examples and attempts of implementations.
-In addition, I have tried to create a post which explains with the maximum level of detail each attack / reversing step. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, and finally the addition of my comments.</p>
+<p>Let&rsquo;s talk about hardware hacking, mostly targeting the Nintendo 3ds hardware, but certainly related to other distinct targets.</p>
+
+<p>I have tried to create a post which explains with the maximum level of detail each attack / reversing procedure. I consider this useful as a learning resource for future generations. Moreover, it should also work as <strong><em>preservation for a lot of 3ds &ldquo;scene&rdquo; content back from as soon as 2011</em></strong>, which is getting lost and disappearing from internet; this includes images, posts, texts, plus some of my comments.</p>
 
 <h1 id="u-hardware-attacks-u"><u>Hardware Attacks</u></h1>
 
@@ -191,7 +197,7 @@ As we saw in the first post, the 3ds uses an internal 1GB Samsung Nand Chip.</p>
 
 <p>For example, some SD Cards are NAND memories, just that these are removable, while the 3ds one is soldered in the SoC.
 To learn how SD Cards work, <a href="https://www.cactus-tech.com/wp-content/uploads/2019/03/An-Introduction-To-SD-Card-Interface.pdf" target="_blank">read this nice document</a>
-To sum up, sd cards can use a high speed mode, or a low speed <a href="https://es.wikipedia.org/wiki/Serial_Peripheral_Interface" target="_blank">SPI</a> mode.</p>
+To sum up, sd cards can use a high speed mode, or a low speed <a href="https://es.wikipedia.org/wiki/Serial_Peripheral_Interface" target="_blank">SPI-based</a> mode.</p>
 
 <p><center>
 <img src=img/SD_pinout.jpg>
@@ -225,7 +231,7 @@ As a bonus example, here is the pinout for the Nintendo DSi:</p>
 Main pins required, and an alternative pin for DAT0 in another part of the board. (Top Dsi, Bottom DsiXL)
 </center><br></p>
 
-<p>The last issue is getting to dump the contents to a computer. We could use some device like an Arduino, Raspberry Pi, or FPGA to implement the commands to talk with the SD or Nand memory, but there&rsquo;s a better hack. How we do this? That&rsquo;s actually the most straightforward part of all; we are crafting an adapter with cheap components and let the computer&rsquo;s OS handle the complex protocol.</p>
+<p>The last issue is getting to dump the contents to a computer. We could use some device like an Arduino, Raspberry Pi, or FPGA to implement the commands to talk with the SD or Nand memory, but there&rsquo;s a better hack. How we do this? That&rsquo;s actually the most straightforward part of all; <strong><em>we are crafting an adapter with cheap components</em></strong> and letting the computer&rsquo;s OS handle the comunication.</p>
 
 <p><center>
 <img src=img/SD_Reader.jpg>
@@ -237,7 +243,7 @@ Main pins required, and an alternative pin for DAT0 in another part of the board
 
 <h4 id="ram-sniffing-ram-tracing-and-ram-injection">RAM Sniffing / RAM tracing and RAM injection</h4>
 
-<p>While the NAND read-write was simple, now I&rsquo;ll feature a more complex attack. The concept is as follows; intercept the bus lines connecting the RAM chip to the board and trace writes and reads generating an &ldquo;image&rdquo; of the memory. This can be done with an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a>.</p>
+<p>While the NAND read-write was simple, now I&rsquo;ll feature <strong><em>a more complex attack</em></strong>. The concept is as follows; intercept the bus lines connecting the RAM chip to the board and trace writes and reads generating an &ldquo;image&rdquo; of the memory. This can be done with an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a>.</p>
 
 <p>This is known as <strong>RAM Tracing</strong>. The only console-hacking known attack of this kind was performed by @scamlime some years ago; she did it with the DSi&rsquo;s RAM; find more information
 <a href="https://scanlime.org/category/projects/dsi/" target="_blank">here</a>,
@@ -245,7 +251,7 @@ Main pins required, and an alternative pin for DAT0 in another part of the board
 <a href="https://forum.gbadev.org/viewtopic.php?t=16752&amp;sid=3b27fe4b607fc157d24855fb6ef9c1d4" target="_blank">and here</a></p>
 
 <p>Alternatively, the attack can be extended further, to the point that it allows injection or &ldquo;emulation&rdquo; of data blocks of the RAM.
-Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a> but also involves extreme soldering skills.  We can create a setup to sniff the traffic as in attack 1, by hooking up to the chip lines. Specially, @scanlime hooked to the DSi&rsquo;s <em>CS</em> (Chip Select) line of the board, and when it detected that the console was trying to read some data from the RAM, redirected it to her FPGA, providing the console with modified RAM data blocks. @scanlime&rsquo;s work is by far the most open and documented setup, check it on the links above.</p>
+Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a> but also involves <strong>extreme soldering skills</strong>.  We can create a setup to sniff the traffic as in attack 1, by hooking up to the chip lines. Specially, @scanlime hooked to the DSi&rsquo;s <em>CS</em> (Chip Select) line of the board, and when it detected that the console was trying to read some data from the RAM, redirected it to her FPGA, <strong>providing the console with modified RAM data blocks</strong>. @scanlime&rsquo;s work is by far the most open and documented setup, check it on the links above.</p>
 
 <p><center>
 <img src=img/RAMInjection1.PNG></p>
@@ -255,7 +261,7 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 <p><img src=img/RAMInjection2.PNG>
 </center></p>
 
-<p>Nevertheless I consider interesting to mention the work of neimod, who presumably was the first person ever to hack the 3ds. As far as I can tell from the following pictures of his work (now disappeared from the web) he used a custom fpga to do a similar attack but on the 3ds:</p>
+<p>Nevertheless I consider interesting to mention the work of <a href="https://gbatemp.net/threads/who-exactly-was-neimod.402491/" target="_blank">neimod</a>, who presumably was <strong>the first person ever to hack the 3ds</strong>. Here are some pictures of his work (now disappeared from the web) he used a custom fpga to do a similar attack but on the 3ds:</p>
 
 <p><center>
 <img src=img/neimod1.jpg>
@@ -275,17 +281,42 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 <br>
 </center><br></p>
 
-<p>Unfortunately it is believed that neimod sold all his work. Later all the pictures were deleted but you can still see here some of the soldering work and setup used.</p>
-
 <blockquote>
-<p>I&rsquo;m not really sure about the truthfulness of the image that says #Opening JTAG&hellip; Either it is fake and whoever posted it tried to fool by saying he/she connected to the 3ds using JTAG(which is not possible since it was likely removed), or someone was able to restore the JTAG connections and the JTAG debugger was not removed after all, or maybe that&rsquo;s the debug output from a FPGA&hellip; who knows.</p>
+<p>Update 2020: Some new recovered images</p>
 </blockquote>
+
+<p><center>
+<img src=img/neimod/neimod3DS2.jpg>
+<img src=img/neimod/neimod3DS3.jpg>
+<img src=img/neimod/neimod3DS4.jpg>
+<img src=img/neimod/neimod3DS5.jpg>
+<img src=img/neimod/neimod3DS6.jpg>
+<img src=img/neimod/neimod3DS7.jpg>
+<img src=img/neimod/neimod3DS8.jpg>
+<img src=img/neimod/neimod3DS9.jpg>
+<img src=img/neimod/neimod3DS10.jpg>
+<img src=img/neimod/neimod3DS11.jpg>
+<img src=img/neimod/neimod3DS12.jpg>
+<img src=img/neimod/neimod3DS13.jpg>
+<img src=img/neimod/neimodCartridgeSetup.jpg>
+<img src=img/neimod/neimodCartridgeSetup2.jpg>
+<img src=img/neimod/neimodF2020.jpg>
+<img src=img/neimod/neimodRAMinjection.jpg>
+<img src=img/neimod/neimodUnknownCustomPCB.jpg>
+<img src=img/neimod/reflowOvenSpeedTestV2.jpg></p>
+
+<p><br>
+</center><br></p>
+
+<p>Unfortunately it is believed that neimod sold all his work. Later all the pictures were deleted but <strong>you can still see here some of the soldering work and setup used</strong>.</p>
 
 <h4 id="eeprom-emulation-savegame-attack">EEPROM Emulation + Savegame Attack</h4>
 
-<p>Ok. This is a quite different attack. It is refreshing because even though it also requires an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a>, it involves much less soldering, and the ones that have to be done are quite simple.</p>
+<p>Now this is a quite different attack. It is refreshing because even though it also requires an <a href="https://es.wikipedia.org/wiki/Field-programmable_gate_array" target="_blank">FPGA</a>, it involves much less soldering, and the work that has to be done is simpler.</p>
 
+<blockquote>
 <p>17/11/2019 EDIT: Apparently Team Twiizers managed to set up an emulation attack with an Arduino! Check <em>Hacking The 3DS V</em> to see it ;) !</p>
+</blockquote>
 
 <p>The first implementation I saw of the <em>Emulation Attack</em> was done by Micah Elizabeth Scott (scanlime) and you can see her work <a href="https://www.flickr.com/photos/micahdowty/albums/72157621023570420" target="_blank">here</a>:
 <center>
@@ -295,7 +326,7 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 </center>
 <center><strong>Distributed under the <a href="https://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Attribution-ShareAlike 2.0 Generic (CC BY-SA 2.0)</a></strong>.</center></p>
 
-<p>With this setup, it is possible to simulate a cartridge&rsquo;s savegame EEPROM and &ldquo;<em>feed</em>&rdquo; in real time a save to the game. The game&rsquo;s code uses the savegame as input, so it is a good target for exploits, as we&rsquo;ll see in next post.</p>
+<p>With this setup, it is possible to simulate a cartridge&rsquo;s savegame EEPROM and &ldquo;<em>feed</em>&rdquo; in real time a save to the game. The game&rsquo;s code uses the savegame as input, so it is a good target for exploits, as we&rsquo;ll see in later posts.</p>
 
 <p><center>
 <img src=img/interfaceWorking1.PNG></p>
@@ -305,20 +336,20 @@ Not only requires the same hardware, an <a href="https://es.wikipedia.org/wiki/F
 <p><img src=img/interfaceWorking2.PNG>
 </center></p>
 
-<p>Recently my friend Gericom has been working on a similar interface for NDS, with the subtle differences that his emulates the ROM chip, thus being able to load NDS and DSi games from his FPGA. He even designed his own PCB instead of refurbishing an actual game cart:</p>
+<p>Recently my friend Gericom has been working on a <strong>similar interface for NDS</strong>, with the subtle difference that his setup emulates the ROM chip as well, thus being able to load NDS and DSi games from his FPGA. He even designed his own PCB instead of refurbishing an actual game cart:</p>
 
 <p><center>
 <img src=img/interfaceGericom1.jpg>
 <img src=img/interfaceGericom2.jpg>
 </center></p>
 
-<p>FPGAs are game-changing devices that can interact as virtually any component. The shown interface gives us the power to emulate the EEPROM or ROM chips that interact with the console. Interestingly 3ds cartridges&rsquo; internals are 1:1 copies of the NDS ones (with bigger EEPROMs and ROMs, of course), so the attack can be reproduced with 3DS carts. By replacing the content of the EEPROM, which contains the savegame data, we can fuzz data that is inputted into games&rsquo; code and find a vulnerability over the savegame.</p>
+<p>FPGAs are game-changing devices that can <strong>interact as virtually any component</strong>. The shown interface gives us the power to emulate the EEPROM or ROM chips that interact with the console. Interestingly 3ds cartridges&rsquo; internals are 1:1 copies of the NDS ones (with bigger EEPROMs and ROMs, of course), so the attack can be reproduced with 3DS carts. By replacing the content of the EEPROM, which contains the savegame data, we can fuzz data that is inputted into games&rsquo; code and find a vulnerability over the savegame.</p>
 
 <p>A FPGA setup build + explanation + code is in progress! As I am building my own interface right now ;)</p>
 
 <h4 id="glitch-attacks-fault-injection">Glitch attacks / fault injection</h4>
 
-<p>This attack vector has, in my humble opinion, the most simple concept yet the most extensive and complex implementations. The idea is to introduce glitches (or faults) into the processor (which is basically a very advanced state machine) so it is possible to skip instructions, change execution flow, dump keys and secrets, etc.
+<p>This attack vector has, in my humble opinion, the most simple concept yet the most extensive and complex implementations. The idea is to <strong>introduce glitches (or faults) into the processor</strong> (which is basically a very advanced state machine) so it is possible to skip instructions, change execution flow, dump keys and secrets, etc.
 There has been <a href="https://arxiv.org/pdf/1802.00359.pdf" target="_blank">successful glitch attacks</a> to the 3DS bootrom in the last years.</p>
 
 <p><center>
@@ -348,7 +379,7 @@ We are getting close to native 3DS code execution!</p>
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/devblog/hacking3ds3/'>
+      <a href='/devblog/Hacking3ds3/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -358,7 +389,7 @@ We are getting close to native 3DS code execution!</p>
  Previous</span>
         <span class='screen-reader-text'>Previous post: </span>Hacking The 3ds III: Browsing the memory</a>
     </div><div class='next-entry sep-before'>
-      <a href='/devblog/ikariamexploit/'>
+      <a href='/devblog/IkariamExploit/'>
         <span class='screen-reader-text'>Next post: </span>Exploiting Ikariam: Persistent XSS and weaponization WriteUp<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="4" y1="12" x2="20" y2="12"/>
@@ -439,7 +470,7 @@ We are getting close to native 3DS code execution!</p>
     </div>
   </div><script>window.__assets_js_src="/assets/js/"</script>
 
-<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script>
 
 </body>
 

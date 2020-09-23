@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Miscelánea, Música, etc on Dangling Pointr</title>
+    <link>https://pedro-javierf.github.io/es/misc/</link>
+    <description>Recent content in Miscelánea, Música, etc on Dangling Pointr</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 31 May 2017 11:39:11 +0200</lastBuildDate>
+    
+	<atom:link href="https://pedro-javierf.github.io/es/misc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bienvenido</title>
+      <link>https://pedro-javierf.github.io/es/misc/Welcome/</link>
+      <pubDate>Wed, 31 May 2017 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/misc/Welcome/</guid>
+      <description> Estimado lector  Bienvenido a mi nuevo y rediseñado blog. ¡Espero que disfrutes y aprendas!
+ </description>
+    </item>
+    
+  </channel>
+</rss>

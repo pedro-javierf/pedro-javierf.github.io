@@ -12,19 +12,19 @@
     
     <item>
       <title>Reversing at Bufferhack</title>
-      <link>https://pedro-javierf.github.io/talks/revengatbufferhack/</link>
+      <link>https://pedro-javierf.github.io/talks/RevengAtBufferhack/</link>
       <pubDate>Tue, 07 May 2019 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/talks/revengatbufferhack/</guid>
+      <guid>https://pedro-javierf.github.io/talks/RevengAtBufferhack/</guid>
       <description>About On the 7th of May 2019, I was glad to give a talk about Reverse Engineering with open and libre tools (like Ghidra, radare2, ..) at the BufferHack event in Madrid. Aditionally, I took part in the organization of the event, which started several months before that date, and of which I&amp;rsquo;m very proud.</description>
     </item>
     
     <item>
       <title>Malicious HID Devices</title>
-      <link>https://pedro-javierf.github.io/talks/malicioushid/</link>
+      <link>https://pedro-javierf.github.io/talks/MaliciousHID/</link>
       <pubDate>Thu, 29 Nov 2018 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/talks/malicioushid/</guid>
+      <guid>https://pedro-javierf.github.io/talks/MaliciousHID/</guid>
       <description>About On November 2018, I gave a talk at Complutense University of Madrid about malicious HID devices and countermeasures against them, featuring open source solutions.</description>
     </item>
     
