@@ -12,10 +12,10 @@
     
     <item>
       <title>Advanced Ghidra Loader: labels, overlays and Function ID</title>
-      <link>https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/</link>
+      <link>https://pedro-javierf.github.io/devblog/advancedghidraloader/</link>
       <pubDate>Sun, 24 May 2020 12:30:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/</guid>
+      <guid>https://pedro-javierf.github.io/devblog/advancedghidraloader/</guid>
       <description>Foundation Last month we saw the basics of a Ghidra Loader, a type of extension for Ghidra. Now we&amp;rsquo;ll see some additional features to step up the functionality, usability and quality of our loader.
 I will cover these features in increasing complexity order.
 Labels Often when working with embedded systems we find architectures that are conceptually simple. Usually, code is loaded statically (always at the same address) or libraries are static.</description>
@@ -23,20 +23,20 @@ Labels Often when working with embedded systems we find architectures that are c
     
     <item>
       <title>Tutorial: Writing a Ghidra loader</title>
-      <link>https://pedro-javierf.github.io/devblog/TutorialWritingAGhidraLoader/</link>
+      <link>https://pedro-javierf.github.io/devblog/tutorialwritingaghidraloader/</link>
       <pubDate>Mon, 06 Apr 2020 12:30:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/TutorialWritingAGhidraLoader/</guid>
+      <guid>https://pedro-javierf.github.io/devblog/tutorialwritingaghidraloader/</guid>
       <description>Introduction All aboard the reversing train! It&amp;rsquo;s april 2020 and the whole world has slowed down due to COVID-19. I figured this is a good oportunity to keep learning. Since I&amp;rsquo;m trying to move on from paid software reverse-engineering ,I started to embrace free and open-sourced alternatives.This would be decent to learn about Ghidra internals. Specially I wanted to write a loader for an unsupported format.
 What is a loader?</description>
     </item>
     
     <item>
       <title>Exploiting Ikariam: Persistent XSS and weaponization WriteUp</title>
-      <link>https://pedro-javierf.github.io/devblog/IkariamExploit/</link>
+      <link>https://pedro-javierf.github.io/devblog/ikariamexploit/</link>
       <pubDate>Fri, 15 Nov 2019 19:35:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/IkariamExploit/</guid>
+      <guid>https://pedro-javierf.github.io/devblog/ikariamexploit/</guid>
       <description>Introduction ⚠  DISCLAIMER: EVERYTHING IS PROVIDED &amp;ldquo;AS IS&amp;rdquo;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGE OR OTHER LIABILITY.
 This is a writeup for a serious vulnerability I found on the popular web and mobile game Ikariam
 Game Analysis 🔍 Ikariam is a purely web-based game and was released in 2009, when browser games were at a peak of popularity.</description>
@@ -44,30 +44,30 @@ Game Analysis 🔍 Ikariam is a purely web-based game and was released in 2009, 
     
     <item>
       <title>Hacking The 3ds IV: Hardware attacks</title>
-      <link>https://pedro-javierf.github.io/devblog/Hacking3ds4/</link>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds4/</link>
       <pubDate>Thu, 25 Jul 2019 19:35:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/Hacking3ds4/</guid>
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds4/</guid>
       <description>Introduction Let&amp;rsquo;s talk about hardware hacking, mostly targeting the Nintendo 3ds hardware, but certainly related to other distinct targets.
 I have tried to create a post which explains with the maximum level of detail each attack / reversing procedure. I consider this useful as a learning resource for future generations. Moreover, it should also work as preservation for a lot of 3ds &amp;ldquo;scene&amp;rdquo; content back from as soon as 2011, which is getting lost and disappearing from internet; this includes images, posts, texts, plus some of my comments.</description>
     </item>
     
     <item>
       <title>Hacking The 3ds III: Browsing the memory</title>
-      <link>https://pedro-javierf.github.io/devblog/Hacking3ds3/</link>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds3/</link>
       <pubDate>Wed, 30 Jan 2019 19:35:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/Hacking3ds3/</guid>
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds3/</guid>
       <description>Introduction Welcome again. Finally, it&amp;rsquo;s time to go back and continue hacking the Nintendo 3ds. Previously, I got raw RAM dumps where several unicode strings could be found, evidencing the data was not encrypted or secured at all in RAM. This also applies for code, binary&amp;rsquo;s code sections may be also loaded in memory (as we saw using entropy) so we can extract them and reverse them.
 Identifying code Even though I used binvis and could clearly see the differences between data and code, it wasn&amp;rsquo;t precise enough to get addresses.</description>
     </item>
     
     <item>
       <title>Hacking The 3ds II: Finding the Pattern</title>
-      <link>https://pedro-javierf.github.io/devblog/Hacking3ds2/</link>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds2/</link>
       <pubDate>Tue, 30 Jan 2018 11:30:48 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/Hacking3ds2/</guid>
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds2/</guid>
       <description>Hello again! I&amp;rsquo;m back with part 2: &amp;ldquo;Finding The Pattern&amp;rdquo;! In case you haven&amp;rsquo;t read yet the first blog entry, click here.
 Brief Summary Back in the day, I analysed what possible entry-points the 3DS may have. We lead to the conclusion that the RAM contents were not encrypted. This is something useful. Here&#39;s proof:
  Unicode string found in the RAM Dump.
@@ -76,20 +76,20 @@ Brief Summary Back in the day, I analysed what possible entry-points the 3DS may
     
     <item>
       <title>Hacking The 3ds I: Introduction</title>
-      <link>https://pedro-javierf.github.io/devblog/Hacking3ds1/</link>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds1/</link>
       <pubDate>Mon, 12 Jun 2017 11:17:57 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/Hacking3ds1/</guid>
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds1/</guid>
       <description>Hello back! Today, a new series begin. A &amp;ldquo;journey&amp;rdquo; into hacking the Nintendo 3DS Handheld Console starts. There are several reasons why I am going to do this series;
  Personal Interest. During the later 2014, the 3DS Scene started growing. I was there, and was told I couldn&amp;rsquo;t get anything. The obnoxious sceners and community, only working for fame and personal interest. The lack of information and documentation about hacking blindly (Which is basically what I&amp;rsquo;ll be doing here) Exploit development is exciting and challenging</description>
     </item>
     
     <item>
       <title>Hacking The 3ds 0: Resources</title>
-      <link>https://pedro-javierf.github.io/devblog/Hacking3ds0/</link>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds0/</link>
       <pubDate>Thu, 01 Jun 2017 20:49:36 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/Hacking3ds0/</guid>
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds0/</guid>
       <description>What is this This is an extra resources pages for storing useful information and resources related to the development of this series of articles. This includes tools, external articles, stack overflow posts, and any other kind of resource that is considered helpful. Consecuently it is also used to store, link to, and conserve information of value for my research.
 URLs / Posts booting-process-for-arm
 ARM Reset vector information
@@ -98,10 +98,10 @@ ARM Image Entrypoint Docs</description>
     
     <item>
       <title>Twicexploit: Windows UAC Bypass</title>
-      <link>https://pedro-javierf.github.io/devblog/BypassUAC/</link>
+      <link>https://pedro-javierf.github.io/devblog/bypassuac/</link>
       <pubDate>Wed, 31 May 2017 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/devblog/BypassUAC/</guid>
+      <guid>https://pedro-javierf.github.io/devblog/bypassuac/</guid>
       <description>Hello My Fellow Readers!
 Today I&amp;rsquo;m back to write about UAC bypassing, that amazing scene that malware writers love.
  What is UAC?

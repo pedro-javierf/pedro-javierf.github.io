@@ -12,19 +12,19 @@
     
     <item>
       <title>Ingeniería Inversa en Bufferhack</title>
-      <link>https://pedro-javierf.github.io/es/talks/RevengAtBufferhack/</link>
+      <link>https://pedro-javierf.github.io/es/talks/revengatbufferhack/</link>
       <pubDate>Tue, 07 May 2019 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/talks/RevengAtBufferhack/</guid>
+      <guid>https://pedro-javierf.github.io/es/talks/revengatbufferhack/</guid>
       <description>Descripción El 7 de mayo de 2019 di una charla sobre Ingeniería Inversa (Reversing) con herramientas libres y de código abierto en el evento de ciberseguridad BufferHack, en Madrid. Además, fui parte de la organización del evento (sin ánimo de lucro) desde su nacimiento.</description>
     </item>
     
     <item>
       <title>Dispositivos HID maliciosos</title>
-      <link>https://pedro-javierf.github.io/es/talks/MaliciousHID/</link>
+      <link>https://pedro-javierf.github.io/es/talks/malicioushid/</link>
       <pubDate>Thu, 29 Nov 2018 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/talks/MaliciousHID/</guid>
+      <guid>https://pedro-javierf.github.io/es/talks/malicioushid/</guid>
       <description>Descripción En noviembre de 2018, tuve la oportunidad de dar una charla en la Universidad Complutense de Madrid sobre dispositivos HID (Human Interface Device) maliciosos, cómo funcionan, y cómo podemos protegernos de ellos. Se mostraron distintas soluciones de código abierto. On November 2018, I gave a talk at Complutense University of Madrid about malicious HID devices and countermeasures against them, featuring open source solutions.</description>
     </item>
     

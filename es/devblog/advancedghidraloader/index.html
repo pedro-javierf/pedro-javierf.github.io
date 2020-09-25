@@ -11,16 +11,16 @@ Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquite
 <meta property='og:description' content='Antecedentes El mes pasado hablábamos sobre los conceptos básicos de un Loader para Ghidra. Esta vez cubriré algunas características adicionales para mejorar nuestra extensión y hacerla más útil y manejable.
 Veremos estas nuevas características en orden ascendente de complejidad.
 Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquitecturas que son &ldquo;simples&rdquo; conceptualmente. Las medidas de seguridad son pocas, y el código de un programa suele compilarse de forma estática, y se carga siempre en la misma dirección de memoria.'>
-<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/AdvancedGhidraLoader/'>
+<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'>
 <meta property='og:site_name' content='Dangling Pointr'>
 <meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-05-24T12:30:38&#43;02:00'/><meta property='article:modified_time' content='2020-05-24T12:30:38&#43;02:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.59.1" />
 
   <title>Loader Avanzado en Ghidra: labels, overlays y Function ID • Dangling Pointr</title>
-  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/AdvancedGhidraLoader/'>
+  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'>
   
-  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/AdvancedGhidraLoader/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/'>
+  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'>
   <link rel='icon' href='/favicon.ico'>
 <link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#6aff00;}
@@ -315,7 +315,7 @@ Y finalmente, en el código de nuestro loader iteramos esta lista y registramos 
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/es/devblog/TutorialWritingAGhidraLoader/'>
+      <a href='/es/devblog/tutorialwritingaghidraloader/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>

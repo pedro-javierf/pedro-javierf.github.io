@@ -11,16 +11,16 @@ Labels Often when working with embedded systems we find architectures that are c
 <meta property='og:description' content='Foundation Last month we saw the basics of a Ghidra Loader, a type of extension for Ghidra. Now we&rsquo;ll see some additional features to step up the functionality, usability and quality of our loader.
 I will cover these features in increasing complexity order.
 Labels Often when working with embedded systems we find architectures that are conceptually simple. Usually, code is loaded statically (always at the same address) or libraries are static.'>
-<meta property='og:url' content='https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/'>
+<meta property='og:url' content='https://pedro-javierf.github.io/devblog/advancedghidraloader/'>
 <meta property='og:site_name' content='Dangling Pointr'>
 <meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-05-24T12:30:38&#43;02:00'/><meta property='article:modified_time' content='2020-05-24T12:30:38&#43;02:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.59.1" />
 
   <title>Advanced Ghidra Loader: labels, overlays and Function ID • Dangling Pointr</title>
-  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/'>
+  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'>
   
-  <link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/AdvancedGhidraLoader/'><link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/AdvancedGhidraLoader/'>
+  <link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/advancedghidraloader/'><link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/advancedghidraloader/'>
   <link rel='icon' href='/favicon.ico'>
 <link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#6aff00;}
@@ -320,7 +320,7 @@ And finally, in our main loader&rsquo;s class, we will iterate the list and regi
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/devblog/TutorialWritingAGhidraLoader/'>
+      <a href='/devblog/tutorialwritingaghidraloader/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
