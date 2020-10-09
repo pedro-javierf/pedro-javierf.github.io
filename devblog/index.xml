@@ -5,10 +5,20 @@
     <link>https://pedro-javierf.github.io/devblog/</link>
     <description>Recent content in Devblog on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 24 May 2020 12:30:38 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2020 11:39:11 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/devblog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dirt cheap Electromagnetic Fault Injection</title>
+      <link>https://pedro-javierf.github.io/devblog/dirtcheapemfaultinjection/</link>
+      <pubDate>Fri, 09 Oct 2020 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/devblog/dirtcheapemfaultinjection/</guid>
+      <description>Abstract Today&amp;rsquo;s post will cover the theory and crafting of an Electromagnetic Fault Injection device for as little as $5.
+¿What is Fault Injection? Fault injection is a term widely used in the hardware and systems security scene. It is the act of introducing logic errors (software errors) into CPUs by altering the underlying hardware. This allows an attacker to exploit a processor even if it were running a 100% safe code.</description>
+    </item>
     
     <item>
       <title>Advanced Ghidra Loader: labels, overlays and Function ID</title>

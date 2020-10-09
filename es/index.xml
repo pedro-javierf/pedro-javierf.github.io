@@ -5,10 +5,20 @@
     <link>https://pedro-javierf.github.io/es/</link>
     <description>Recent content in Inicio on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 05 Sep 2020 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2020 11:39:11 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/es/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Electromagnetic Fault Injection por dos duros</title>
+      <link>https://pedro-javierf.github.io/es/devblog/faultinjectionpordosduros/</link>
+      <pubDate>Fri, 09 Oct 2020 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/devblog/faultinjectionpordosduros/</guid>
+      <description>Abstract En la entrada que hoy nos concierne, vamos a ver como fabricar un dispositivo capaz de realizar EM Fault Injection por menos de 5€.
+¿Qué es Fault Injection? Fault Injection, o en español,inyección de fallos (vaya nombre feo) es un término ampliamente utilizado en el mundo del hardware y de la seguridad informática. Consiste en introducir errores lógicos en las CPUs mediante la alteración del hardware. Esto permite que, aunque un procesador esté ejecutando un código 100% seguro y libre de fallos, podamos causarlos nosotros, extrayendo secretos o redirigiendo la ejecución a nuestro propio software no autorizado, entre otros escenarios.</description>
+    </item>
     
     <item>
       <title>Me uno al equipo Área Xbox.</title>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Abstract Today&rsquo;s post will cover the theory and crafting of an Electromagnetic Fault Injection device for as little as $5.
+¿What is Fault Injection? Fault injection is a term widely used in the hardware and systems security scene. It is the act of introducing logic errors (software errors) into CPUs by altering the underlying hardware. This allows an attacker to exploit a processor even if it were running a 100% safe code.'>
+<meta name='theme-color' content='#6aff00'>
+
+<meta property='og:title' content='Dirt cheap Electromagnetic Fault Injection • Dangling Pointr'>
+<meta property='og:description' content='Abstract Today&rsquo;s post will cover the theory and crafting of an Electromagnetic Fault Injection device for as little as $5.
+¿What is Fault Injection? Fault injection is a term widely used in the hardware and systems security scene. It is the act of introducing logic errors (software errors) into CPUs by altering the underlying hardware. This allows an attacker to exploit a processor even if it were running a 100% safe code.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/devblog/dirtcheapemfaultinjection/'>
+<meta property='og:site_name' content='Dangling Pointr'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-10-09T11:39:11&#43;02:00'/><meta property='article:modified_time' content='2020-10-09T11:39:11&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <title>Dirt cheap Electromagnetic Fault Injection • Dangling Pointr</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/dirtcheapemfaultinjection/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#6aff00;}
+</style>
+
+  
+
+</head>
+
+<meta name="twitter:image:src" content="https://pedro-javierf.github.io/images/logo.png"> 
+<script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
+<script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101275982);</script>
+<script async src="//static.getclicky.com/js"></script>
+<link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
+<body class='page type-devblog has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+      Dangling Pointr
+      </a>
+    </h2>
+    <div class='desc'>
+    Your blog about hacking, learning and tech
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/devblog/'>Devblog 🖥️</a></li><li class='item'>
+  <a href='/talks/'>Talks 🗣️</a></li><li class='item'>
+  <a href='/gaming/'>Gaming 🎮</a></li><li class='item'>
+  <a href='/misc/'>Misc 🎵</a></li><li class='item'>
+  <a href='/about/'>About</a></li></ul>
+    </div>
+  </nav>
+
+</section>
+  <a id="dark-mode-toggle">Dark Mode</a><br>
+  
+  
+  </div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/devblog/'>Devblog 🖥️</a>
+      </li><li class='item'>
+        <a href='/talks/'>Talks 🗣️</a>
+      </li><li class='item'>
+        <a href='/gaming/'>Gaming 🎮</a>
+      </li><li class='item'>
+        <a href='/misc/'>Misc 🎵</a>
+      </li><li class='item'>
+        <a href='/about/'>About</a>
+      </li><li class='item'>
+        <a href='/es/'><i class='fa fa-language'></i> Change Language</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking, learning and tech</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Dirt cheap Electromagnetic Fault Injection</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2020-10-09T11:39:11&#43;02:00'>2020, Oct 09</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+8 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h1 id="abstract">Abstract</h1>
+
+<p>Today&rsquo;s post will cover the theory and crafting of an Electromagnetic Fault Injection device for as little as $5.</p>
+
+<h1 id="what-is-fault-injection">¿What is Fault Injection?</h1>
+
+<p>Fault injection is a term widely used in the hardware and systems security scene. It is the act of <strong>introducing logic errors (software errors) into CPUs</strong> by altering the underlying hardware. This allows an attacker to exploit a processor even if it were running a 100% safe code. We can cause our own problems, thus being able to obtain code execution, dump memory or secrets, etc.</p>
+
+<h1 id="types-of-attacks">Types of attacks</h1>
+
+<p>The three most common and accessible methodologies to alter the hardware are the following:</p>
+
+<ol>
+<li>Power glitch injection: we modify the power/voltage supply of the target.</li>
+<li>Clock glitch injection: we modify the clock signal of a synchronous device (CPU, SRAM, etc)</li>
+<li><strong>Electromagnetic Fault Injection</strong>: we employ magnetic fields to induce voltage or current variations on the target.</li>
+</ol>
+
+<p>Often these attacks are classified in two groups: invasive attacks (if the chip ends up destroyed or permanently modified after the attack) and non-invaside, like it&rsquo;s going to be the case.</p>
+
+<p>I must remark these attacks not only affect CPUs, but also other components like memories and such.</p>
+
+<h1 id="oh-physics">Oh physics</h1>
+
+<p>I am sorry. But <strong>it&rsquo;s time for a little physics</strong> and electronics. Won&rsquo;t be dull!. We must ask ourselves; how&rsquo;s that a magnetic field can induce changes in an electronic device?</p>
+
+<p><center>
+<img src=img/fuerzas.png>
+</center><br></p>
+
+<blockquote>
+<p><strong>Electromagnetism:</strong> The study of the interaction between electric charges, which is observed on electric fields and magnetic fields, and the relation between them. It&rsquo;s a long range force (infinite, in theory), much more intense than gravity.</p>
+</blockquote>
+
+<p>There are a couple of laws that are of special interest. Faraday&rsquo;s law and Lentz&rsquo;s law. While I&rsquo;m not going to explain them in detail, I must reference them, and you can learn more abot them. <strong>Specially interesting</strong> is the result/corollary of these laws: the relation between magnetic field and electric currents. For the purpose of this post it can be summarized to two ideas:</p>
+
+<blockquote>
+<p>An electric current flowing through a conductor produces a magnetic field.</p>
+</blockquote>
+
+<p>and at the same time:</p>
+
+<blockquote>
+<p>A magnetic field in movement, produces an electric current in a conductor if it is within the range of the field (induction).</p>
+</blockquote>
+
+<p><center>
+<img src=img/induccion1.gif><br>
+<em>A magnet (magnetic field) produces a voltaje in the spire</em>
+</center><br></p>
+
+<p>The last fenomena is the one we are going to exploit. We&rsquo;ll <strong>generate an (electro)magnetic field really close to our CPU</strong> (we won&rsquo;t use a magnet, though). This field will induce a voltage in the conductors inside the processor. These voltages can be confused and treated as logic states, by the logic gates. To ilustrate, if the CPU worked at 3.3 volts, a logic &lsquo;1&rsquo; would be any line/wire where we had 3.3v. Lines with 0 volts would be treated as a logic &lsquo;0&rsquo;. Should we induct a voltage on a surface where there wasn&rsquo;t voltage before, we could be turning a logic &lsquo;0&rsquo; (no voltage) into a logic &lsquo;1&rsquo; (voltage). And that&rsquo;s the trick in place.</p>
+
+<p>As a friend says, fault injection is <em>magic</em>, <strong>but easy magic</strong>.</p>
+
+<h1 id="basic-circuit-for-em-bursts-and-em-injection">Basic circuit for EM bursts and EM Injection</h1>
+
+<p>To obtain a magnetic field we only need two requeriments. An inductor (which is just a coil made of a conductor element) and a current to go though the coil.</p>
+
+<p>Magnetic field&rsquo;s flow&rsquo;s strength is given by the following formula:</p>
+
+<p>$$ \Phi = L * I $$</p>
+
+<p>Where <em>L</em> is the <a href="https://www.youtube.com/watch?v=MO4pXone5Eg" target="_blank">inductance</a>(Henry) and <em>I</em> is the current&rsquo;s intensity (Ampers). With either a greater inductance, or a greater intensity, a greater magnetic flow is obtained.</p>
+
+<p>The formula to compute the inductance is the following:</p>
+
+<p>$$ L = \frac{N^2 * \mu * S}{l}  $$</p>
+
+<p>Where:</p>
+
+<ul>
+<li>N: number of spires in the coil (no units)</li>
+<li>u: permeability of the core (Wb/A*m)</li>
+<li>S: core section (square meters)</li>
+<li>l: longitude of the flow lines (meters)</li>
+</ul>
+
+<p>To be able to cause glitches in the circuit we requiere a powerful enough magnetic flow. And there are two choices: increase the inductance or increase the intensity. Increasing intensity is easier and trivial, <strong>thanks to Ohm&rsquo;s law</strong>:</p>
+
+<p>$$ I = \frac{V}{R} $$</p>
+
+<p>An increase of the voltage will produce a greater current intensity. This way we have no need to worry about inductance, which involves more parameters.</p>
+
+<p>Finally, let&rsquo;s see how to obtain an already made, cheap, high voltage conversion circuit. With this, we&rsquo;ll generate a substantial magnetic field.</p>
+
+<h1 id="build">Build</h1>
+
+<p>At this point <strong>do not worry</strong> if you are lost. Let&rsquo;s get down to business and craft our injector. The materials we need are:</p>
+
+<ol>
+<li>Electric mosquito killer racket ($4 aprox)</li>
+<li>Soldadering iron and tin</li>
+<li>Wires to solder, and silicon gun (or similar)</li>
+</ol>
+
+<p>For less than $5 you can find electric rackets to kill mosquitos, which have almost all the components we need, and already assembled. Just needing a minor modifications.</p>
+
+<p><center>
+<img src=img/raqueta.jpg><br>
+<em>Teardown</em>
+</center><br></p>
+
+<p>Sneak peak of the insides:</p>
+
+<p><center>
+<img src=img/circuito.jpg><br>
+<em>from left to right: big capacitor, diodes(not important), transformer.</em>
+</center><br></p>
+
+<p>The transformer&rsquo;s role is to convert the 3 volts of input into high-voltaje. <strong>Warning:</strong> high-voltage is dangerous and circuits must be handled with protection and care. I am not responsible of any misuse of this information.</p>
+
+<p>The capacitor&rsquo;s output (left side) is the one going to the racket, while the batteries input is on the right side of the image.</p>
+
+<p><center>
+<img src=img/circuito.png><br>
+<em>Modifications</em>
+</center><br></p>
+
+<p>We must disconnect this racket, and whatever goes after the capacitor. We&rsquo;ll replace it with a <em>spark gap</em> and an <em>inductor</em>.</p>
+
+<h2 id="craft-inductor">Craft Inductor</h2>
+
+<p>To craft the inductor all we need to do is bend some wires to form a coil. The cables must have insulation, so you can either use wires with plastic covering, or enamel wire. You can try different thicknesses and number of spires.</p>
+
+<p><center>
+<img src=img/bobina1.jpg><br>
+<em>First test coil with 8 spires and some separation between them</em>
+</center><br></p>
+
+<p><center>
+<img src=img/bobina2.jpg><br>
+<em>Second inductor, 6 spires in parallel. Placed in the final injector.</em>
+</center><br></p>
+
+<h2 id="build-spark-gap">Build Spark Gap</h2>
+
+<p>Spark gap is nothing more than a space among two wires. When the capacitor stores enough charge, that charge will be able to breake the potential barrier of the air, and go through it. It&rsquo;s then when we watch the spark&rsquo;s effect.</p>
+
+<p><center>
+<img src=img/spark.jpg><br>
+</center><br></p>
+
+<p>All we need is a couple of wires, to be placed in a fixed manner, one close to the other but not touching. I used <a href="https://cdn.sparkfun.com//assets/parts/3/7/0/4/11026-Jumper_Wires_Standard_7in._M_M_-_30_AWG__30_Pack_-01.jpg" target="_blank">jumper cables</a> for this.</p>
+
+<p><center>
+<img src=img/sparkgap.jpg><br>
+<em>On the center of the image, you can see the spark gap, with green cables</em>
+</center><br></p>
+
+<p>With all done, just re-assembly and testing is needed.</p>
+
+<blockquote>
+<p>Observation: the greater the distance of the wires in the spark gap, the greater voltage will be needed to break the potential barrier. Our injector would take more time to charge each burst, nevertheless, the magnetic field would be greater.</p>
+</blockquote>
+
+<h1 id="results">Results</h1>
+
+<p>The following piece of code is used on every platform to perform tests:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>){
+    <span style="color:#66d9ef">int</span> i,j,k,cnt;
+    k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){
+     cnt <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+     <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">5000</span>; i<span style="color:#f92672">++</span>){
+       <span style="color:#66d9ef">for</span>(j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; j<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">5000</span>; j<span style="color:#f92672">++</span>){
+          cnt<span style="color:#f92672">++</span>;
+       }
+     }
+     printf(<span style="color:#e6db74">&#34;%d %d %d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, cnt, i, j,k<span style="color:#f92672">++</span>);
+    }
+}
+</code></pre></div>
+
+<p>We&rsquo;ll observe if it&rsquo;s able to induce glitches on the program&rsquo;s execution.</p>
+
+<h3 id="arduino-uno">Arduino UNO</h3>
+
+<p>A perfect target for the first tests, Arduino UNO has a microcontroller (ATMEGA 328P) which is very big and exposed in the board.
+<center>
+<img src=img/unoatmega.webp><br>
+<em>ATMEGA to the right. The target.</em>
+</center><br></p>
+
+<p>Build the code and upload it from the Arduino IDE (for example). Then, open a serial terminal and start glitching:</p>
+
+<p><center>
+<img src=img/arduinofault1.png><br>
+<em>As soon as sending some bursts, we obtain arithmetic glitches. Injector at a 5-6 cm distance</em>
+</center><br></p>
+
+<p>After a couple of tries, it can be easy to deduct on which areas or sides of the chip we must attack. Left half of the ATMEGA produces useful glitches (arithmetic, variable changes, speed changes, freezes) while provoking glitches on the right half most often crashes or reboots the device. We might suppose that the microcontroller&rsquo;s SRAM is located under the left section.</p>
+
+<p><center>
+<img src=img/arduinofault5.png><br>
+<em>More messing with bits, this time, the counter&rsquo;s value has turned negative.</em>
+</center><br></p>
+
+<p>One of the most interesting glitches I introduced was back with the precursory version of the device, and I was not aware enough of it&rsquo;s greatnes to take screenshots (so, you can only believe me!). Im pretty sure this glitch attacked the <em>sprintf()</em> function or its argument number two, which is a formated string. Probably, inducing some changes on it. <strong>The arduino started dumping its memory contents over the serial connection</strong> sending it to the PC. Was able to read some strings like &ldquo;Arduino Co.&rdquo; or the serial printable charset <em>abcd&hellip;ABCD..1234567890</em> etc.</p>
+
+<p>I have since tried to reproduce the glitch with the final version, but I&rsquo;ve only achieved this:</p>
+
+<p><center>
+<img src=img/arduinofault6.png><br>
+<em>Memory dump? Not likely</em>
+</center><br></p>
+
+<h3 id="arduino-mega">Arduino MEGA</h3>
+
+<p>Arduino MEGA is the steroids version when it comes to Arduino, packing an ATmega2560 with more I/O and more memory.</p>
+
+<p><center>
+<img src=img/megalayout.png><br>
+<em>Arduino MEGA</em>
+</center><br></p>
+
+<p>With its more compact microcontroller design, it seemed sightly more resilient, but not that much. Achieving arithmetic errors was easy and done quickly so I&rsquo;ll skip that as you&rsquo;ve already seen them with the UNO.</p>
+
+<p>I managed though, to dump some unknown data over the serial by confusing the <em>sprintf()</em>, perhaps some close stack variables and pointer. But I cannot know for sure:</p>
+
+<p><center>
+<img src=img/megaglitch1.png><br>
+<img src=img/megaglitch2.png><br>
+<img src=img/megaglitch3.png><br>
+</center><br></p>
+
+<h3 id="raspberry-pi-b">Raspberry Pi B+</h3>
+
+<p>Raspberry Pi B+ packs a Broadcom BCM2835 SoC, with and ARM7 CPU. I&rsquo;ll be running armbian (a debian for ARM fork) for the tests.</p>
+
+<p><center>
+<img src=img/raspi1.jpg><br>
+<em>SoC Raspberry Pi B+</em>
+</center><br></p>
+
+<p>Again depending on the part of the surface of the chip that we place closer to the injector&rsquo;s coil, we&rsquo;ll obtain diverse results.</p>
+
+<p><center>
+<img src=img/raspifault1.jpg><br>
+<em>Glitch in the arithmetic of the program. It keeps executing.</em>
+</center><br></p>
+
+<p>Often, some areas of the SoC would cause a reset. Other would blackout the HDMI output for some seconds.</p>
+
+<p><center>
+<img src=img/raspifault2.jpg><br>
+<em>We have introduced a glitch which may have caused a wrong memory access, causing an exception</em>
+</center><br></p>
+
+<p>This last case is extremely important, as we can observe a glitch that has caused a segmentation fault, likely caused by an invalid memory access (reading/writing or jumping somewhere invalid, doesn&rsquo;t matter). This proves that we can cause exceptions, which can allow for far more complex attacks, to components like the bootloader or the kernel, which we can take over by <strong>poisoning the exception vector table</strong> and then forcing an exception, with our hardware attack.</p>
+
+<h1 id="thanks-and-acknowledgements">Thanks and Acknowledgements</h1>
+
+<p>Thanks to <a href="https://twitter.com/matyfm" target="_blank">@MatyFM</a> and <a href="https://twitter.com/marunmagesh" target="_blank">@marunmagesh</a> for the ideas and the help with electronics.</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/devblog/advancedghidraloader/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Advanced Ghidra Loader: labels, overlays and Function ID</a>
+    </div></div>
+</nav>
+
+
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/DanglingPointr' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2020  </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script><script type='text/x-mathjax-config'>
+  MathJax.Hub.Config({})
+</script>
+
+<script type='text/javascript' async src='//unpkg.com/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
+
+</html>
+
