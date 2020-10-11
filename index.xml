@@ -5,10 +5,22 @@
     <link>https://pedro-javierf.github.io/</link>
     <description>Recent content in Home on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 09 Oct 2020 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 11 Oct 2020 11:39:11 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Solving rhme fiesta from Riscure Hardware CTF 2016 with EM Fault Injection</title>
+      <link>https://pedro-javierf.github.io/devblog/rhmefaultinjection/</link>
+      <pubDate>Sun, 11 Oct 2020 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/devblog/rhmefaultinjection/</guid>
+      <description>Abstract Let&amp;rsquo;s see how to solve the &amp;ldquo;Fiesta&amp;rdquo; challenge from Riscure Embedded Hardware CTF 2016 using electromagnetic Fault Injection.
+This challenge has some lore/story behind, and is specifically designed to be solved using Fault Injection techniques.
+Tools To solve the challenge I use exclusively my own Electromagnetic Fault Injector
+Reto y Solución Upload the executable .hex to an arduino NANO, and let&amp;rsquo;s observe the serial output (19200 bauds), we observe the device is somehow &amp;ldquo;locked&amp;rdquo;.</description>
+    </item>
     
     <item>
       <title>Dirt cheap Electromagnetic Fault Injection</title>

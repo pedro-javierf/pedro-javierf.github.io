@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Abstract Let&rsquo;s see how to solve the &ldquo;Fiesta&rdquo; challenge from Riscure Embedded Hardware CTF 2016 using electromagnetic Fault Injection.
+This challenge has some lore/story behind, and is specifically designed to be solved using Fault Injection techniques.
+Tools To solve the challenge I use exclusively my own Electromagnetic Fault Injector
+Reto y Solución Upload the executable .hex to an arduino NANO, and let&rsquo;s observe the serial output (19200 bauds), we observe the device is somehow &ldquo;locked&rdquo;.'>
+<meta name='theme-color' content='#6aff00'>
+
+<meta property='og:title' content='Solving rhme fiesta from Riscure Hardware CTF 2016 with EM Fault Injection • Dangling Pointr'>
+<meta property='og:description' content='Abstract Let&rsquo;s see how to solve the &ldquo;Fiesta&rdquo; challenge from Riscure Embedded Hardware CTF 2016 using electromagnetic Fault Injection.
+This challenge has some lore/story behind, and is specifically designed to be solved using Fault Injection techniques.
+Tools To solve the challenge I use exclusively my own Electromagnetic Fault Injector
+Reto y Solución Upload the executable .hex to an arduino NANO, and let&rsquo;s observe the serial output (19200 bauds), we observe the device is somehow &ldquo;locked&rdquo;.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/devblog/rhmefaultinjection/'>
+<meta property='og:site_name' content='Dangling Pointr'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-10-11T11:39:11&#43;02:00'/><meta property='article:modified_time' content='2020-10-11T11:39:11&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <title>Solving rhme fiesta from Riscure Hardware CTF 2016 with EM Fault Injection • Dangling Pointr</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/rhmefaultinjection/'>
+  
+  <link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/rhmefaultinjection/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/rhmefaultinjection/'><link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/rhmefaultinjection/'>
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#6aff00;}
+</style>
+
+  
+
+</head>
+
+<meta name="twitter:image:src" content="https://pedro-javierf.github.io/images/logo.png"> 
+<script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
+<script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101275982);</script>
+<script async src="//static.getclicky.com/js"></script>
+<link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
+<body class='page type-devblog has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+      Dangling Pointr
+      </a>
+    </h2>
+    <div class='desc'>
+    Your blog about hacking, learning and tech
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/devblog/'>Devblog 🖥️</a></li><li class='item'>
+  <a href='/talks/'>Talks 🗣️</a></li><li class='item'>
+  <a href='/gaming/'>Gaming 🎮</a></li><li class='item'>
+  <a href='/misc/'>Misc 🎵</a></li><li class='item'>
+  <a href='/about/'>About</a></li></ul>
+    </div>
+  </nav>
+
+</section>
+  <a id="dark-mode-toggle">Dark Mode</a><br>
+  
+  
+  </div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/devblog/'>Devblog 🖥️</a>
+      </li><li class='item'>
+        <a href='/talks/'>Talks 🗣️</a>
+      </li><li class='item'>
+        <a href='/gaming/'>Gaming 🎮</a>
+      </li><li class='item'>
+        <a href='/misc/'>Misc 🎵</a>
+      </li><li class='item'>
+        <a href='/about/'>About</a>
+      </li><li class='item'>
+        <a href='/es/'><i class='fa fa-language'></i> Change Language</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking, learning and tech</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Solving rhme fiesta from Riscure Hardware CTF 2016 with EM Fault Injection</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2020-10-11T11:39:11&#43;02:00'>2020, Oct 11</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+One min read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h1 id="abstract">Abstract</h1>
+
+<p>Let&rsquo;s see how to solve the &ldquo;Fiesta&rdquo; challenge from Riscure Embedded Hardware CTF 2016 using electromagnetic Fault Injection.</p>
+
+<p>This challenge has some lore/story behind, and is specifically designed to be solved using Fault Injection techniques.</p>
+
+<h1 id="tools">Tools</h1>
+
+<p>To solve the challenge I use exclusively my own <a href="https://pedro-javierf.github.io/devblog/dirtcheapemfaultinjection/" target="_blank">Electromagnetic Fault Injector</a></p>
+
+<h1 id="reto-y-solución">Reto y Solución</h1>
+
+<p>Upload the <a href="https://github.com/Riscure/Rhme-2016/blob/master/challenges/binaries/fiesta/fiesta.hex" target="_blank">executable .hex</a> to an arduino NANO, and let&rsquo;s observe the serial output (19200 bauds), we observe the device is somehow &ldquo;locked&rdquo;.</p>
+
+<p><center>
+<img src=img/lock.png>
+</center><br></p>
+
+<p>Let&rsquo;s bring our injector closer and cause some glitches:</p>
+
+<p><center>
+<img src=img/injector.jpg>
+</center><br></p>
+
+<p>And just like that <strong>with only 2 tries</strong> we obtain the Flag. With the first EM burst the CPU reset&rsquo;ed, but at the second I obtained the solution:</p>
+
+<p><center>
+<img src=img/solution.png>
+Easy peasy.
+</center><br></p>
+
+<p><center>
+<img src=img/solution2.png>
+A later attempt produced a cleaner glitch.
+</center><br></p>
+
+<p>FLAG: Why_4m_I_her3?</p>
+
+<h1 id="other-solutions">Other Solutions</h1>
+
+<p>This challenge was previously solved in two ways. A methodical (and more involved) way, by doing power glitch fault injection, by live0verflow:</p>
+
+<p><center>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/6Pf3pY3GxBM" frameborder="0" allowfullscreen></iframe><br>
+Video featured in Hacking The 3DS part IV.
+</center></p>
+
+<p>Later, Jullio de la Flora solved it by shorting the clock pins, causing a malformed clock signal. Even faster:</p>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/LiveOverflow?ref_src=twsrc%5Etfw">@LiveOverflow</a> that&#39;s why the RHME2 FIesta challenge was worth only 100 points.  ;D ahahaha it was a clock fault injection... <a href="https://t.co/QOwjWNVhsl">pic.twitter.com/QOwjWNVhsl</a></p>&mdash; Julio Della Flora (@jcldf) <a href="https://twitter.com/jcldf/status/1235859271176171521?ref_src=twsrc%5Etfw">March 6, 2020</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/devblog/dirtcheapemfaultinjection/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Dirt cheap Electromagnetic Fault Injection</a>
+    </div></div>
+</nav>
+
+
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/DanglingPointr' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2020  </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script><script type='text/x-mathjax-config'>
+  MathJax.Hub.Config({})
+</script>
+
+<script type='text/javascript' async src='//unpkg.com/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
+
+</html>
+
