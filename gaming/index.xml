@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Videogames &amp; Game Industry on Dangling Pointr</title>
+    <title>Videogame Industry, others on Dangling Pointr</title>
     <link>https://pedro-javierf.github.io/gaming/</link>
-    <description>Recent content in Videogames &amp; Game Industry on Dangling Pointr</description>
+    <description>Recent content in Videogame Industry, others on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 05 Sep 2020 11:39:11 +0200</lastBuildDate>
     
@@ -12,10 +12,10 @@
     
     <item>
       <title>I Join the Área Xbox team.</title>
-      <link>https://pedro-javierf.github.io/gaming/welcome/</link>
+      <link>https://pedro-javierf.github.io/gaming/areaxbox/</link>
       <pubDate>Sat, 05 Sep 2020 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/gaming/welcome/</guid>
+      <guid>https://pedro-javierf.github.io/gaming/areaxbox/</guid>
       <description>Área Xbox On August 2020, I joined the Spanish press site Área Xbox, where I work covering sector news, doing translation and localization tasks, and the creation of opinion pieces. I carry out game reviews and attend press events as well.
 Work These are the news and opinion pieces I&amp;rsquo;ve published since then:</description>
     </item>
