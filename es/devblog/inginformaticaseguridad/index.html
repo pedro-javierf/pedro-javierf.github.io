@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang='es'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='La pregunta definitiva sobre ciberseguridad Como estudiante de tercer curso de Ingeniería Informática en una conocida universidad de Madrid, y como persona con inquietudes sobre la ciberseguridad, no puedo evitar llevarme las manos a la cabeza cada vez que se trata de forma incorrecta esta materia, o cada vez que no se enseña sobre ciberseguridad.
+Desde luego se han hecho progresos enormes en los últimos años. Disponemos de una asignatura dedicada a la seguridad estructural y de las redes.'>
+<meta name='theme-color' content='#6aff00'>
+
+<meta property='og:title' content='¿Se enseña diseño seguro en Ingeniería Informática? • Dangling Pointr'>
+<meta property='og:description' content='La pregunta definitiva sobre ciberseguridad Como estudiante de tercer curso de Ingeniería Informática en una conocida universidad de Madrid, y como persona con inquietudes sobre la ciberseguridad, no puedo evitar llevarme las manos a la cabeza cada vez que se trata de forma incorrecta esta materia, o cada vez que no se enseña sobre ciberseguridad.
+Desde luego se han hecho progresos enormes en los últimos años. Disponemos de una asignatura dedicada a la seguridad estructural y de las redes.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/'>
+<meta property='og:site_name' content='Dangling Pointr'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-11-02T11:39:11&#43;02:00'/><meta property='article:modified_time' content='2020-11-02T11:39:11&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <title>¿Se enseña diseño seguro en Ingeniería Informática? • Dangling Pointr</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/'>
+  
+  <link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/'><link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/inginformaticaseguridad/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/inginformaticaseguridad/'>
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#6aff00;}
+</style>
+
+  
+
+</head>
+
+<meta name="twitter:image:src" content="https://pedro-javierf.github.io/images/logo.png"> 
+<script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
+
+<script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101283254);</script>
+<script async src="//static.getclicky.com/js"></script>
+
+<link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
+<body class='page type-devblog has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Saltar al menú principal</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/es/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/es/'>
+      Dangling Pointr
+      </a>
+    </h2>
+    <div class='desc'>
+    Your blog about hacking, learning and tech
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Menú lateral'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/es/'>Inicio</a></li><li class='item'>
+  <a href='/es/talks/'>Charlas 🗣️</a></li><li class='item'>
+  <a href='/es/devblog/'>Devblog 🖥️</a></li><li class='item'>
+  <a href='/es/gaming/'>Entretenimiento 🎮</a></li><li class='item'>
+  <a href='/es/misc/'>Miscelánea 🎵</a></li><li class='item'>
+  <a href='/es/about/'>Sobre Mi</a></li></ul>
+    </div>
+  </nav>
+
+</section>
+  <a id="dark-mode-toggle">Dark Mode</a><br>
+  
+  
+  </div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Menú principal'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Saltar al contenido</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Alternar barra lateral</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/es/'>Inicio</a>
+      </li><li class='item'>
+        <a href='/es/talks/'>Charlas 🗣️</a>
+      </li><li class='item'>
+        <a href='/es/devblog/'>Devblog 🖥️</a>
+      </li><li class='item'>
+        <a href='/es/gaming/'>Entretenimiento 🎮</a>
+      </li><li class='item'>
+        <a href='/es/misc/'>Miscelánea 🎵</a>
+      </li><li class='item'>
+        <a href='/es/about/'>Sobre Mi</a>
+      </li><li class='item'>
+        <a href='/en/'><i class='fa fa-language'></i> Cambiar Idioma</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking, learning and tech</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='es' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>¿Se enseña diseño seguro en Ingeniería Informática?</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posteado en </span>
+  <time class='entry-date' datetime='2020-11-02T11:39:11&#43;02:00'>2020, Nov 02</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+4 minutos de lectura
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h1 id="la-pregunta-definitiva-sobre-ciberseguridad">La pregunta definitiva sobre ciberseguridad</h1>
+
+<p>Como estudiante de tercer curso de Ingeniería Informática en una conocida universidad de Madrid, y como persona con inquietudes sobre la ciberseguridad, no puedo evitar llevarme las manos a la cabeza cada vez que se trata de forma incorrecta esta materia, o cada vez que no se enseña sobre ciberseguridad.</p>
+
+<p>Desde luego se han hecho progresos enormes en los últimos años. Disponemos de una asignatura dedicada a la seguridad estructural y de las redes. La universidad no manda a la policía a tu casa si encuentras vulnerabilidades en sus sistemas, sino que te recompensa por ello con una carta de agradecimiento.</p>
+
+<p>Pero, cuando hablamos del estudiante medio de Ingeniería Informática&hellip; ¿podemos decir que este se beneficia de dichas políticas? ¿o sigue perdido en materia de ciberseguridad? ¿se enseña a desarrollar (programar) de forma segura?</p>
+
+<h1 id="mytar-laboratorio-1-caso-de-estudio">mytar Laboratorio 1: caso de estudio</h1>
+
+<p>Nuevo curso, me matriculo en la asignatura Sistemas Operativos. Llega nuestra primera práctica. He aquí el enunciado, que debemos programar en el lenguaje C en Linux:</p>
+
+<blockquote>
+<p>In this assignment the student must create a command line tool called “mytar”,This tool must be able to create a tarball archive containing several files, or to extract the files from a previously created tarball.</p>
+</blockquote>
+
+<p>Después de pelearme un par de días con ella, la termino y entrego.</p>
+
+<p>Durante el desarrollo de esta práctica recuerdo lo bonito (pero dificil) que es trabajar en C; gestión de memoria, buffer overflows, principalmente. Sé que el código de muchos de mis compañeros tiene estos fallos, y es normal, pues muchos acaban de introducirse a C (es la primera o segunda vez que lo vemos en la carrera). <strong>Primer tipo de vulnerabilidad encontrada</strong>, es un clásico, y nadie nos ha advertido sobre ellas.</p>
+
+<p>Sin embargo, si eres jugador habitual de CTFs (Capture The Flag) tal vez hayas pensado en otro tipo de vulnerabilidad que puede ser causada o encontrada en el programa mytar que hemos tenido que desarrollar.</p>
+
+<blockquote>
+<p><em>El nombre Zip Slip.. ¿te suena familiar?</em></p>
+</blockquote>
+
+<p>Nuestro programa mytar posee una vulnerabilidad <strong>QUE LLEVA CASI 30 AÑOS entre nosotros</strong>. Y es que la especificación del formato .tar de nuestra prática, aunque simplificado casi al extremo, <strong>sigue sin tener en cuenta la seguridad</strong>.</p>
+
+<p>Os dejo un extracto del código de mi prática, y os doy una pista. Nuestro programa mytar no comprueba la ruta de los archivos que va a extraer ¿podéis identificar el problema?:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">//Abrimos el archivo a extraer con su nombre de archivo
+</span><span style="color:#75715e"></span>FILE <span style="color:#f92672">*</span>subfile <span style="color:#f92672">=</span> fopen(descriptorList[i].name,<span style="color:#e6db74">&#34;wb&#34;</span>);
+
+<span style="color:#75715e">//Extraemos los datos del archivo
+</span><span style="color:#75715e"></span>copynFile(tarfile, subfile, descriptorList[i].size);
+
+<span style="color:#75715e">//Cerramos archivo
+</span><span style="color:#75715e"></span>fclose(subfile);</code></pre></div>
+<p>En la primera línea, utilizamos el nombre de archivo (o ruta) que se encuentra en el archivo comprimido con formato .tar, para crear el archivo que vamos a extraer.</p>
+
+<p>¿Qué ocurre si nuestro archivo .tar es malicioso y contiene el siguiente archivo a extraer?</p>
+
+<blockquote>
+<p>../../../../var/www/index.html</p>
+</blockquote>
+
+<p>Vamos a despiezar esta ruta de archivo. En primer lugar tenemos lo siguiente:</p>
+
+<blockquote>
+<p>../../../../</p>
+</blockquote>
+
+<p>Esto hace que subamos de directorio. En este caso 4 veces.</p>
+
+<blockquote>
+<p>/var/www/index.html</p>
+</blockquote>
+
+<p>Finalmente el archivo se escribe en el directorio especificado, pero partiendo desde el directorio raíz <code>/</code> si hemos ido hacia atrás lo suficiente. El código que se ejecutaría seria similar a:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">fopen(<span style="color:#e6db74">&#34;../../../../var/www/index.html&#34;</span>,<span style="color:#e6db74">&#34;wb&#34;</span>);
+</code></pre></div>
+<p>En el caso de servidores Linux, y especialmente servidores web, la ruta /var/www/ suele contener los datos de nuestra web. En este caso, descomprimir el archivo malicioso haría que se sobreescribiese el index o página de inicio del servidor, por el archivo malicioso del atacante (que podría minar criptomonedas,ejecutar código en el navegador de los usuarios que visiten la web, etc).</p>
+
+<p><center>
+<img src=img/tar.PNG><br>
+Archivo tar malicioso malformado.
+</center><br></p>
+
+<p>En el caso de la correción de la práctica, algunos profesores <strong>llegan a ejecutar el programa en sus ordenadores</strong> con una serie de tests para comprobar su funcionamiento. Como veis la superficie de ataque es preocupante en esta prática y en muchas otras.</p>
+
+<h1 id="conclusiones-referencias">Conclusiones + Referencias</h1>
+
+<p>Una simple búsqueda en Google me muestra que esta práctica lleva haciéndose varios años en la facultad. Ha sido revisada por varios profesores pero este problema grave de diseño no ha sido encontrado.</p>
+
+<p>Este fallo no existe solo para el formato .tar, también ocurre con el formato .zip puesto que la especificación del formato lo permite. Es antigua, <strong>y no fue creada con la seguridad en mente</strong>.</p>
+
+<p>Si queréis conocer un poco más sobre la historia de estas vulnerabilidad y como llevan entre nosotros desde 1991, os dejo el siguiente vídeo (en inglés), que también trata otras variaciones del ataque, como los symlinks:</p>
+
+<p><center>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/Ry_yb5Oipq0" frameborder="0" allowfullscreen></iframe><br>
+Zip Vulnerabilities.
+</center></p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/es/devblog/rhmefaultinjection/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Anterior</span>
+        <span class='screen-reader-text'>Anterior entrada: </span>Solución reto rhme fiesta del Riscure Hardware CTF 2016 con EM Fault Injection</a>
+    </div></div>
+</nav>
+
+
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Menú social'>
+    <ul><li>
+        <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Github en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/DanglingPointr' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Twitter en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Abrir cuenta de Linkedin en una nueva pestaña</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2020  </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script>
+
+</body>
+
+</html>
+

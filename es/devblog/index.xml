@@ -5,10 +5,20 @@
     <link>https://pedro-javierf.github.io/es/devblog/</link>
     <description>Recent content in Devblog on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 11 Oct 2020 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2020 11:39:11 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/es/devblog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>¿Se enseña diseño seguro en Ingeniería Informática?</title>
+      <link>https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/</link>
+      <pubDate>Mon, 02 Nov 2020 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/</guid>
+      <description>La pregunta definitiva sobre ciberseguridad Como estudiante de tercer curso de Ingeniería Informática en una conocida universidad de Madrid, y como persona con inquietudes sobre la ciberseguridad, no puedo evitar llevarme las manos a la cabeza cada vez que se trata de forma incorrecta esta materia, o cada vez que no se enseña sobre ciberseguridad.
+Desde luego se han hecho progresos enormes en los últimos años. Disponemos de una asignatura dedicada a la seguridad estructural y de las redes.</description>
+    </item>
     
     <item>
       <title>Solución reto rhme fiesta del Riscure Hardware CTF 2016 con EM Fault Injection</title>

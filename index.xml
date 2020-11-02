@@ -5,10 +5,20 @@
     <link>https://pedro-javierf.github.io/</link>
     <description>Recent content in Home on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 11 Oct 2020 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 02 Nov 2020 11:39:11 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Is safe design being taught at Computer Engineering degrees?</title>
+      <link>https://pedro-javierf.github.io/devblog/inginformaticaseguridad/</link>
+      <pubDate>Mon, 02 Nov 2020 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/devblog/inginformaticaseguridad/</guid>
+      <description>The definite question about cybersecurity As a third year student of Computer Engineering at a known University in Madrid and an information secuirty enthusiast, I can&amp;rsquo;t help but panic when the subject is taught incorrectly or misleadingly.
+Needless to say, progress has been made in the last years. We have a course specifically designed to teach computer networks security. The university does not prosecute you if you find vulnerabilities in their systems, they know about responsive disclosure and acknowledge you instead.</description>
+    </item>
     
     <item>
       <title>Solving rhme fiesta from Riscure Hardware CTF 2016 with EM Fault Injection</title>
@@ -30,18 +40,6 @@ Challenge and Solution Upload the executable .hex to an arduino NANO, and let&am
       <guid>https://pedro-javierf.github.io/devblog/dirtcheapemfaultinjection/</guid>
       <description>Abstract Today&amp;rsquo;s post will cover the theory and crafting of an Electromagnetic Fault Injection device for as little as $5.
 ¿What is Fault Injection? Fault injection is a term widely used in the hardware and systems security scene. It is the act of introducing logic errors (software errors) into CPUs by altering the underlying hardware. This allows an attacker to exploit a processor even if it were running a 100% safe code.</description>
-    </item>
-    
-    <item>
-      <title>Fractales: una mirada al infinito</title>
-      <link>https://pedro-javierf.github.io/cv/</link>
-      <pubDate>Wed, 23 Sep 2020 13:22:50 +0200</pubDate>
-      
-      <guid>https://pedro-javierf.github.io/cv/</guid>
-      <description>Bienvenido. Si has llegado hasta esta web, debes estar buscando el trabajo de investigación llamado &amp;ldquo;Fractales: Una mirada al infinito&amp;rdquo;.
-A continuación puedes descargar la memoria del proyecto, en formato PDF:
-Descargar
-También puedes encontrar las diapositivas utilizadas para su presentación y exposición:</description>
     </item>
     
     <item>

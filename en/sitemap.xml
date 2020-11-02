@@ -4,7 +4,7 @@
   
   <url>
     <loc>https://pedro-javierf.github.io/</loc>
-    <lastmod>2020-10-11T11:39:11+02:00</lastmod>
+    <lastmod>2020-11-02T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
@@ -19,7 +19,7 @@
   
   <url>
     <loc>https://pedro-javierf.github.io/devblog/</loc>
-    <lastmod>2020-10-11T11:39:11+02:00</lastmod>
+    <lastmod>2020-11-02T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
@@ -92,6 +92,21 @@
   </url>
   
   <url>
+    <loc>https://pedro-javierf.github.io/devblog/inginformaticaseguridad/</loc>
+    <lastmod>2020-11-02T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedro-javierf.github.io/devblog/inginformaticaseguridad/"
+                />
+  </url>
+  
+  <url>
     <loc>https://pedro-javierf.github.io/devblog/rhmefaultinjection/</loc>
     <lastmod>2020-10-11T11:39:11+02:00</lastmod>
     <xhtml:link
@@ -109,11 +124,6 @@
   <url>
     <loc>https://pedro-javierf.github.io/devblog/dirtcheapemfaultinjection/</loc>
     <lastmod>2020-10-09T11:39:11+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pedro-javierf.github.io/cv/</loc>
-    <lastmod>2020-09-23T13:22:50+02:00</lastmod>
   </url>
   
   <url>

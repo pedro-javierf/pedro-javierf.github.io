@@ -2,27 +2,23 @@
 <html lang='en'><head>
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='Abstract Let&rsquo;s see how to solve the &ldquo;Fiesta&rdquo; challenge from Riscure Embedded Hardware CTF 2016 using electromagnetic Fault Injection.
-This challenge has some lore/story behind, and is specifically designed to be solved using Fault Injection techniques.
-Tools To solve the challenge I use exclusively my own Electromagnetic Fault Injector
-Challenge and Solution Upload the executable .hex to an arduino NANO, and let&rsquo;s observe the serial output (19200 bauds), we observe the device is somehow &ldquo;locked&rdquo;.'>
+<meta name='description' content='The definite question about cybersecurity As a third year student of Computer Engineering at a known University in Madrid and an information secuirty enthusiast, I can&rsquo;t help but panic when the subject is taught incorrectly or misleadingly.
+Needless to say, progress has been made in the last years. We have a course specifically designed to teach computer networks security. The university does not prosecute you if you find vulnerabilities in their systems, they know about responsive disclosure and acknowledge you instead.'>
 <meta name='theme-color' content='#6aff00'>
 
-<meta property='og:title' content='Solving rhme fiesta from Riscure Hardware CTF 2016 with EM Fault Injection • Dangling Pointr'>
-<meta property='og:description' content='Abstract Let&rsquo;s see how to solve the &ldquo;Fiesta&rdquo; challenge from Riscure Embedded Hardware CTF 2016 using electromagnetic Fault Injection.
-This challenge has some lore/story behind, and is specifically designed to be solved using Fault Injection techniques.
-Tools To solve the challenge I use exclusively my own Electromagnetic Fault Injector
-Challenge and Solution Upload the executable .hex to an arduino NANO, and let&rsquo;s observe the serial output (19200 bauds), we observe the device is somehow &ldquo;locked&rdquo;.'>
-<meta property='og:url' content='https://pedro-javierf.github.io/devblog/rhmefaultinjection/'>
+<meta property='og:title' content='Is safe design being taught at Computer Engineering degrees? • Dangling Pointr'>
+<meta property='og:description' content='The definite question about cybersecurity As a third year student of Computer Engineering at a known University in Madrid and an information secuirty enthusiast, I can&rsquo;t help but panic when the subject is taught incorrectly or misleadingly.
+Needless to say, progress has been made in the last years. We have a course specifically designed to teach computer networks security. The university does not prosecute you if you find vulnerabilities in their systems, they know about responsive disclosure and acknowledge you instead.'>
+<meta property='og:url' content='https://pedro-javierf.github.io/devblog/inginformaticaseguridad/'>
 <meta property='og:site_name' content='Dangling Pointr'>
-<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-10-11T11:39:11&#43;02:00'/><meta property='article:modified_time' content='2020-10-11T11:39:11&#43;02:00'/><meta name='twitter:card' content='summary'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-11-02T11:39:11&#43;02:00'/><meta property='article:modified_time' content='2020-11-02T11:39:11&#43;02:00'/><meta name='twitter:card' content='summary'>
 
 <meta name="generator" content="Hugo 0.59.1" />
 
-  <title>Solving rhme fiesta from Riscure Hardware CTF 2016 with EM Fault Injection • Dangling Pointr</title>
-  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/rhmefaultinjection/'>
+  <title>Is safe design being taught at Computer Engineering degrees? • Dangling Pointr</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/inginformaticaseguridad/'>
   
-  <link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/rhmefaultinjection/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/rhmefaultinjection/'><link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/rhmefaultinjection/'>
+  <link rel='alternate' hreflang='en' href='https://pedro-javierf.github.io/devblog/inginformaticaseguridad/'><link rel='alternate' hreflang='x-default' href='https://pedro-javierf.github.io/devblog/inginformaticaseguridad/'><link rel='alternate' hreflang='es' href='https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/'>
   <link rel='icon' href='/favicon.ico'>
 <link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
 :root{--color-accent:#6aff00;}
@@ -139,7 +135,7 @@ Challenge and Solution Upload the executable .hex to an arduino NANO, and let&rs
   <header class='header entry-header'>
   <div class='container sep-after'>
     <div class='header-info'>
-      <h1 class='title'>Solving rhme fiesta from Riscure Hardware CTF 2016 with EM Fault Injection</h1>
+      <h1 class='title'>Is safe design being taught at Computer Engineering degrees?</h1>
       
 
     </div>
@@ -153,7 +149,7 @@ Challenge and Solution Upload the executable .hex to an arduino NANO, and let&rs
   
 </svg>
 <span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2020-10-11T11:39:11&#43;02:00'>2020, Oct 11</time>
+  <time class='entry-date' datetime='2020-11-02T11:39:11&#43;02:00'>2020, Nov 02</time>
 </span>
 
   
@@ -164,7 +160,7 @@ Challenge and Solution Upload the executable .hex to an arduino NANO, and let&rs
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-2 mins read
+4 mins read
 </span>
 
 
@@ -180,63 +176,89 @@ Challenge and Solution Upload the executable .hex to an arduino NANO, and let&rs
   <div class='container entry-content'>
   
 
-<h1 id="abstract">Abstract</h1>
+<h1 id="the-definite-question-about-cybersecurity">The definite question about cybersecurity</h1>
 
-<p>Let&rsquo;s see how to solve the &ldquo;Fiesta&rdquo; challenge from Riscure Embedded Hardware CTF 2016 using electromagnetic Fault Injection.</p>
+<p>As a third year student of Computer Engineering at a known University in Madrid and an information secuirty enthusiast, I can&rsquo;t help but <em>panic</em> when the subject is taught incorrectly or misleadingly.</p>
 
-<p>This challenge has some lore/story behind, and is specifically designed to be solved using Fault Injection techniques.</p>
+<p>Needless to say, progress has been made in the last years. We have a course specifically designed to teach computer networks security. The university does not prosecute you if you find vulnerabilities in their systems, they know about responsive disclosure and acknowledge you instead. And so on.</p>
 
-<h1 id="tools">Tools</h1>
+<p>But when it comes to the average student of CS&hellip; can we say the whole degree makes them security-aware? What about secure programming?</p>
 
-<p>To solve the challenge I use exclusively my own <a href="https://pedro-javierf.github.io/devblog/dirtcheapemfaultinjection/" target="_blank">Electromagnetic Fault Injector</a></p>
+<h1 id="mytar-laboratory-1-study-case">mytar Laboratory 1: study case</h1>
 
-<h1 id="challenge-and-solution">Challenge and Solution</h1>
+<p>New academic year. I enroll in the Operating Systems subject. First laboratory practice. Here&rsquo;s the statement:</p>
 
-<p>Upload the <a href="https://github.com/Riscure/Rhme-2016/blob/master/challenges/binaries/fiesta/fiesta.hex" target="_blank">executable .hex</a> to an arduino NANO, and let&rsquo;s observe the serial output (19200 bauds), we observe the device is somehow &ldquo;locked&rdquo;.</p>
+<blockquote>
+<p>In this assignment the student must create a command line tool called “mytar”, this tool must be able to create a tarball archive containing several files, or to extract the files from a previously created tarball.</p>
+</blockquote>
+
+<p>After a couple of days I finish the task and submit it.</p>
+
+<p>During the development of the tool I remembered how difficult it is to program in C: memory management, buffer overflow, among others. Most of my mates&rsquo; code have these problems from time to time. No surprise, we have just been introduced to C. <strong>First vulnerability found</strong>, the classic memory management vulnerabilities no-one teaches you about in the degree.</p>
+
+<p>Nonetheless, if you happen to be a CTF player, you may have thought about vulnerabilities of a different nature.</p>
+
+<blockquote>
+<p><em>Does a name like Zip Slip hit home?</em></p>
+</blockquote>
+
+<p>Our program has a vulnerability that <strong>has been among us for almost 30 years</strong>. And that&rsquo;s simply because the specification of the .tar format in our Lab script, even simplified to an extrem, still <strong>does not take safety into account</strong>.</p>
+
+<p>Here&rsquo;s an snippet from my code, and a hint. Our mytar program does not check nor sanitize the path of the file it is going to extract.
+Can you spot the problem?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">//Open the file to extract
+</span><span style="color:#75715e"></span>FILE <span style="color:#f92672">*</span>subfile <span style="color:#f92672">=</span> fopen(descriptorList[i].name,<span style="color:#e6db74">&#34;wb&#34;</span>);
+
+<span style="color:#75715e">//Extract the contents to the file
+</span><span style="color:#75715e"></span>copynFile(tarfile, subfile, descriptorList[i].size);
+
+<span style="color:#75715e">//Close the file
+</span><span style="color:#75715e"></span>fclose(subfile);</code></pre></div>
+<p>In the first line we use the filename or path, that is found on the .tar file, to create the extracted file in the system.</p>
+
+<p>What would occur if our .tar file is malicious and contains the following path to extract?</p>
+
+<blockquote>
+<p>../../../../var/www/index.html</p>
+</blockquote>
+
+<p>Let&rsquo;s tear down this path string. Firstly we have the following:</p>
+
+<blockquote>
+<p>../../../../</p>
+</blockquote>
+
+<p>Which when working with filesystems, in essence moves to the parent directory. In this case, 4 times.</p>
+
+<blockquote>
+<p>/var/www/index.html</p>
+</blockquote>
+
+<p>Next, the file is writen to the give directory, but starting from the root directory <code>/</code> if we have gone upwards in the filesystem tree.
+We&rsquo;d be executing something like the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">fopen(<span style="color:#e6db74">&#34;../../../../var/www/index.html&#34;</span>,<span style="color:#e6db74">&#34;wb&#34;</span>);
+</code></pre></div>
+<p>Linux servers, specially web servers, usually have the data of the web server in the <code>/var/www/</code> path. Uncompressing the malicious .tar would overwrite the index.html in the filesystem, with the malicious file provided by the attacker (which could then deface the web, execute javascript in the users&rsquo; browsers, etc).</p>
 
 <p><center>
-<img src=img/lock.png>
+<img src=img/tar.PNG><br>
+Malformed .tar file.
 </center><br></p>
 
-<p>Let&rsquo;s bring our injector closer and cause some glitches:</p>
+<p>More concerning in this particular case is that some professors often compile and execute the student&rsquo;s code <strong>in their computers</strong> with a series of tests to check the expected behaviour of the submissions. As you can see, the attack surface is just huge.</p>
+
+<h1 id="conclusions-references">Conclusions + References</h1>
+
+<p>A plain Google search shows that this laboratory practice has been in use for several years at the faculty. It has been reviewed by a plethora of professors too, but this specification design problem has not been addressed.</p>
+
+<p>In addition, .tar format is not the only compression format affected, as .zip files&rsquo; specification is equally flawed. It is old and <strong>wasn&rsquo;t created with security as a necessity</strong>.</p>
+
+<p>If you want to know more about the history of these errors and exploits, which exist since 1991, check out the following video. Also covers other vulns like the ones with symlinks:</p>
 
 <p><center>
-<img src=img/injector.jpg>
-</center><br></p>
-
-<p>And just like that <strong>with only 2 tries</strong> we obtain the Flag. With the first EM burst the CPU reset&rsquo;ed, but at the second I obtained the solution:</p>
-
-<p><center>
-<img src=img/solution.png>
-Easy peasy.
-</center><br></p>
-
-<p><center>
-<img src=img/solution2.png>
-A later attempt produced a cleaner glitch.
-</center><br></p>
-
-<p>FLAG: Why_4m_I_her3?</p>
-
-<p><center>
-<video src="img/video.mp4" width="320" height="240" controls="yes">
-</center>
-A video proof. You can hear the &ldquo;click&rdquo; when the EM is being injected. Followed by the flag.</p>
-
-<h1 id="other-solutions">Other Solutions</h1>
-
-<p>This challenge was previously solved in two ways. A methodical (and more involved) way, by doing power glitch fault injection, by live0verflow:</p>
-
-<p><center>
-<iframe width="420" height="315" src="https://www.youtube.com/embed/6Pf3pY3GxBM" frameborder="0" allowfullscreen></iframe><br>
-Video featured in Hacking The 3DS part IV.
+<iframe width="420" height="315" src="https://www.youtube.com/embed/Ry_yb5Oipq0" frameborder="0" allowfullscreen></iframe><br>
+Zip Vulnerabilities.
 </center></p>
-
-<p>Later, Jullio de la Flora solved it by shorting the clock pins, causing a malformed clock signal. Even faster:</p>
-
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/LiveOverflow?ref_src=twsrc%5Etfw">@LiveOverflow</a> that&#39;s why the RHME2 FIesta challenge was worth only 100 points.  ;D ahahaha it was a clock fault injection... <a href="https://t.co/QOwjWNVhsl">pic.twitter.com/QOwjWNVhsl</a></p>&mdash; Julio Della Flora (@jcldf) <a href="https://twitter.com/jcldf/status/1235859271176171521?ref_src=twsrc%5Etfw">March 6, 2020</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 
 </div>
 
@@ -251,7 +273,7 @@ Video featured in Hacking The 3DS part IV.
 
 <nav class='entry-nav'>
   <div class='container'><div class='prev-entry sep-before'>
-      <a href='/devblog/dirtcheapemfaultinjection/'>
+      <a href='/devblog/rhmefaultinjection/'>
         <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
   
   <line x1="20" y1="12" x2="4" y2="12"/>
@@ -259,17 +281,7 @@ Video featured in Hacking The 3DS part IV.
   
 </svg>
  Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Dirt cheap Electromagnetic Fault Injection</a>
-    </div><div class='next-entry sep-before'>
-      <a href='/devblog/inginformaticaseguridad/'>
-        <span class='screen-reader-text'>Next post: </span>Is safe design being taught at Computer Engineering degrees?<span aria-hidden='true'>Next <svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="4" y1="12" x2="20" y2="12"/>
-  <polyline points="14 6 20 12 14 18"/>
-  
-</svg>
-</span>
-      </a>
+        <span class='screen-reader-text'>Previous post: </span>Solving rhme fiesta from Riscure Hardware CTF 2016 with EM Fault Injection</a>
     </div></div>
 </nav>
 
