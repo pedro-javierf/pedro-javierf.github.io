@@ -497,7 +497,7 @@ On blackbox / blind situations, I suggest building your own dynamic disassembler
 
 <p>Our nicely feature-packed debugger has stopped execution at <em>0x01FFD03C</em>. This is usually one of the last instructions of the function, but we want to see the whole thing. To do so, we&rsquo;ll go to that address in Ghidra, IDA Pro or any other dissasembler tool you preffer should work too.</p>
 
-<p>Unfortunately, if we try to disassemble the <em>.nds</em> binary we find that the address <em>0x01FFD03C</em> seems to be out of the memory region or rather not containing any code at all. This is due to compression: game developers of the NDS era used to compress their applications code and unpack them in memory to save space. Therefore, we cannot find statically directly the code. The fastest way to find it is to do a memory dump of the emulator&rsquo;s memory. On no$gba you can do this under Tools &gt; dump to .bin file.
+<p>Unfortunately, if we try to disassemble the <em>.nds</em> binary we find that the address <em>0x01FFD03C</em> seems to be out of the memory region or rather not containing any code at all. This is due to compression: game developers of the NDS era used to compress their applications code and unpack them in memory to save space. Therefore, we cannot find the code. The fastest way to find it is to do a memory dump of the emulator&rsquo;s memory. On no$gba you can do this under Tools &gt; dump to .bin file.
 NDS RAM memory starts at <code>0x01FF8000</code> and occupies <code>0x00408000</code> bytes.</p>
 
 <blockquote>
@@ -834,10 +834,10 @@ It seems like our console&rsquo;s processor tried to jump to address <code>0x424
 <p><center>
 <img src=gif/exploit.gif></p>
 
-<p>Achieved! Execution enters an infinite loop, which is made by us. We can confirm we can execute whatever unsigned code we want.
+<p>Achieved! Execution enters an infinite loop, our custom test shellcode. We can confirm we can execute whatever unsigned code we want.
 </center></p>
 
-<p>Finally I show we can run more complex programs, like this demo:</p>
+<p>Take for granted we can run more complex programs, like this demo:</p>
 
 <p><center>
 <img src=img/pwn.jpg width="400" height="242">
