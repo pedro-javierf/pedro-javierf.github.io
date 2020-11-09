@@ -5,10 +5,22 @@
     <link>https://pedro-javierf.github.io/</link>
     <description>Recent content in Home on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 02 Nov 2020 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2020 00:00:38 +0200</lastBuildDate>
     
 	<atom:link href="https://pedro-javierf.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hacking The 3ds V: Part 1</title>
+      <link>https://pedro-javierf.github.io/devblog/hacking3ds5_part1/</link>
+      <pubDate>Tue, 10 Nov 2020 00:00:38 +0200</pubDate>
+      
+      <guid>https://pedro-javierf.github.io/devblog/hacking3ds5_part1/</guid>
+      <description>Introduction - Part 1 Everything comes to an end, and so does the 3DS series. In this first part I&amp;rsquo;ll pave the way to go through the whole exploit chain that leads to native code execution in the ARM11 and ARM9 processors of the Nintendo 3DS. A successful example of black-box hacking, reversing and exploiting.
+ 
+The strategy to follow is:
+ Use a hardware attack on DS Mode Hardware Get unsigned code execution on the DS Mode Find a 3DS vulnerability that can be triggered from the sandbox + Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode-- Exploit such vulnerability (arm11 code execution)</description>
+    </item>
     
     <item>
       <title>Is safe design being taught at Computer Engineering degrees?</title>

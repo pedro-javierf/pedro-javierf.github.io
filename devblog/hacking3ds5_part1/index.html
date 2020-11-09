@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+  <meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<meta name='description' content='Introduction - Part 1 Everything comes to an end, and so does the 3DS series. In this first part I&rsquo;ll pave the way to go through the whole exploit chain that leads to native code execution in the ARM11 and ARM9 processors of the Nintendo 3DS. A successful example of black-box hacking, reversing and exploiting.
+ 
+The strategy to follow is:
+ Use a hardware attack on DS Mode Hardware Get unsigned code execution on the DS Mode Find a 3DS vulnerability that can be triggered from the sandbox &#43; Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode-- Exploit such vulnerability (arm11 code execution)'>
+<meta name='theme-color' content='#6aff00'>
+
+<meta property='og:title' content='Hacking The 3ds V: Part 1 • Dangling Pointr'>
+<meta property='og:description' content='Introduction - Part 1 Everything comes to an end, and so does the 3DS series. In this first part I&rsquo;ll pave the way to go through the whole exploit chain that leads to native code execution in the ARM11 and ARM9 processors of the Nintendo 3DS. A successful example of black-box hacking, reversing and exploiting.
+ 
+The strategy to follow is:
+ Use a hardware attack on DS Mode Hardware Get unsigned code execution on the DS Mode Find a 3DS vulnerability that can be triggered from the sandbox &#43; Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode-- Exploit such vulnerability (arm11 code execution)'>
+<meta property='og:url' content='https://pedro-javierf.github.io/devblog/hacking3ds5_part1/'>
+<meta property='og:site_name' content='Dangling Pointr'>
+<meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-11-10T00:00:38&#43;02:00'/><meta property='article:modified_time' content='2020-11-10T00:00:38&#43;02:00'/><meta name='twitter:card' content='summary'>
+
+<meta name="generator" content="Hugo 0.59.1" />
+
+  <title>Hacking The 3ds V: Part 1 • Dangling Pointr</title>
+  <link rel='canonical' href='https://pedro-javierf.github.io/devblog/hacking3ds5_part1/'>
+  
+  
+  <link rel='icon' href='/favicon.ico'>
+<link rel='stylesheet' href='/assets/css/main.ab98e12b.css'><link rel='stylesheet' href='/css/custom.css'><style>
+:root{--color-accent:#6aff00;}
+</style>
+
+  
+
+</head>
+
+<meta name="twitter:image:src" content="https://pedro-javierf.github.io/images/logo.png"> 
+<script src="https://kit.fontawesome.com/4cb33814ad.js" crossorigin="anonymous"></script>
+
+<script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101283254);</script>
+<script async src="//static.getclicky.com/js"></script>
+
+<link disabled id="dark-mode-theme" rel="stylesheet" href="/assets/css/dark.css">
+<body class='page type-devblog has-sidebar'>
+
+  <div class='site'><div id='sidebar' class='sidebar'>
+  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
+
+  <div class='container'><section class='widget widget-about sep-after'>
+  <header>
+    
+    <div class='logo'>
+      <a href='/'>
+        <img src='/images/logo.png'>
+      </a>
+    </div>
+    
+    <h2 class='title site-title '>
+      <a href='/'>
+      Dangling Pointr
+      </a>
+    </h2>
+    <div class='desc'>
+    Your blog about hacking, learning and tech
+    </div>
+  </header>
+
+</section>
+<section class='widget widget-sidebar_menu sep-after'><nav id='sidebar-menu' class='menu sidebar-menu' aria-label='Sidebar Menu'>
+    <div class='container'>
+      <ul><li class='item'>
+  <a href='/'>Home</a></li><li class='item'>
+  <a href='/devblog/'>Devblog 🖥️</a></li><li class='item'>
+  <a href='/talks/'>Talks 🗣️</a></li><li class='item'>
+  <a href='/gaming/'>Entertainment 🎮</a></li><li class='item'>
+  <a href='/misc/'>Misc 🎵</a></li><li class='item'>
+  <a href='/about/'>About</a></li></ul>
+    </div>
+  </nav>
+
+</section>
+  <a id="dark-mode-toggle">Dark Mode</a><br>
+  
+  
+  </div>
+
+  <div class='sidebar-overlay'></div>
+</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
+  <div class='container'>
+    <a class='screen-reader-text' href='#content'>Skip to Content</a>
+
+<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
+  <span class='screen-reader-text'>Toggle Sidebar</span>
+  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="3" y1="12" x2="21" y2="12" />
+  <line x1="3" y1="6" x2="21" y2="6" />
+  <line x1="3" y1="18" x2="21" y2="18" />
+  
+</svg>
+</span>
+  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="18" y1="6" x2="6" y2="18" />
+  <line x1="6" y1="6" x2="18" y2="18" />
+  
+</svg>
+</span>
+</button>
+    <ul><li class='item'>
+        <a href='/'>Home</a>
+      </li><li class='item'>
+        <a href='/devblog/'>Devblog 🖥️</a>
+      </li><li class='item'>
+        <a href='/talks/'>Talks 🗣️</a>
+      </li><li class='item'>
+        <a href='/gaming/'>Entertainment 🎮</a>
+      </li><li class='item'>
+        <a href='/misc/'>Misc 🎵</a>
+      </li><li class='item'>
+        <a href='/about/'>About</a>
+      </li><li class='item'>
+        <a href='/es/'><i class='fa fa-language'></i> Change Language</a>
+      </li></ul>
+  </div>
+</nav><div class='header-widgets'>
+        <div class='container'></div>
+      </div>
+
+      <header id='header' class='header site-header'>
+        <div class='container sep-after'>
+          <div class='header-info'><p class='site-title title'>Dangling Pointr</p><p class='desc site-desc'>Your blog about hacking, learning and tech</p>
+          </div>
+        </div>
+      </header>
+
+      <main id='content'>
+
+
+<article lang='en' class='entry'>
+  <header class='header entry-header'>
+  <div class='container sep-after'>
+    <div class='header-info'>
+      <h1 class='title'>Hacking The 3ds V: Part 1</h1>
+      
+
+    </div>
+    <div class='entry-meta'>
+  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+  <line x1="16" y1="2" x2="16" y2="6"/>
+  <line x1="8" y1="2" x2="8" y2="6"/>
+  <line x1="3" y1="10" x2="21" y2="10"/>
+  
+</svg>
+<span class='screen-reader-text'>Posted on </span>
+  <time class='entry-date' datetime='2020-11-10T00:00:38&#43;02:00'>2020, Nov 10</time>
+</span>
+
+  
+  
+<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <circle cx="12" cy="12" r="10"/>
+  <polyline points="12 6 12 12 15 15"/>
+  
+</svg>
+32 mins read
+</span>
+
+
+</div>
+
+
+  </div>
+</header>
+
+  
+  
+
+  <div class='container entry-content'>
+  
+
+<h1 id="introduction-part-1">Introduction - Part 1</h1>
+
+<p>Everything comes to an end, and <a href="https://www.theverge.com/2020/9/17/21441096/nintendo-3ds-production-discontinued-total-sales" target="_blank">so does the 3DS series</a>. In this first part I&rsquo;ll pave the way to go through the whole exploit chain that leads to native code execution in the ARM11 and ARM9 processors of the Nintendo 3DS. A successful example of black-box hacking, reversing and exploiting.</p>
+
+<p><center>
+<img src=img/meme.jpg>
+</center><br>
+The strategy to follow is:</p>
+
+<ol>
+<li><a href="#p1">Use a hardware attack on DS Mode Hardware</a></li>
+<li><a href="#p2">Get unsigned code execution on the DS Mode</a></li>
+<li><a href="#p3">Find a 3DS vulnerability that can be triggered from the sandbox + Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode</a>
+<!--4. <a href="#p3">Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode</a>--></li>
+
+<li><p><a href="#p4">Exploit such vulnerability (arm11 code execution)</a></p></li>
+
+<li><p>PART2: ARM11 in detail + Exploit a vuln in the ARM9 code</p></li>
+</ol>
+
+<p><a id="p1"></a></p>
+
+<h1 id="1-hardware-interface">1. Hardware Interface</h1>
+
+<p>In the last post, I explained the different hardware attacks that could be used against the DS and the 3DS hardware. The EEPROM emulator interface was the one I highlighted and the one I was working to replicate.</p>
+
+<p>Interestingly I came to the conclusion that such a setup would be overly complicated for what I wanted to accomplish. To recall, such an attack gave us access to the savegame data stored in a cartridge&rsquo;s eeprom, allowed us to modify it in a <em>&ldquo;live&rdquo;</em> fashion from a PC, and to feed it to the game <strong>rapidly</strong>.</p>
+
+<p>Speed is the great strength of this attack but, do we really need such facilities? Actually, no. So I decided to give up on an eeprom emulator interface and go for a simpler and slower but equally useful setup. A Nintendo DS cartridge savegame dumper (and injector).</p>
+
+<p><center>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/qgl24RpaEu8" frameborder="0" allowfullscreen></iframe><br>
+Team Twiizers created a setup which is a full interface but running from an arduino instead of FPGA.
+</center></p>
+
+<p>I don&rsquo;t need to emulate the whole eeprom, it is often enough to be able to read it (dump its contents and analyze them) and write back modified data or backups.</p>
+
+<p>Initially I created a setup using the following hardware I had available:</p>
+
+<ul>
+<li><a href="https://www.terasic.com.tw/cgi-bin/page/archive.pl?No=83" target="_blank">Altera DE1 FPGA</a></li>
+<li>Spare Nintendo DS cart header. I bought one for less than $3 on ebay, it can also be obtained from broken consoles.</li>
+<li>Jumper wires, soldering iron, and related equipment.</li>
+<li>A computer</li>
+</ul>
+
+<p>Unfortunately the complexity of hardware design and synthesis has prevented me from finishing this device. While the code is almost functional, I still have to solve a <a href="https://en.wikipedia.org/wiki/Clock_domain_crossing" target="_blank"><em>clock domain crossing</em></a> problem, which requires more learning of vhdl, fpgas, and FIFOs. <strong>Thus, I replaced the FPGA with a cheap and well-known Arduino UNO board</strong>.</p>
+
+<p>Firstly, let&rsquo;s see how we can build one of these devices from scratch, and with the lesser possible previous knowledge. My first step was to disassembly a Nintendo DS cartridge I had lying around to see what was inside:</p>
+
+<p><center>
+<img src=img/cart1.jpg>
+</center><br></p>
+
+<p>We can quickly identify 2 chips. The smaller one must be the EEPROM containing the savegame, and the bigger one must be the ROM, which can store more data and contains the game&rsquo;s code, resources, etc.</p>
+
+<p>Let&rsquo;s focus on the EEPROM. Looking closely, we can see some numbers and a more or less visible logo.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ae81ff">5512</span> WP
+</code></pre></div>
+
+<p>And the logo from <a href="https://www.st.com/content/st_com/en.html" target="_blank">ST Microelectronics</a>. We now know where to look for the eeprom&rsquo;s datasheet. If we search in <a href="https://www.st.com/content/st_com/en/search.html#q=5512-t=products-page=1" target="_blank">the product list</a> of ST, we cannot find an exact match for <em>&ldquo;5512 WP&rdquo;</em>. But the <em>M95512-W</em> seems to be a good deal. According to my friend @nitehack this can be due to manufacturers shorting the name&rsquo;s on their chips.</p>
+
+<p>By downloading the datasheet I could confirm all assumptions about the chips, as comparing the information with the one in <a href="https://problemkaputt.de/gbatek.htm" target="_blank">gbatek</a> (A nintendo ds internals kind of wiki, created by no$cash) showed that the commands are the same.</p>
+
+<p>Before moving to <del>FPGA</del> development, an important consideration. It would be impractical to desolder and solder again the eeprom each time we want to modify its contents. Therefore, I have used a multimeter to investigate which pins from the eeprom are connected to the cartridge pins, and I connect the cartridge to the spare cart adapter, which exposes its pins for easier soldering:</p>
+
+<p><center>
+<img src=img/multimeter.jpg>
+</center><br></p>
+
+<p>To interface with the EEPROM we use the <a href="https://es.wikipedia.org/wiki/Serial_Peripheral_Interface" target="_blank">SPI</a> protocol which requires 6 lines:</p>
+
+<ul>
+<li><em>Vcc</em>: voltage supply</li>
+<li><em>GND</em>: ground line</li>
+<li><em>MOSI</em>: Master Out Slave In -&gt; The line our FPGA/Arduino uses to send bits</li>
+<li><em>MISO</em>: Master In Slave Out -&gt; The line our FPGA/Arduino uses to receive bits</li>
+<li><em>CS</em>: Chip Select</li>
+<li><em>CLK</em>: Clock Line</li>
+</ul>
+
+<p>These eeprom pins get mapped to the following cart slot pins:</p>
+
+<p><center>
+<img src=img/slot1.jpg></p>
+
+<ul>
+<li>2: CLK</li>
+<li>6: CS</li>
+<li>8: VCC</li>
+<li>15: MISO</li>
+<li>16: MOSI</li>
+<li>17: GND</li>
+</ul>
+
+<p></center><br></p>
+
+<p>Once we are done understanding the hardware, it is time to understand the underlying protocol. The datasheet explains most of the commands we need and they are the same that are listed in gbatek.</p>
+
+<h4 id="dumping">Dumping</h4>
+
+<p>Let&rsquo;s start by implementing the eeprom dump. We need to read the chip&rsquo;s contents. This is the command to initiate a READ</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">READ <span style="color:#f92672">|</span> Read from Memory Array <span style="color:#f92672">|</span> <span style="color:#ae81ff">0000</span> <span style="color:#ae81ff">0011</span>
+</code></pre></div>
+
+<p>This is a 1-byte opcode. The byte is 0x03. And the whole command usage (including the argument which is the eeprom&rsquo;s 2-byte memory address we want to read) is as follows:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Cmd, addr msb,lsb, read byte(s)
+<span style="color:#f92672">---------</span> example <span style="color:#f92672">------------</span>
+<span style="color:#ae81ff">0x03</span> <span style="color:#ae81ff">0x00</span> <span style="color:#ae81ff">0x00</span>   <span style="color:#f92672">-&gt;</span> Read byte at <span style="color:#ae81ff">0x0000</span>
+</code></pre></div>
+
+<p>We want to read the whole eeprom. The eeprom is 64kb large and so it has 16bit addresses (2^16 bytes). We will start reading at address 0x0000 and read 64kb. The math is as follows:</p>
+
+<p>$$ 64\text{ Kb} * (\frac{1024\text{ bytes}}{1\text{ Kb}}) * (\frac{8 \text{ bits}}{1 \text{ byte}}) = 524288 \text{ bits to be read} $$</p>
+
+<p>or just</p>
+
+<p>$$ 64\text{ Kb} * (\frac{1024\text{ bytes}}{1\text{ Kb}})  = 65536 \text{ bytes to be read} $$</p>
+
+<p>The eeprom replies with 8 bits (1 byte) of data. Now we just have to repeat this 65536 times, one per byte, to read the whole memory.</p>
+
+<p>It is enough to issue the <em>0x030000</em> command once to start reading at the beggining of the memory (<em>address 0x0000</em>) and continue sending clock pulses, as the eeprom will automatically increase the address to read internally. All these details are specified in the datasheet.</p>
+
+<h4 id="writing">Writing</h4>
+
+<p>Writing to the eeprom works in a sightly different manner, as we cannot write all the memory at once. We can write up to 128 bytes with a <em>WRITE</em> command, which is one memory page. Immediately afterwards we must issue another <em>WRITE</em> command to write another 128 bytes.</p>
+
+<blockquote>
+<p>From the Datasheet: In the case of Figure13, Chip select (S) is driven high after the eighth bit of the data byte has been latched in, indicating that the instruction is being used to write a single byte. However, if Chip select (S) continues to be driven low (as shown in Figure14), the next byte of input data is shifted in, so that more than a single byte, starting from the given address towards the end of the same page, can be written in a single internal Write cycle.</p>
+</blockquote>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Cmd, addr msb,lsb, read byte(s)
+<span style="color:#f92672">---------</span> example <span style="color:#f92672">------------</span>
+<span style="color:#ae81ff">0x02</span> <span style="color:#ae81ff">0x00</span> <span style="color:#ae81ff">0x00</span>   <span style="color:#f92672">-&gt;</span> Write byte at <span style="color:#ae81ff">0x0000</span>
+</code></pre></div>
+
+<p>In addition, we need a <em>WRITE ENABLE</em> command before every <em>WRITE</em>:</p>
+
+<blockquote>
+<p>All instructions that modify data must be preceded by a <em>Write Enable (WREN)</em> instruction to set the <em>Write enable bit</em>.</p>
+</blockquote>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Cmd
+<span style="color:#f92672">---------</span> example <span style="color:#f92672">------------</span>
+<span style="color:#ae81ff">0x06</span> <span style="color:#ae81ff">0x00</span> <span style="color:#ae81ff">0x00</span>   <span style="color:#f92672">-&gt;</span> Write Enable 
+</code></pre></div>
+
+<h4 id="dsaver-arduino-version">dsaver (arduino version)</h4>
+
+<p>I have implemented and open-sourced all the described protocol for the popular Arduino microcontroller (and its clones). With <em>dsaver</em> you can now turn your arduino board into a free and open-source NDS savegame manager!</p>
+
+<p><center>
+<img src=img/dsaverPC.PNG></p>
+
+<p><em>dsaver running on a windows PC injecting a savegame</em>
+</center><br></p>
+
+<p>You can dump to / inject savegames from any Windows or Linux PC, or whatever device that runs Python3 and has some kind of serial port!:</p>
+
+<p><center>
+<img src=img/dsaverHW.jpg>
+Get the code <strong><a href="https://github.com/pedro-javierf/dsaver" target="_blank">here</a></strong>
+</center><br></p>
+
+<p>We can now read and write (modify) savegames of our cartridges.
+<div class='text-shortcode' style='font-size:1.2em;color:purple;'>DISCLAIMER: dsaver only supports 64kb savegames as for now!</div>
+</p>
+
+<p><a id="p2"></a></p>
+
+<h1 id="2-nds-mode-code-execution">2. Nds Mode Code Execution</h1>
+
+<p>At this point we have a way to attack Nintendo DS programs: their savegames. The content of the savegames is read and treated by the various games in different ways. I will keep using FIFA08 as a target to test with.</p>
+
+<p>Usually on a zero-knowledge situation we would try to make modifications to the savegame and see how those influence the game. Doing so we find trouble:</p>
+
+<p><center>
+<img src=img/damaged.jpg></p>
+
+<p><em>Modifying any byte on the save makes this error message appear. Is savedata really damaged?</em>
+</center><br></p>
+
+<p>No, save data is not damaged. But we have modified the contents without patching any integrity checks that could be in place; checksums.</p>
+
+<blockquote>
+<p>A checksum is a representation of a piece of data that is used to make sure that the data is not corrupt. If we just modify a save file without correcting the necessary checksums, and load it into the game, it will be detected as corrupt, and will be deleted. Usually, DS games use simple functions which we can work out without having to disassemble the ROM.                  -Cturt</p>
+</blockquote>
+
+<p>Cturt has an smart blog post explaining about checksums and exploit development on the Nintendo DS <a href="https://cturt.github.io/DS-exploit-finding.html" target="_blank">here</a></p>
+
+<p>Henceforth I will not cover in depth all the basic aspects of Nintendo DS savegame exploitation, but I will instead extend on Cturt&rsquo;s post. He finds a way to compute the savegame checksums without reverse engineering the game&rsquo;s code, just by comparing and <em>diffing</em> different savegames. Unfortunately for us, in most real scenarios this is not feasible, so I will show another way to reverse this checks: using both dynamic and static reverse engineering.</p>
+
+<p>To be able to do this we need the game&rsquo;s code. There are several ways to obtain it. It can be dumped from the cartridge&rsquo;s ROM memory, and as I did with the eeprom it&rsquo;s just a matter of reversing or finding the protocol used and apply it to communicate with the chip. We&rsquo;ll assume that we have the game&rsquo;s code dumped already.</p>
+
+<h3 id="1-1-reversing">1.1. Reversing</h3>
+
+<p>We&rsquo;ll need dynamic and static reversing tools:</p>
+
+<table>
+<thead>
+<tr>
+<th>Static</th>
+<th>Dynamic</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Ghidra / radare2 / IDA Pro</td>
+<td>no$gba</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>no$gba</em> is a specific Nintendo DS emulator.
+On blackbox / blind situations, I suggest building your own dynamic disassembler/interpreter tools using <a href="https://www.capstone-engine.org/" target="_blank"><em>capstone</em></a> and <a href="https://www.unicorn-engine.org/" target="_blank"><em>unicorn engine</em></a>, but the Nintendo DS internals (not the 3DS) have been documented for a while and extensively, since its release in 2006.</p>
+
+<p>The steps to successfully use the dynamic+static reverse engineering combo are:</p>
+
+<ol>
+<li>(DYNAMIC) Load game and analyse behaviour</li>
+<li>(DYNAMIC) Find a way to identify beginning of target code and set a breakpoint</li>
+<li>(DYNAMIC) See code being executed running step by step</li>
+<li>(STATIC)  Goto code address. Disassemble the desired function OR convert it to C by hand.
+
+<ul>
+<li>Possibly, we will have to deal with compression problems before being able to browse our code in the disassembler</li>
+</ul></li>
+<li>(STATIC)  Extract the piece of code and adapt it to a new C/C++ patcher program.</li>
+</ol>
+
+<p>I will be showing the reversing of FIFA06 EUR as example.</p>
+
+<h4 id="1-1-1-load-game-analyze-behaviour">1.1.1 Load Game. Analyze Behaviour</h4>
+
+<p>After loading the game in the emulator, let&rsquo;s play a bit. Set up a nickname easy to locate later on the savegame file, like <em>AAAAAAAA</em>, and save the game. Close the emulator and back up that savegame. Repeat a few times changing single characters of the username, like <em>AAAAAAAB</em> or <em>AAAAAABA</em>. Back up these savegames and let&rsquo;s compare them.</p>
+
+<p><center>
+<img src=img/savebindiff.PNG></p>
+
+<p><em>Two different savegames compared with the bindiff tool. Checksum in red</em>
+</center><br></p>
+
+<p>The 2 bytes in red at the beggining seem to be our checksum, as those 2 bytes change from save to save. Comparing the rest of the file we can observer another checksum for the chunk of data representing &ldquo;My Football Club&rdquo; configurations in-game.</p>
+
+<h4 id="1-1-2-identify-target-set-breakpoint">1.1.2 Identify Target. Set Breakpoint</h4>
+
+<p>Now we need a way to find the code that computes that checksum. I will use some knowledge about how ARM processors work on the assembly level.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//Example function that computes a checksum
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">computeChecksum</span>(...)
+{
+ <span style="color:#66d9ef">short</span> checksum;  <span style="color:#75715e">//2 bytes variable
+</span><span style="color:#75715e"></span> 
+ <span style="color:#75715e">//compute checksum logic...
+</span><span style="color:#75715e"></span> 
+ <span style="color:#66d9ef">return</span> checksum; <span style="color:#75715e">//return computed value
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+  <span style="color:#66d9ef">int</span> calculatedChecksum <span style="color:#f92672">=</span> computeChecksum(...);
+  
+  <span style="color:#75715e">//do other stuff..
+</span><span style="color:#75715e"></span>  
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div>
+<p>when compiled, produces an assembly code similar to this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-asm" data-lang="asm">  <span style="color:#a6e22e">computeChecksum</span>():
+<span style="color:#960050;background-color:#1e0010">00</span>        <span style="color:#a6e22e">str</span>     <span style="color:#66d9ef">fp</span>, [<span style="color:#66d9ef">sp</span>, <span style="color:#75715e">#-4]!
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">01</span>        <span style="color:#66d9ef">add</span>     <span style="color:#66d9ef">fp</span>, <span style="color:#66d9ef">sp</span>, <span style="color:#75715e">#0
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">02</span>        <span style="color:#66d9ef">sub</span>     <span style="color:#66d9ef">sp</span>, <span style="color:#66d9ef">sp</span>, <span style="color:#75715e">#12
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">03</span>        <span style="color:#66d9ef">ldrsh</span>   <span style="color:#66d9ef">r3</span>, [<span style="color:#66d9ef">fp</span>, <span style="color:#75715e">#-6]
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">04</span>        <span style="color:#66d9ef">mov</span>     <span style="color:#66d9ef">r0</span>, <span style="color:#66d9ef">r3</span>
+<span style="color:#960050;background-color:#1e0010">05</span>        <span style="color:#a6e22e">add</span>     <span style="color:#66d9ef">sp</span>, <span style="color:#66d9ef">fp</span>, <span style="color:#75715e">#0
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">06</span>        <span style="color:#66d9ef">ldr</span>     <span style="color:#66d9ef">fp</span>, [<span style="color:#66d9ef">sp</span>], <span style="color:#75715e">#4
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">07</span>        <span style="color:#66d9ef">bx</span>      <span style="color:#66d9ef">lr</span>
+  main:
+<span style="color:#960050;background-color:#1e0010">08</span>        <span style="color:#a6e22e">push</span>    <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">fp</span>, <span style="color:#66d9ef">lr</span><span style="color:#960050;background-color:#1e0010">}</span>
+<span style="color:#960050;background-color:#1e0010">09</span>        <span style="color:#a6e22e">add</span>     <span style="color:#66d9ef">fp</span>, <span style="color:#66d9ef">sp</span>, <span style="color:#75715e">#4
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">10</span>        <span style="color:#66d9ef">sub</span>     <span style="color:#66d9ef">sp</span>, <span style="color:#66d9ef">sp</span>, <span style="color:#75715e">#8
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">11</span>        <span style="color:#66d9ef">bl</span>      <span style="color:#66d9ef">computeChecksum</span>()
+<span style="color:#960050;background-color:#1e0010">12</span>        <span style="color:#a6e22e">str</span>     <span style="color:#66d9ef">r0</span>, [<span style="color:#66d9ef">fp</span>, <span style="color:#75715e">#-8]
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">13</span>        <span style="color:#66d9ef">mov</span>     <span style="color:#66d9ef">r3</span>, <span style="color:#75715e">#0
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">14</span>        <span style="color:#66d9ef">mov</span>     <span style="color:#66d9ef">r0</span>, <span style="color:#66d9ef">r3</span>
+<span style="color:#960050;background-color:#1e0010">15</span>        <span style="color:#a6e22e">sub</span>     <span style="color:#66d9ef">sp</span>, <span style="color:#66d9ef">fp</span>, <span style="color:#75715e">#4
+</span><span style="color:#75715e"></span><span style="color:#ae81ff">16</span>        <span style="color:#66d9ef">pop</span>     <span style="color:#960050;background-color:#1e0010">{</span><span style="color:#66d9ef">fp</span>, <span style="color:#66d9ef">pc</span><span style="color:#960050;background-color:#1e0010">}</span></code></pre></div>
+<p>We&rsquo;ll focus on what happens when the execution flow returns from computeChecksum() to main() and returns a value.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-asm" data-lang="asm">          <span style="color:#a6e22e">bl</span>      <span style="color:#66d9ef">computeChecksum</span>()
+          <span style="color:#a6e22e">str</span>     <span style="color:#66d9ef">r0</span>, [<span style="color:#66d9ef">fp</span>, <span style="color:#960050;background-color:#1e0010">#</span>-<span style="color:#ae81ff">8</span>]</code></pre></div>
+<p>the <code>bl computeChecksum()</code> instruction <em>branches</em> to the computeChecksum() function. Once the function returns, execution continues on the <code>str     r0, [fp, #-8]</code> (<em>store</em> instruction). It places the value in r0 into the memory address resulting from substracting 8 to the address at register <em>fp</em> (frame pointer). This is indeed, asigning the return value, <strong>which was in r0</strong>, to the variable <code>int calculatedChecksum = computeChecksum(...);</code>.</p>
+
+<blockquote>
+<p><strong>Key Concept to remember:</strong> The ARM standard calling convention specifies that functions that return one value do so by placing that value on the <em>r0</em> register before returning. Functions with more than one value to return, place the first value in <em>r0</em> and the next values in <em>r1</em>,<em>r2</em> and <em>r3</em>. For more than 4 data values to return, those are placed in the stack.</p>
+</blockquote>
+
+<p><strong>Therefore, we know the real checksum function of the game must return the checksum in <em>r0</em>.</strong> This will be the condition for our breakpoint.</p>
+
+<p>Since we have the <em>AAAAAAAB.sav</em> file, we know the value of the checksum of that file. <code>0xD9B6</code> In no$gba we can then set a breakpoint like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">r0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0000</span><span style="color:#66d9ef">B6D9</span></code></pre></div>
+<p>Keep in mind the Nintendo DS processor is <a href="https://es.wikipedia.org/wiki/Endianness" target="_blank">little endian</a>, thus the checksum <code>0000D9B6</code> will be found in memory as <code>0000B6D9</code>.</p>
+
+<p>Setting this breakpoint and restarting the game will trigger the breakpoint at address <em>0x01FFD03C</em> and our emulator will pause execution there:</p>
+
+<p><center>
+<img src=img/Breakpoint0.PNG></p>
+
+<p><em>The execution halts here. Notice r0 contains the checksum value</em>
+</center><br></p>
+
+<h4 id="1-1-3-step-the-code-understand-it-and-reuse-it">1.1.3 Step the code, understand it, and reuse it!</h4>
+
+<p>Our nicely feature-packed debugger has stopped execution at <em>0x01FFD03C</em>. This is usually one of the last instructions of the function, but we want to see the whole thing. To do so, we&rsquo;ll go to that address in Ghidra, IDA Pro or any other dissasembler tool you preffer should work too.</p>
+
+<p>Unfortunately, if we try to disassemble the <em>.nds</em> binary we find that the address <em>0x01FFD03C</em> seems to be out of the memory region or rather not containing any code at all. This is due to compression: game developers of the NDS era used to compress their applications code and unpack them in memory to save space. Therefore, we cannot find statically directly the code. The fastest way to find it is to do a memory dump of the emulator&rsquo;s memory. On no$gba you can do this under Tools &gt; dump to .bin file.
+NDS RAM memory starts at <code>0x01FF8000</code> and occupies <code>0x00408000</code> bytes.</p>
+
+<blockquote>
+<p>NOTE: This is no longer required for Ghidra, as I released the <a href="https://github.com/pedro-javierf/NTRGhidra" target="_blank">NTRGhidra plugin</a> which does all for you.</p>
+</blockquote>
+
+<p>Once dumped, we can actually load the memory dump on the disassembler: set the processor to ARM v5jt little endian without function tails. Now browse to <em>0x01FFD03C</em>. and&hellip;</p>
+
+<p><center>
+<img src=img/graphViewChecksum.PNG></p>
+
+<p><em>Voilá! That&rsquo;s the piece of code we were looking for</em>
+</center><br></p>
+
+<p>This is the assembly of the function. <strong>Do not worry!</strong> For this example you don&rsquo;t need to know (arm) assembly (though I found it incredibly useful). Modern disassemblers often include a <strong><em>decompiler</em></strong>: a tool that can conevert assembly code into pseudo-C code, more readable for humans.</p>
+
+<p><center>
+<img src=img/reversedFunctionComparison.PNG></p>
+
+<p><em>Function decompiled by 2 different tools. IDA Pro (left) vs Ghidra (right)</em>
+</center><br></p>
+
+<p>Actually, the IDA Pro decompiled function (in addition to containing some non-standard C/C++ macros/keywords specific to the HexRays decompiler..) did not work properly. On the other side, <strong>the Ghidra-decompiled version worked flawlessly</strong> when integrated into a simple C++ console program.</p>
+
+<p>You can now just copy the function and try to make it work reading a savegame. Here you have my <strong>working tool to patch the savegames</strong> of FIFA06:</p>
+
+<p><center><a href="https://github.com/pedro-javierf/FIFA-ospatcher" target="_blank">https://github.com/pedro-javierf/FIFA-ospatcher</a></center></p>
+
+<p>You can modify the savegame in whatever way, patch it with the tool, and the game will believe it is a perfectly good and legit save  😜</p>
+
+<h3 id="1-2-exploiting">1.2. Exploiting</h3>
+
+<p>We can now mess with the contents of the savegame. Any modification that crashes the game might be useful, but remember:</p>
+
+<blockquote>
+<p>Not all crashes are vulnerabilities nor can be exploited</p>
+</blockquote>
+
+<p>Nevertheless, it&rsquo;s certain that there are some <strong>well-known places to look for vulnerabilities</strong>. It&rsquo;s the case of strings. Looking at the savegame we immediately notice some of them.</p>
+
+<p><center>
+<img src=img/saveString.PNG>
+</center><br></p>
+
+<p>So&hellip; <em>wanna</em> know what happens when you change it into a very large string&hellip;?</p>
+
+<h4 id="1-2-1-stack-buffer-overflows">1.2.1 Stack Buffer Overflows</h4>
+
+<p>This is a brief explaination of how some memory elements that are stored in the stack, can be overflowed. This is a well-known vulnerability that can allow an attacker to gain control of the execution flow; this means redirecting the flow to his own code. <strong>How does it work on the ARM architecture?</strong></p>
+
+<blockquote>
+<p>Don&rsquo;t hesitate to skip this part if you already know how basic memory corruption vulnerabilities work.</p>
+</blockquote>
+
+<p><center>
+<img src=img/overflow.png>
+</center><br></p>
+
+<p>Consider the image above. The vulnerable program creates an array of characters, <code>char</code> in languages like C and C++, of size 8. Usually an ASCII character ocupies one byte, so let&rsquo;s assume our array is 8 bytes. In C this array is created like this:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">char</span> username[<span style="color:#ae81ff">8</span>];      <span style="color:#75715e">//allocate our array
+</span></code></pre></div>
+
+<p>That would reserve in the stack an array of 8 bytes, that we can access from 0 (first element) to 7 (last element).</p>
+
+<p>We could now set our username as follows:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">char</span> username[<span style="color:#ae81ff">8</span>];      <span style="color:#75715e">//allocate our array
+</span><span style="color:#75715e"></span>username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PedroJ!</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#34;</span>; <span style="color:#75715e">//set our username
+</span></code></pre></div>
+
+<p>In C, if a character array represent a string, it must end up with the NULL byte (0). If you are confused about this, <a href="https://stackoverflow.com/questions/20161921/null-byte-and-arrays-in-c" target="_blank">read here</a>. In this case, it means the maximum size for an username should be 7 characters + the null byte.</p>
+
+<p>The code above is valid and safe. But what would happen if some user tried to set his/her username and it were larger than 7 characters?</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">char</span> username[<span style="color:#ae81ff">8</span>];             <span style="color:#75715e">//allocate our array
+</span><span style="color:#75715e"></span>username <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;PedroJ!AAAAAA</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#34;</span>; <span style="color:#75715e">//set our username
+</span></code></pre></div>
+
+<p>This would cause your program to overflow the array and write past it, thus overwritting <em>whatever</em> is past the array. <strong>This is the vulnerability</strong>. You will learn now that, the stuff that is past the array is important, and by modifying those values, we can take control of the flow of the program and make it jump to our own code!</p>
+
+<p><center>
+<img src=img/overflow2.png>
+</center><br></p>
+
+<blockquote>
+<p>There are modern protections to prevent these attacks, but the NDS does not have them. We&rsquo;ll see some later in the 3DS mode and how to overcome them.</p>
+</blockquote>
+
+<p>ARM processors (I&rsquo;ll talk about 32 bits processors but this applies to modern ARM64 CPUs) handle procedure calling using the stack. The stack often grows downwards, into smaller memory addresses:</p>
+
+<p><center>
+<img src="img/StackDiag.svg" style="background-color:white;"></p>
+
+<p><em>The direction of the growing stack is really not something standard. Both directions exist, but usually arm devices use an upwards growing stack.</em>
+</center><br></p>
+
+<p>Whenever a function is called (if you are familiar with C/C++ you know what a function or procedure is), the program <strong>must have</strong> a way to know where to return after the function has finished.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">vulnerableFunction</span>()
+{
+	<span style="color:#66d9ef">char</span> username[<span style="color:#ae81ff">8</span>];
+	gets(username); <span style="color:#75715e">//Old and insecure C function
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//A big string is going to overwrite stuff past the buffer
+</span><span style="color:#75715e"></span>	
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#75715e">//goes back to middleFunction()
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">middleFunction</span>()
+{
+	<span style="color:#66d9ef">int</span> number;
+	number <span style="color:#f92672">=</span> <span style="color:#ae81ff">99</span>;
+	
+	vulnerableFunction(); <span style="color:#75715e">//call the function
+</span><span style="color:#75715e"></span>	
+	number <span style="color:#f92672">=</span> <span style="color:#ae81ff">70</span>;
+	<span style="color:#66d9ef">return</span> number;
+	<span style="color:#75715e">//goes back to main()
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">//The program starts here
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	middleFunction(); <span style="color:#75715e">//calls the function
+</span><span style="color:#75715e"></span>}
+</code></pre></div>
+
+<p>This is the flow when calling the function:
+<center>
+<img src=img/flow.png >
+</center><br></p>
+
+<p>And this should be the return of it:
+<center>
+<img src=img/flow2.png >
+</center><br></p>
+
+<p>How does the ARM processor remember to what memory address return once a function has ended? Using one of its registers to store the address to return:</p>
+
+<p><center>
+<img src=img/ARMregisterSet.jpeg >
+</center><br></p>
+
+<p>The register r14 is also called the <em>link register</em> and its only purpose is to store the address where the code should return after a procedure call. Unfortunately, if we call more than one function in chain, like in the example shown, the <em>link register</em> becomes insufficient.</p>
+
+<p>If we store the address of <code>main()</code> in the <em>lr</em> when calling <code>middleFunction()</code>, but then we overwrite it with the address of <code>middleFunction()</code> when calling <code>vulnerabilityFunction()</code>, the program would lose the address of <code>main()</code> and wouldn&rsquo;t know where to return! that&rsquo;s why the ARM standard calling procedure specifies that, if we are going to call more one or more functions, from another function (these are called non-leaf functions), the values of the <em>lr</em> must be placed into the stack for later retrieval. Again, here lies the vulnerability.</p>
+
+<p><strong>If we overwrite the value in the stack that some time later is read into the link register, we can redirect the flow to our own controlled memory address, where our custom code could be waiting</strong>. And this way, we take over the processor.</p>
+
+<p>Let&rsquo;s imagine this is our stack before the overflow happens.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#f92672">------------------------</span>
+<span style="color:#f92672">----</span>  OUR STACK  <span style="color:#f92672">-------</span>
+<span style="color:#f92672">------------------------</span>
+<span style="color:#ae81ff">0x02700000</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700001</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700002</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700003</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700004</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700005</span>          <span style="color:#ae81ff">255</span>    (stack) <span style="color:#f92672">&lt;--</span>Stack Pointer(SP)
+<span style="color:#ae81ff">0x02700006</span>          <span style="color:#e6db74">&#39;P&#39;</span>    (stack)
+<span style="color:#ae81ff">0x02700007</span>          <span style="color:#e6db74">&#39;e&#39;</span>    (stack)
+<span style="color:#ae81ff">0x02700008</span>			<span style="color:#e6db74">&#39;d&#39;</span>    (stack)
+<span style="color:#ae81ff">0x02700009</span>			<span style="color:#e6db74">&#39;r&#39;</span>    (stack)
+<span style="color:#ae81ff">0x0270000A</span>			<span style="color:#e6db74">&#39;o&#39;</span>    (stack)
+<span style="color:#ae81ff">0x0270000B</span>			<span style="color:#e6db74">&#39;J&#39;</span>    (stack)
+<span style="color:#ae81ff">0x0270000C</span>			<span style="color:#e6db74">&#39;!&#39;</span>    (stack)
+<span style="color:#ae81ff">0x0270000D</span>			<span style="color:#e6db74">&#39;\0&#39;</span>   (stack)     
+<span style="color:#ae81ff">0x0270000E</span>	     <span style="color:#ae81ff">0x207001BC</span>(stack)
+<span style="color:#ae81ff">0x02700012</span>	     <span style="color:#ae81ff">0x207001F0</span>(stack)
+    ...             ...    ...
+<span style="color:#f92672">------------------------</span>
+</code></pre></div>
+
+<p>We can deduce that when <code>vulnerabilityFunction()</code> finishes, it restores the value <strong>0x027001bc</strong> into the link register (LR), then the value of the Link Register is copied into the Program Counter (PC), If the execution was normal.
+After the overflow, it turns up to be this way:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#f92672">------------------------</span>
+<span style="color:#f92672">----</span>  OUR STACK  <span style="color:#f92672">-------</span>
+<span style="color:#f92672">------------------------</span>
+<span style="color:#ae81ff">0x02700000</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700001</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700002</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700003</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700004</span>           <span style="color:#f92672">?</span>     (free space)
+<span style="color:#ae81ff">0x02700005</span>          <span style="color:#ae81ff">255</span>    (stack) <span style="color:#f92672">&lt;--</span>Stack Pointer(SP)
+<span style="color:#ae81ff">0x02700006</span>          <span style="color:#e6db74">&#39;P&#39;</span>    (stack)
+<span style="color:#ae81ff">0x02700007</span>          <span style="color:#e6db74">&#39;e&#39;</span>    (stack)
+<span style="color:#ae81ff">0x02700008</span>			<span style="color:#e6db74">&#39;d&#39;</span>    (stack)
+<span style="color:#ae81ff">0x02700009</span>			<span style="color:#e6db74">&#39;r&#39;</span>    (stack)
+<span style="color:#ae81ff">0x0270000A</span>			<span style="color:#e6db74">&#39;o&#39;</span>    (stack)
+<span style="color:#ae81ff">0x0270000B</span>			<span style="color:#e6db74">&#39;J&#39;</span>    (stack)
+<span style="color:#ae81ff">0x0270000C</span>			<span style="color:#e6db74">&#39;!&#39;</span>    (stack)
+<span style="color:#ae81ff">0x0270000D</span>			<span style="color:#e6db74">&#39;\0&#39;</span>   (stack)     
+<span style="color:#ae81ff">0x0270000E</span>	       <span style="color:#960050;background-color:#1e0010">&#39;</span>AAAA<span style="color:#960050;background-color:#1e0010">&#39;</span>  (stack)
+<span style="color:#ae81ff">0x02700012</span>	       <span style="color:#960050;background-color:#1e0010">&#39;</span>AAAA<span style="color:#960050;background-color:#1e0010">&#39;</span>  (stack)
+    ...             ...    ...
+<span style="color:#f92672">------------------------</span>
+</code></pre></div>
+
+<p>Our progam will now jump to <code>0x41414141</code> ! (because ascii character &lsquo;A&rsquo; is 0x61 in hex). This will crash the process, as <code>0x41414141</code> is an invalid address where there is no code.</p>
+
+<p><center>
+<img src=img/flow2_malicious.png></p>
+
+<p><em>We use this vulnerability to redirect the execution to our own code!</em>
+</center><br></p>
+
+<p>Instead of overflowing the <em>return address</em> with <code>0x41414141</code> we can replace it with a valid address pointing to a piece of code somewhere in memory (for example on the rest of the stack that we are overflowing).</p>
+
+<h4 id="1-2-2-stack-buffer-overflows-on-the-nds">1.2.2 Stack Buffer Overflows on the NDS</h4>
+
+<p>We&rsquo;ll now apply the concept before to exploit a Nintendo DS game and run unsigned code. Our target is FIFA06 (actually, <strong>did you know all Nintendo DS FIFA games are vulnerable?</strong>)</p>
+
+<p>We are going to see the savegame again after playing a bit the game.</p>
+
+<p><center>
+<img src=img/SaveTarget.PNG>
+</center></p>
+
+<p>I created a &ldquo;custom team&rdquo; with a name <code>PPPPP...P</code> which you can observe. Its abreviation is <code>123</code> which can be seen exactly after the name, separated by a null byte. <strong>In the C programming language strings</strong> are character arrays which <strong>end with a null byte</strong>, so lets remove the null byte after <code>PPPP...P</code> and add more characters. In this way, we could cause a buffer overflow!</p>
+
+<p>The game&rsquo;s code may start reading the string and don&rsquo;t stop until it finds a null byte, but it was never expecting such a large string so maybe it did not allocate enough memory, <em>hehehe</em>&hellip;</p>
+
+<p><center>
+<img src=img/ModifiedSave.PNG>
+</center></p>
+
+<p>Save the file and patch the checksum. Let&rsquo;s see what happens:</p>
+
+<p><center>
+<img src=img/fifaGlitch.PNG></p>
+
+<p>We managed to cause some graphical glitches but the game did not crash.
+</center></p>
+
+<p>Therefore, let&rsquo;s extend the string even more:</p>
+
+<p><center>
+<img src=img/ModifiedSave2.PNG>
+</center></p>
+
+<p>Patch and try&hellip;</p>
+
+<p><center>
+<img src=img/RegOverflowDS.PNG></p>
+
+<p><em>Tadá!</em> Undefined opcode error!?
+</center></p>
+
+<p>What does undefined opcode error mean? have we found a vulnerability?</p>
+
+<blockquote>
+<p>The &lsquo;opcode&rsquo; is the encoding, in bytes, of assembly instructions. An instruction like <code>mov r0, r1</code> could be encoded in memory to something like <code>0x11AA22BB</code> (I just invented this example by the way).</p>
+</blockquote>
+
+<p>Hence this error says that the processor tried to execute <em>some instruction</em> that is not valid. And if we look at the registers&hellip;
+<code>r15 (aka PC) = 424141FE</code>
+It seems like our console&rsquo;s processor tried to jump to address <code>0x424141FE</code> and execute the instruction in there, which of course, was not valid :O <strong>indeed this is vulnerable!</strong></p>
+
+<p><strong><em>Hold up, but why 0x424141FE?</em></strong></p>
+
+<p>Look carefully at what we used to overflow the string: the <code>A</code> character. Which in ASCII encoding (which is the <em>defacto</em> standard for American/English strings) is <code>0x41</code>. And <code>B</code> is <code>0x42</code>. Our A&rsquo;s and B&rsquo;s made it into the Program Counter (r15) register, though with some modifications (this is actually caused because the PC is usually +8 bytes ahead of the current instruction). Additionally, 0x41 is not an even number, so it cannot be aligned in memory and the emulator might have modified it sightly.</p>
+
+<p>It&rsquo;s time to turn this into a working exploit. We need two things:</p>
+
+<ul>
+<li>some of our code to redirect the execution to.</li>
+<li>the location of that code (the memory address where it starts).</li>
+</ul>
+
+<p>For this demonstration it is trivial to develop both things. The natural is to begin designing some basic code.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-asm" data-lang="asm"><span style="color:#a6e22e">nop</span>
+<span style="color:#a6e22e">nop</span>
+<span style="color:#a6e22e">nop</span>
+<span style="color:#a6e22e">sub</span> <span style="color:#66d9ef">r15</span>, <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#ae81ff">8</span></code></pre></div>
+
+<p>The nop instruction (short for no-operation) is literally an instruction that does nothing. It is encoded (aka: its opcode is) as:</p>
+
+<p><code>0x00 0xf0 0x20 0xe3</code> (little endian)<br>
+<code>0xe3 0x20 0xf0 0x00</code> (big endian)</p>
+
+<p>The other is an ARM assembly infinite loop. It substracts 8 to the r15(PC) so it loops indefinitely. Once compiled/encoded it can be expressed as:</p>
+
+<p><code>0x08 0xf0 0x4f 0xe2</code> (little endian)<br>
+<code>0xe2 0x4f 0xf0 0x08</code> (big endian)</p>
+
+<p>I used <a href="http://shell-storm.org/online/Online-Assembler-and-Disassembler/" target="_blank">this page</a> to quickly encode some basic instructions, but to ensure the real thing will work I use a cross-compiler targetting with accuracy our architecture. (ARM7, v5, etc)</p>
+
+<p>All together our payload would look like this:</p>
+
+<p><center>
+<img src=img/basicPayload.png></p>
+
+<p>On yellow the NOPs. On green the sub instruction.
+</center></p>
+
+<p>We now need to place those 16 bytes in memory somehow. Our savegame, which gets loaded into memory, is the perfect place to sneak our code into the NDS&rsquo;s memory space. For example I am going to place it here:</p>
+
+<p><center>
+<img src=img/placedShellcode.PNG>
+</center></p>
+
+<p>Checking if the code has made it into memory and&hellip;</p>
+
+<p><center>
+<img src=img/placedShellcodeInMem.PNG></p>
+
+<p>Notice those bytes after the long string? That is our code
+</center></p>
+
+<blockquote>
+<p>Could the code have been placed in the middle of the string or even before it? The answer is yes and no. It could have been placed before the beginning of the string without problems. But we would have had problems if we had placed it in the middle. Why? Because the opcodes are composed by at least one null byte 0x00, remember, that marks the end of the string, thus everything after it would have not been overflown into the buffer! Be careful! And investigate, as there are tricks to easily bypass this constraint.</p>
+</blockquote>
+
+<p>We have the code, and we have it placed in memory, precisely in the address <code>0x02243B00</code> (aren&rsquo;t debuggers nice?)(see picture above). The final step is to place that number, that address, into the PC. But in which place of the <em>laaarge</em> string should we place it? To discover it, we need to change the string to have a unique non-repeating pattern or go probing by hand. For a non-repeating string we need around 200 or 250 bytes. We can use a generator. Metasploit has one, or you can use <a href="https://zerosum0x0.blogspot.com/2016/11/overflow-exploit-pattern-generator.html" target="_blank">this online alternative</a>. But for this example I&rsquo;ll just show you where to place it after I tested a bit by hand.</p>
+
+<p><center>
+<img src=img/uniqueString.PNG></p>
+
+<p>We are going to replace the XXXX by our code&rsquo;s starting address.
+</center></p>
+
+<p>Triggering the crash again reveals the PC is now, indeed, &lsquo;XXXX&rsquo; (<code>58585858</code>) (actually, you see <code>5858585C</code> which is <code>58585858 + 4</code>, this is due to the emulator having tried to execute the instruction at <code>58585858</code> and then increased the PC by 4, and finally rising an exception due to invalid opcode.</p>
+
+<p><center>
+<img src=img/canaryString.PNG>
+</center></p>
+
+<p>Last step is to replace the address <code>58585858</code> with our payload&rsquo;s address, after placing it, which in this case is <code>0x02243B00</code>. We proceed to trigger the exploit and observe:</p>
+
+<p><center>
+<img src=gif/exploit.gif></p>
+
+<p>Achieved! Execution enters an infinite loop, which is made by us. We can confirm we can execute whatever unsigned code we want.
+</center></p>
+
+<p>Finally I show we can run more complex programs, like this demo:</p>
+
+<p><center>
+<img src=img/pwn.jpg width="400" height="242">
+</center></p>
+
+<p>The exploit runs equally well on the 3DS family of consoles.</p>
+
+<p><a id="p3"></a></p>
+
+<h1 id="3-3ds-mode-code-execution">3. 3DS Mode Code Execution</h1>
+
+<p>The bottom line was getting code execution on the new 3DS CPU, the ARM11, so let&rsquo;s get down to business.</p>
+
+<blockquote>
+<p><strong>IMPORTANT: I&rsquo;m always using an old3ds with firmware 4.4. This is an old firmware so latest security patches are not taken into consideration</strong></p>
+</blockquote>
+
+<h2 id="3-1-sandbox-fuzzing">3.1. Sandbox Fuzzing</h2>
+
+<p>Once we have code execution in Nintendo DS mode, it&rsquo;s time to find a way to elevate privileges or attack other components of the system.</p>
+
+<blockquote>
+<p>Code executed in backwards compatibility mode runs in a separate ARM7 processor, like the one on the original Nintendo DS, but we should not know this unless we had <a href="https://en.wikipedia.org/wiki/Decapping" target="_blank">decapped</a> the SoC. I find that to be a curious fact, but not vital.</p>
+</blockquote>
+
+<p>Often devices with multiple ARM processors have mechanisms that allow the different processors to communicate between them. This is sometimes in the form of shared i/o memory. I could research a way to interface from the arm7 with the arm9 or arm11 of the 3DS, though:</p>
+
+<ol>
+<li>It is quite possible that the <strong><em>arm9 and arm11 no longer listen nor reply to the arm7</em></strong> commands or instructions once the console has entered in backwards mode. <em><em>That makes sense and would be a good security practice</em></em></li>
+<li>Even though we could interface with the other ARMs, we would need to find a vulnerability or hole to get code execution on those cores, which might be not trivial.</li>
+</ol>
+
+<p>I have discarded this. Instead, <strong><em>notice that there is a 3DS application that interacts with some data obtained from the nds mode.</em></strong> The 3DS System Settings application shows in the screen some Nintendo DS backwards mode information, like the Nintendo DS Profile&rsquo;s nickname, motto, and the user&rsquo;s favourite colour. In essence this implies that the code of <strong><em>the System Settings app reads data provided by the backwards mode space</em></strong> (we don&rsquo;t know where it is stored, in some flash memory? in the nand? it is irrelevant). Hence, we may try to modify that data from the DS mode, and try to cause a failure in the code that is being executed in native mode. Could we cause a <em>stack buffer overflow</em> as we did in DS mode? Let&rsquo;s see!!</p>
+
+<p>We can change the motto/description value, and it is a string, which is up to 20 characters.
+This can also be changed from a homebrew, since in the original Nintendo DS everything used to run in the baremetal and this specific fields were stored in a flash memory, unprotected, this means whatever code executes in DS mode is capable of changing the DS username, for example. This settings were saved in a flash memory, and in the 3ds they are likely stored somewhere in some file in the NAND. Either way, the values were reversed and documented for the NDS in <a href="https://problemkaputt.de/gbatek.htm#dsfirmwareusersettings" target="_blank">gbatek</a></p>
+
+<p>Here is some interesting information about our possible target:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">  Addr Size Expl.
+  <span style="color:#ae81ff">000</span>h  <span style="color:#ae81ff">2</span>   Version (<span style="color:#ae81ff">5</span>) (Always <span style="color:#ae81ff">5</span>, <span style="color:#66d9ef">for</span> all NDS<span style="color:#f92672">/</span>DSi Firmware versions)
+  <span style="color:#ae81ff">002</span>h  <span style="color:#ae81ff">1</span>   Favorite color (<span style="color:#ae81ff">0..15</span>) (<span style="color:#ae81ff">0</span><span style="color:#f92672">=</span>Gray, <span style="color:#ae81ff">1</span><span style="color:#f92672">=</span>Brown, etc.)
+  <span style="color:#ae81ff">003</span>h  <span style="color:#ae81ff">1</span>   Birthday month (<span style="color:#ae81ff">1..12</span>) (Binary, non<span style="color:#f92672">-</span>BCD)
+  <span style="color:#ae81ff">004</span>h  <span style="color:#ae81ff">1</span>   Birthday day   (<span style="color:#ae81ff">1..31</span>) (Binary, non<span style="color:#f92672">-</span>BCD)
+  <span style="color:#ae81ff">005</span>h  <span style="color:#ae81ff">1</span>   Not used (zero)
+  <span style="color:#ae81ff">006</span>h  <span style="color:#ae81ff">20</span>  Nickname string in UTF<span style="color:#f92672">-</span><span style="color:#ae81ff">16</span> format            <span style="color:#f92672">&lt;------------</span>
+  <span style="color:#ae81ff">01</span>Ah  <span style="color:#ae81ff">2</span>   Nickname length in characters    (<span style="color:#ae81ff">0..10</span>)    <span style="color:#f92672">&lt;------------</span>
+  <span style="color:#ae81ff">01</span>Ch  <span style="color:#ae81ff">52</span>  Message string in UTF<span style="color:#f92672">-</span><span style="color:#ae81ff">16</span> format             <span style="color:#f92672">&lt;------------</span>
+  <span style="color:#ae81ff">050</span>h  <span style="color:#ae81ff">2</span>   Message length in characters     (<span style="color:#ae81ff">0..26</span>)    <span style="color:#f92672">&lt;------------</span>
+  <span style="color:#ae81ff">052</span>h  <span style="color:#ae81ff">1</span>   Alarm hour     (<span style="color:#ae81ff">0..23</span>) (Binary, non<span style="color:#f92672">-</span>BCD)
+  <span style="color:#ae81ff">053</span>h  <span style="color:#ae81ff">1</span>   Alarm minute   (<span style="color:#ae81ff">0..59</span>) (Binary, non<span style="color:#f92672">-</span>BCD)
+  ...
+</code></pre></div>
+
+<p>There are two interesting fields:</p>
+
+<p><strong><code>006h  20  Nickname string in UTF-16 format</code></strong>
+This one located at offset 0x006 is 20 bytes in size. It is the Nickname string used in DS mode which is displayed in the 3ds backwards mode!</p>
+
+<p><strong><code>01Ah  2   Nickname length in characters    (0..10)</code></strong>
+Located at 0x01A with a size of 2 bytes <strong><em>we find a value that holds the lenght of the nickname</em></strong>&hellip;</p>
+
+<p>If you have some knowledge on exploit development then it may have rang a bell. this looks like the classic overflow-able string in the stack, which causes a stack overflow vulnerability! By modifying the <em>length</em> value (<strong><em>increasing it</em></strong>) in ways the programmers does not expect, we can induce some unintended behaviour. I will try to modify it and see if it crashes the console!</p>
+
+<p>For this, I created a ds mode tool called <a href="https://github.com/pedro-javierf/OpenMSET" target="_blank">OpenMSET</a> to fuzz the <em>length</em> value, for example, setting it to a very high value.</p>
+
+<p>The Nickname length field is two bytes, so let&rsquo;s set them to the maximum value possible 0xFF 0xFF:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">  iprintf(<span style="color:#e6db74">&#34;Fuzzing shMessageLength..</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+  workbuffer[<span style="color:#ae81ff">0x1A</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xFF</span>;
+  workbuffer[<span style="color:#ae81ff">0x1A</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0x1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xFF</span>;
+
+  iprintf(<span style="color:#e6db74">&#34;Fuzzing shMessageLength2..</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+  workbuffer[<span style="color:#ae81ff">0x100</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x1A</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xFF</span>;
+  workbuffer[<span style="color:#ae81ff">0x100</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x1A</span><span style="color:#f92672">+</span><span style="color:#ae81ff">0x1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xFF</span>;
+</code></pre></div>
+
+<p>If you are not familiar with the code of <a href="https://github.com/pedro-javierf/OpenMSET" target="_blank">OpenMSET</a> yet: workbuffer is just an array in which we read the firmware stuff from the flash memory into our program. Then it is modified and written again to the flash.
+In this case, I&rsquo;m setting bytes 0x1A and 0x1B (two bytes) to the value 0xFF. I&rsquo;m doing the same at offset 0x100 and 0x101, which is a mirror of the data that the firmware stores. If both copies aren&rsquo;t equal, it means one may be corrupted, and the data will be considered corrupt, that&rsquo;s why I&rsquo;m applying the same modifications twice in different places.</p>
+
+<p>Finally, the NDS firmware uses a very basic checksum to ensure data integrity. It is a CRC16 checksum algorithm, whose code was present in the NDS BIOS and now can be used with <a href="https://libnds.devkitpro.org/" target="_blank">libnds</a> homebrew library:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">  <span style="color:#75715e">//Patch the CRC of the first User Settings
+</span><span style="color:#75715e"></span>  iprintf(<span style="color:#e6db74">&#34;Patching checksum 1... &#34;</span>);
+  userSettingsCRC(workbuffer);
+  iprintf(<span style="color:#e6db74">&#34;Done.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+
+  <span style="color:#75715e">//Patch the CRC of the second User Settings
+</span><span style="color:#75715e"></span>  iprintf(<span style="color:#e6db74">&#34;Patching checksum 2... &#34;</span>);
+  userSettingsCRC(workbuffer<span style="color:#f92672">+</span><span style="color:#ae81ff">256</span>);
+  
+</code></pre></div>
+
+<p>Let&rsquo;s compile the code and run it on real hardware!
+To execute the code you could use either the exploit shown before on FIFA 06, or realistically any other more up-to-date NDS exploit like a flashcart.</p>
+
+<p><center>
+<img src=img/OpenMSET.jpg>
+</center></p>
+
+<p>Either way, this happens after trying to open the <em>DS Profile</em> menu on the System Settings App:</p>
+
+<p><center>
+<img src=gif/crash.gif></p>
+
+<p>The app crashes and freezes, and then seems to be killed by the operating system. Promising.
+</center></p>
+
+<p>Unlike in the Nintendo DS mode, we don&rsquo;t have any debugger nor emulator here! We know little about the underlying OS or code running, so we are going to design an strategy that allow us to check if this can be exploited, and if affirmative, get a basic payload running. But to achieve this we need to gather as much information as we can.</p>
+
+<h2 id="3-2-fcram-dumps">3.2. FCRam DUMPS</h2>
+
+<p>We firstly use a hardware attack like RAM Tracing or RAM Imaging to obtain a realiable image or dump of the RAM at a given moment in time, and understand how the system and the different applications work (and specially the System Settings App).</p>
+
+<blockquote>
+<p>I used <a href="https://gbatemp.net/threads/homebrew-development.360646/page-19#post-4908000" target="_blank">Kane49 FCRam dumper</a> back from 2014 (wow!) on a previously hacked console with old firmware 4.X. These dumps are pretty much equal to the ones you would obtain using a hardware attack as explained on previous posts. It&rsquo;s a shortcut I&rsquo;m taking for the shake of simplicity!</p>
+</blockquote>
+
+<h2 id="3-3-fcram-analysis">3.3. FCRam Analysis</h2>
+
+<p>We need to locate the System Settings App code inside a memory dump containing a plethora of variated contents. Therefore we need a precise strategy.</p>
+
+<p>Some bit of knowledge about modern processors is required but I will try to simplify and sumarize as much as possible. We need to understand how the Memory Management Unit (MMU) works, specifically on ARM Processors.</p>
+
+<p><center>
+<img src=img/ARMversions.PNG></p>
+
+<p>According to <a href="https://azeria-labs.com/writing-arm-assembly-part-1/" target="_blank">Azeria&rsquo;s excellent ARM programming</a> posts, ARM11 processors run the armv6 version of the instruction set.
+</center></p>
+
+<p>Remember post 1 when we talked about the 3DS&rsquo;s processor? We said it was an ARM11MPcore processor. <a href="https://en.wikipedia.org/wiki/ARM11#Cores" target="_blank">There exists 4 different x32 bits ARM11 processors</a> and the ARM11MPCore is the most modern (the latest) of them all. With a quick search in your favorite search engine, it&rsquo;s easy to find the <a href="https://static.docs.arm.com/ddi0360/f/DDI0360F_arm11_mpcore_r2p0_trm.pdf?_ga=2.254626760.1706160245.1575148361-261456281.1565546973" target="_blank">documentation</a> for this processor, which is going to be extremly useful.</p>
+
+<p>We may want to focus on the section that describes the MMU design and behaviour for this processor model.</p>
+
+<p><center>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/qlH4-oHnBb8" frameborder="0" allowfullscreen></iframe><br>
+Excellent series of videos on virtual memory.
+</center></p>
+
+<p>Additionally, <a href="https://witekio.com/blog/turning-arm-mmu-living-tell-tale-code/" target="_blank">this excellent tutorial</a> helped me to understand the implementation details of an MMU for an ARM Processor from the programmer&rsquo;s point of view.</p>
+
+<p>Nevertheless we need to make an <strong>optimistic assumption</strong> regarding the Memory Management Unit. In case you havent read the 700 pages of the ARM11MPCore documentation (just kidding, I have neither) or at least the section regarding the MMU, I will make a brief summary:</p>
+
+<p><strong>The MMU knows all mappings</strong> thanks to a <em>translation table</em> located in memory. <strong>We must assume</strong> this table is contained within our memory dumps. Why? well, Nintendo could have implemented a separated &ldquo;secure&rdquo; ram memory to store this table, who knows! therefore our assumption is audacious, but let&rsquo;s see if it is correct.</p>
+
+<p>If we are able to find and extract the table from memory we will have the master key to correctly map and reverse engineer any software executed by the ARM11 processor.</p>
+
+<h2 id="3-4-mmutable-at-base">3.4 mmutable at BASE</h2>
+
+<blockquote>
+<p>The following conclusions are based on other people research.</p>
+</blockquote>
+
+<p>The 3DS&rsquo;s FCRAM is <a href="https://www.3dbrew.org/wiki/Memory_layout#FCRAM_memory-regions_layout" target="_blank">subdivided in 3 regions</a>: APPLICATION, SYSTEM and BASE. These regions are allocated at different Physical Addresses depending on the firmware version, hardware, and application being used.</p>
+
+<p>For the Old3ds (APPMEMTYPEs 0 to 5) BASE always starts at <em>0x06C00000</em> and has a size of <em>0x01400000</em>. The mmutables are known to be stored in BASE.</p>
+
+<p>With this knowledge we can reduce the search&rsquo;s cost.</p>
+
+<!--
+//derrekr6
+//IDA Pro
+//Physical memory
+//ARM11 and virtual memory
+//yellows8 and thro_err() labels
+//ram dump analysis-->
+
+<p><a id="p4"></a></p>
+
+<h1 id="4-finetuning-the-crash-and-building-a-poc-proof-of-concept">4. Finetuning the crash and building a PoC (Proof Of Concept)</h1>
+
+<p>Should we have any problem developing a basic working exploit now, enough information is finally known to overcome any issue. Let&rsquo;s see how to run some PoC ROP code on the ARM11 to prove code execution.</p>
+
+<h3 id="4-1-finding-gadgets">4.1 Finding gadgets</h3>
+
+<p>At this moment we are uterlly limited by ROP(Returned Oriented Programing), we need to search in our memory dumps for the process&rsquo; memory and find something I like to call a <strong>canary gadget</strong>.</p>
+
+<blockquote>
+<p>A canary gadget is a type of gadget that, just by itself, can produce some observable result in the screen or outputs.</p>
+</blockquote>
+
+<p>Examples of canary gadgets can be system functions that produce fatal errors (somewhat like panic() on Linux, for instance). A function that would shut down the console, or the screens, or the LEDs, could be considered a canary gadget as well. <strong>Anything that confirms code execution might be suitable</strong>.</p>
+
+<h3 id="4-2-throw-fatalerr">4.2 throw_fatalerr()</h3>
+
+<p>Unnoticed in memory there&rsquo;s a function called <em>throw_fatalerr()</em> which does exactly what we need. It sort of panics the console, showing a black screen with white text and only allows you to turn the console off.</p>
+
+<p>I originally discovered the function through derrek(@derrekr6)&rsquo;s <a href="https://www.flickr.com/photos/derrekr6/9466554036/" target="_blank">flickr</a>. As he used it back in 2013 in the same way I was planning to do so.</p>
+
+<p>After some conversations with derrek I was told the function and its address originally were found and shared by yellows8. As far as I&rsquo;m concerned, functions like these are found through static reverse engineering the RAM dumps.</p>
+
+<p><img src="img/throwfatalerr_savegame.png"></p>
+
+<p>As you can observe, I craft a ROP chain pointing just to that gadget. If the Rop Chain is successfully placed, the black error will be shown instead of the previous unhandled crash:</p>
+
+<p><img src="img/throwfatalerr.jpg"></p>
+
+<h1 id="lessons-learned">Lessons Learned</h1>
+
+<p>Stay tunned for <em>Part 2</em>!
+I have showcased a little of code execution. Now for the following part, we&rsquo;ll keep <em>pwnin&rsquo;</em> the code running in ARM11 with ROP for more useful things, discover how the system works (through static reversing + memory analysis) and create cool homebrew with our 3DS!</p>
+
+<p>Special thanks to yellows8, derrekr6, ChampionLeake, and many others.</p>
+
+</div>
+
+  
+<footer class='entry-footer'>
+  <div class='container sep-before'>
+  </div>
+</footer>
+
+
+</article>
+
+<nav class='entry-nav'>
+  <div class='container'><div class='prev-entry sep-before'>
+      <a href='/devblog/inginformaticaseguridad/'>
+        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <line x1="20" y1="12" x2="4" y2="12"/>
+  <polyline points="10 18 4 12 10 6"/>
+  
+</svg>
+ Previous</span>
+        <span class='screen-reader-text'>Previous post: </span>Is safe design being taught at Computer Engineering degrees?</a>
+    </div></div>
+</nav>
+
+
+<section id='comments' class='comments'>
+  <div class='container sep-before'>
+    <div class='comments-area'><div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "pjplayground" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+  </div>
+</section>
+
+      </main>
+
+      <footer id='footer' class='footer'>
+        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
+    <ul><li>
+        <a href='https://github.com/pedro-javierf' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://twitter.com/DanglingPointr' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+  
+</svg>
+</a>
+      </li><li>
+        <a href='https://linkedin.com/in/pedro-javier-fern%c3%a1ndez-29a998101' target='_blank' rel='noopener'>
+          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
+  
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+  <rect x="2" y="9" width="4" height="12"/>
+  <circle cx="4" cy="4" r="2"/>
+  
+</svg>
+</a>
+      </li></ul>
+  </nav>
+</section><div class='copyright'>
+  <p> &copy; 2017-2020  </p>
+</div>
+
+        </div>
+      </footer>
+
+    </div>
+  </div><script>window.__assets_js_src="/assets/js/"</script>
+
+<script src='/assets/js/main.c3bcf2df.js'></script><script src='/js/custom.js'></script><script type='text/x-mathjax-config'>
+  MathJax.Hub.Config({})
+</script>
+
+<script type='text/javascript' async src='//unpkg.com/mathjax@2.7.6/unpacked/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
+
+</html>
+
