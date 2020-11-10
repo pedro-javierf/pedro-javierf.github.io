@@ -3,16 +3,14 @@
   <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <meta name='description' content='Introduction - Part 1 Everything comes to an end, and so does the 3DS series. In this first part I&rsquo;ll pave the way to go through the whole exploit chain that leads to native code execution in the ARM11 and ARM9 processors of the Nintendo 3DS. A successful example of black-box hacking, reversing and exploiting.
- 
-The strategy to follow is:
- Use a hardware attack on DS Mode Hardware Get unsigned code execution on the DS Mode Find a 3DS vulnerability that can be triggered from the sandbox &#43; Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode-- Exploit such vulnerability (arm11 code execution)'>
+ Let&rsquo;s begin with some memes to alleviate the reading 
+The strategy to follow is:'>
 <meta name='theme-color' content='#6aff00'>
 
 <meta property='og:title' content='Hacking The 3ds V: Part 1 • Dangling Pointr'>
 <meta property='og:description' content='Introduction - Part 1 Everything comes to an end, and so does the 3DS series. In this first part I&rsquo;ll pave the way to go through the whole exploit chain that leads to native code execution in the ARM11 and ARM9 processors of the Nintendo 3DS. A successful example of black-box hacking, reversing and exploiting.
- 
-The strategy to follow is:
- Use a hardware attack on DS Mode Hardware Get unsigned code execution on the DS Mode Find a 3DS vulnerability that can be triggered from the sandbox &#43; Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode Use a hardware attack on the 3DS hardware to get insight of the software running in 3DS Mode-- Exploit such vulnerability (arm11 code execution)'>
+ Let&rsquo;s begin with some memes to alleviate the reading 
+The strategy to follow is:'>
 <meta property='og:url' content='https://pedro-javierf.github.io/devblog/hacking3ds5_part1/'>
 <meta property='og:site_name' content='Dangling Pointr'>
 <meta property='og:type' content='article'><meta property='article:section' content='devblog'><meta property='article:published_time' content='2020-11-10T00:00:38&#43;02:00'/><meta property='article:modified_time' content='2020-11-10T00:00:38&#43;02:00'/><meta name='twitter:card' content='summary'>
@@ -186,6 +184,7 @@ The strategy to follow is:
 
 <p><center>
 <img src=img/meme.jpg>
+<em>Let&rsquo;s begin with some memes to alleviate the reading</em>
 </center><br>
 The strategy to follow is:</p>
 
@@ -852,7 +851,7 @@ It seems like our console&rsquo;s processor tried to jump to address <code>0x424
 <p>The bottom line was getting code execution on the new 3DS CPU, the ARM11, so let&rsquo;s get down to business.</p>
 
 <blockquote>
-<p><strong>IMPORTANT: I&rsquo;m always using an old3ds with firmware 4.4. This is an old firmware so latest security patches are not taken into consideration</strong></p>
+<p><strong>IMPORTANT: I&rsquo;m always using an old3ds with firmware 4.4. This is an old firmware so the latest security patches are not taken into consideration</strong></p>
 </blockquote>
 
 <h2 id="3-1-sandbox-fuzzing">3.1. Sandbox Fuzzing</h2>
