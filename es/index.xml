@@ -2,30 +2,42 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Inicio on Dangling Pointr</title>
-    <link>https://pedro-javierf.github.io/es/</link>
+    <link>https://pedrojavier.com/es/</link>
     <description>Recent content in Inicio on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 02 Nov 2020 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 07 Dec 2020 11:39:11 +0200</lastBuildDate>
     
-	<atom:link href="https://pedro-javierf.github.io/es/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://pedrojavier.com/es/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>C1b3rwall Academy 2020: Introducción al desarrollo de exploits en ARM</title>
+      <link>https://pedrojavier.com/es/talks/c1b3rwall2020/</link>
+      <pubDate>Mon, 07 Dec 2020 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedrojavier.com/es/talks/c1b3rwall2020/</guid>
+      <description>Descripción  
+El año 2020 ha sido (¡o fue! Dependiendo de cuando leas esto) un año excepcionalmente peculiar. La situación provocada por el Covid-19 produjo que un gran número de conferencias y eventos transicionaran al modelo online o virtual.
+Así fue el caso de C1b3rwall Academy 2020, el programa de formación en ciberseguridad de la Policía Nacional de España.
+Desde LibreLabUCM, la asociación de estudiantes de la Facultad de Informática de la Universidad Complutense de Madrid, que se dedica a promover el software libre, cultura libre y ciberseguridad, tuvimos el placer de impartir varios cursos de formación.</description>
+    </item>
+    
+    <item>
       <title>¿Se enseña diseño seguro en Ingeniería Informática?</title>
-      <link>https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/</link>
+      <link>https://pedrojavier.com/es/devblog/inginformaticaseguridad/</link>
       <pubDate>Mon, 02 Nov 2020 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/</guid>
+      <guid>https://pedrojavier.com/es/devblog/inginformaticaseguridad/</guid>
       <description>La pregunta definitiva sobre ciberseguridad Como estudiante de tercer curso de Ingeniería Informática en una conocida universidad de Madrid, y como persona con inquietudes sobre la ciberseguridad, no puedo evitar llevarme las manos a la cabeza cada vez que se trata de forma incorrecta esta materia, o cada vez que no se enseña sobre ciberseguridad.
 Desde luego se han hecho progresos enormes en los últimos años. Disponemos de una asignatura dedicada a la seguridad estructural y de las redes.</description>
     </item>
     
     <item>
       <title>Solución reto rhme fiesta del Riscure Hardware CTF 2016 con EM Fault Injection</title>
-      <link>https://pedro-javierf.github.io/es/devblog/rhmefaultinjection/</link>
+      <link>https://pedrojavier.com/es/devblog/rhmefaultinjection/</link>
       <pubDate>Sun, 11 Oct 2020 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/rhmefaultinjection/</guid>
+      <guid>https://pedrojavier.com/es/devblog/rhmefaultinjection/</guid>
       <description>Abstract Vamos a ver como solucionar el reto Fiesta del Riscure Embedded Hardware CTF edición 2016 utilizando un método nuevo, Fault Injection electromagnético.
 El reto tiene una historia detrás, y está específicamente diseñado para solucionarse a través de Fault Injection
 Herramientas Para solucionar el reto utilizaré únicamente mi inyector de fallos EM.
@@ -34,30 +46,30 @@ Reto y Solución Cargamos el ejecutable .hex en un arduino Nano, y al observar l
     
     <item>
       <title>Electromagnetic Fault Injection por dos duros</title>
-      <link>https://pedro-javierf.github.io/es/devblog/faultinjectionpordosduros/</link>
+      <link>https://pedrojavier.com/es/devblog/faultinjectionpordosduros/</link>
       <pubDate>Fri, 09 Oct 2020 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/faultinjectionpordosduros/</guid>
+      <guid>https://pedrojavier.com/es/devblog/faultinjectionpordosduros/</guid>
       <description>Abstract En la entrada que hoy nos concierne, vamos a ver como fabricar un dispositivo capaz de realizar EM Fault Injection por menos de 5€.
 ¿Qué es Fault Injection? Fault Injection, o en español,inyección de fallos (vaya nombre feo) es un término ampliamente utilizado en el mundo del hardware y de la seguridad informática. Consiste en introducir errores lógicos en las CPUs mediante la alteración del hardware. Esto permite que, aunque un procesador esté ejecutando un código 100% seguro y libre de fallos, podamos causarlos nosotros, extrayendo secretos o redirigiendo la ejecución a nuestro propio software no autorizado, entre otros escenarios.</description>
     </item>
     
     <item>
       <title>Me uno al equipo Área Xbox.</title>
-      <link>https://pedro-javierf.github.io/es/gaming/areaxbox/</link>
+      <link>https://pedrojavier.com/es/gaming/areaxbox/</link>
       <pubDate>Sat, 05 Sep 2020 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/gaming/areaxbox/</guid>
+      <guid>https://pedrojavier.com/es/gaming/areaxbox/</guid>
       <description>Área Xbox En el mes de agosto de 2020, me uní como redactor al equipo de Área Xbox -revista española sobre la actualidad de los videojuegos- donde llevo a cabo tareas como la redacción de noticias, localización, o creación de textos propios. También me encargo de la realización de análisis o de la cobertura de eventos de prensa.
 Trabajo Estos son algunos ejemplos de las muchas noticias y artículos que he publicado desde entonces:</description>
     </item>
     
     <item>
       <title>Loader Avanzado en Ghidra: labels, overlays y Function ID</title>
-      <link>https://pedro-javierf.github.io/es/devblog/advancedghidraloader/</link>
+      <link>https://pedrojavier.com/es/devblog/advancedghidraloader/</link>
       <pubDate>Sun, 24 May 2020 12:30:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/advancedghidraloader/</guid>
+      <guid>https://pedrojavier.com/es/devblog/advancedghidraloader/</guid>
       <description>Antecedentes El mes pasado hablábamos sobre los conceptos básicos de un Loader para Ghidra. Esta vez cubriré algunas características adicionales para mejorar nuestra extensión y hacerla más útil y manejable.
 Veremos estas nuevas características en orden ascendente de complejidad.
 Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquitecturas que son &amp;ldquo;simples&amp;rdquo; conceptualmente. Las medidas de seguridad son pocas, y el código de un programa suele compilarse de forma estática, y se carga siempre en la misma dirección de memoria.</description>
@@ -65,66 +77,66 @@ Labels Muchas veces, cuando tratamos con sistemas embebidos, encontramos arquite
     
     <item>
       <title>Tutorial: Escribir un loader para Ghidra</title>
-      <link>https://pedro-javierf.github.io/es/devblog/tutorialwritingaghidraloader/</link>
+      <link>https://pedrojavier.com/es/devblog/tutorialwritingaghidraloader/</link>
       <pubDate>Mon, 06 Apr 2020 12:30:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/tutorialwritingaghidraloader/</guid>
+      <guid>https://pedrojavier.com/es/devblog/tutorialwritingaghidraloader/</guid>
       <description>Introducción ¡Todos a bordo del tren del reversing! Abril de 2020 y el mundo entero parece haberse detenido debido al covid-19. Yo mismo me encuentro en cuarentena estos días, lo cual dentro de lo malo es una buena oportunidad para seguir aprendiendo. Llevo un tiempo dedicando mi esfuerzo en mejorar mi conocimiento de herramientas libres de ingeniería inversa (reversing) y dejar a un lado el software de pago, asi que decidí que sería una idea excelente aprender más sobre Ghidra y su funcionamiento.</description>
     </item>
     
     <item>
       <title>Hackeando Ikariam: Cross Site Scripting (xss) persistente y &#39;weaponización&#39;</title>
-      <link>https://pedro-javierf.github.io/es/devblog/ikariamexploit/</link>
+      <link>https://pedrojavier.com/es/devblog/ikariamexploit/</link>
       <pubDate>Fri, 15 Nov 2019 19:35:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/ikariamexploit/</guid>
+      <guid>https://pedrojavier.com/es/devblog/ikariamexploit/</guid>
       <description>Introducción ⚠  TODO EL CONTENIDO SE PROPORCIONA &amp;ldquo;COMO ESTÁ&amp;rdquo;, SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A GARANTÍAS DE COMERCIALIZACIÓN, IDONEIDAD PARA UN PROPÓSITO PARTICULAR E INCUMPLIMIENTO. EN NINGÚN CASO LOS AUTORES O PROPIETARIOS DE LOS DERECHOS DE AUTOR SERÁN RESPONSABLES DE NINGUNA RECLAMACIÓN, DAÑOS U OTRAS RESPONSABILIDADES, YA SEA EN UNA ACCIÓN DE CONTRATO, AGRAVIO O CUALQUIER OTRO MOTIVO, DERIVADAS DE EL CONTENIDO O SU USO U OTRO TIPO DE ACCIONES EN EL CONTENIDO.</description>
     </item>
     
     <item>
       <title>Hacking The 3ds IV: Ataques Hardware</title>
-      <link>https://pedro-javierf.github.io/es/devblog/hacking3ds4/</link>
+      <link>https://pedrojavier.com/es/devblog/hacking3ds4/</link>
       <pubDate>Thu, 25 Jul 2019 19:35:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/hacking3ds4/</guid>
+      <guid>https://pedrojavier.com/es/devblog/hacking3ds4/</guid>
       <description>Introducción En este post vamos a introducirnos de lleno en el mundo de los ataques a nivel de hardware, especificamente orientados a la 3ds pero totalmente aplicables a otros dispositivos. He descrito todo con el máximo nivel de detalle posible, intentando explicar conceptos previos. Espero que sea de utilidad, y además, que sirva para preservar del olvido algunos increibles ataques que la pequeña consola de Nintendo ha visto.
 Ataques Hardware Hace unos años, cuando escribí mi primer artículo sobre hacking de la 3ds, pensaba que los ataques en el hardware pertenecían a ese tipo de habilidades mágicas que son imposibles de aprender si no has nacido con ellas.</description>
     </item>
     
     <item>
       <title>Ingeniería Inversa en Bufferhack</title>
-      <link>https://pedro-javierf.github.io/es/talks/revengatbufferhack/</link>
+      <link>https://pedrojavier.com/es/talks/revengatbufferhack/</link>
       <pubDate>Tue, 07 May 2019 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/talks/revengatbufferhack/</guid>
+      <guid>https://pedrojavier.com/es/talks/revengatbufferhack/</guid>
       <description>Descripción El 7 de mayo de 2019 di una charla sobre Ingeniería Inversa (Reversing) con herramientas libres y de código abierto en el evento de ciberseguridad BufferHack, en Madrid. Además, fui parte de la organización del evento (sin ánimo de lucro) desde su nacimiento.</description>
     </item>
     
     <item>
       <title>Hacking The 3ds III: Análisis de memoria</title>
-      <link>https://pedro-javierf.github.io/es/devblog/hacking3ds3/</link>
+      <link>https://pedrojavier.com/es/devblog/hacking3ds3/</link>
       <pubDate>Wed, 30 Jan 2019 19:35:38 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/hacking3ds3/</guid>
+      <guid>https://pedrojavier.com/es/devblog/hacking3ds3/</guid>
       <description>Introduccción Bienvenidos de nuevo. Finalmente, es hora de continuar hackeando la Nintendo 3DS. Anteriormente tratamos volcados de memoria donde pudimos encontrar cadenas de texto y otros contenidos, confirmando que los datos no estaban cifrados.
 Identificando el código A pesar de haber utilizado binvis y haber podido observar diferencias claras entre datos y código, no fue una herramienta suficientemente precisa para continuar. Antes de hacer nada más, intenté jugar todas mis bazas y analizar los volcados con cualquier programa que fuese posible.</description>
     </item>
     
     <item>
       <title>Dispositivos HID maliciosos</title>
-      <link>https://pedro-javierf.github.io/es/talks/malicioushid/</link>
+      <link>https://pedrojavier.com/es/talks/malicioushid/</link>
       <pubDate>Thu, 29 Nov 2018 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/talks/malicioushid/</guid>
+      <guid>https://pedrojavier.com/es/talks/malicioushid/</guid>
       <description>Descripción En noviembre de 2018, tuve la oportunidad de dar una charla en la Universidad Complutense de Madrid sobre dispositivos HID (Human Interface Device) maliciosos, cómo funcionan, y cómo podemos protegernos de ellos. Se mostraron distintas soluciones de código abierto. On November 2018, I gave a talk at Complutense University of Madrid about malicious HID devices and countermeasures against them, featuring open source solutions.</description>
     </item>
     
     <item>
       <title>Hacking The 3ds II: Encontrando el Patrón</title>
-      <link>https://pedro-javierf.github.io/es/devblog/hacking3ds2/</link>
+      <link>https://pedrojavier.com/es/devblog/hacking3ds2/</link>
       <pubDate>Tue, 30 Jan 2018 11:30:48 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/hacking3ds2/</guid>
+      <guid>https://pedrojavier.com/es/devblog/hacking3ds2/</guid>
       <description>Bienvenidos de nuevo! Estamos de vuelta en esta parte 2 &amp;ldquo;Encontrando el Patrón&amp;rdquo; si aun no has leido la parte 1&amp;hellip; ¡échale un vistazo ahora!
 Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada podría utilizar para conocer más sobre la Nintendo 3DS. La conclusión fue que, al parecer, los contenidos de la memoria RAM no estaban encriptados. Podéis verlo aquí:
  Ejemplo de cadena de texto UNICODE que se encuentra en los volcados de memoria RAM</description>
@@ -132,20 +144,20 @@ Resumen Rápido Anteriormente, había analizado que posibles puntos de entrada p
     
     <item>
       <title>Hacking The 3ds I: Introducción</title>
-      <link>https://pedro-javierf.github.io/es/devblog/hacking3ds1/</link>
+      <link>https://pedrojavier.com/es/devblog/hacking3ds1/</link>
       <pubDate>Mon, 12 Jun 2017 11:17:57 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/hacking3ds1/</guid>
+      <guid>https://pedrojavier.com/es/devblog/hacking3ds1/</guid>
       <description>Bienvenido a una nueva serie de entradas del blog! En esta ocasión recorreré un largo camino hasta conseguir hackear las consolas de la familia Nintendo 3DS. Hay varias razones de ser de estos posts:
  Interés personal: Cuándo la scene de 3ds empezó a crecer en 2014, yo estaba allí, y tengo ganas de aprender todo lo que no pude en su momento. Comunidad Tóxica: Durante muchos años la comunidad se ha centrado solo en la pirateria y los resultados finales; poca gente estaba interesada en aprender La falta de información en internet sobre ingeniería inversa y hacking de sistemas &amp;ldquo;black box&amp;rdquo;.</description>
     </item>
     
     <item>
       <title>Hackeando la 3ds 0: Recursos</title>
-      <link>https://pedro-javierf.github.io/es/devblog/hacking3ds0/</link>
+      <link>https://pedrojavier.com/es/devblog/hacking3ds0/</link>
       <pubDate>Thu, 01 Jun 2017 20:49:36 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/devblog/hacking3ds0/</guid>
+      <guid>https://pedrojavier.com/es/devblog/hacking3ds0/</guid>
       <description>¿De qué va esto? Esta página contiene recursos adicionales de gran valor relacionados con mis artículos sobre el hacking de la Nintendo 3DS. Incluyendo, pero no solo, herramientas, artículos externos, posts de stack overflow, y cualquier otro recurso que sea de utilidad.
  ADVERTENCIA: La mayoría de estos recursos se encuentran en inglés.
  URLs / Artículos booting-process-for-arm
@@ -156,10 +168,10 @@ ARM Boot procedure</description>
     
     <item>
       <title>Bienvenido</title>
-      <link>https://pedro-javierf.github.io/es/misc/welcome/</link>
+      <link>https://pedrojavier.com/es/misc/welcome/</link>
       <pubDate>Wed, 31 May 2017 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/misc/welcome/</guid>
+      <guid>https://pedrojavier.com/es/misc/welcome/</guid>
       <description> Estimado lector  Bienvenido a mi nuevo y rediseñado blog. ¡Espero que disfrutes y aprendas!
  </description>
     </item>

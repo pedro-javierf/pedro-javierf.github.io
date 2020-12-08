@@ -2,29 +2,42 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Talks on Dangling Pointr</title>
-    <link>https://pedro-javierf.github.io/talks/</link>
+    <link>https://pedrojavier.com/talks/</link>
     <description>Recent content in Talks on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 07 May 2019 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 07 Dec 2020 11:39:11 +0200</lastBuildDate>
     
-	<atom:link href="https://pedro-javierf.github.io/talks/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://pedrojavier.com/talks/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>C1b3rwall Academy 2020: Introduction to ARM exploit development</title>
+      <link>https://pedrojavier.com/talks/c1b3rwall2020/</link>
+      <pubDate>Mon, 07 Dec 2020 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedrojavier.com/talks/c1b3rwall2020/</guid>
+      <description>About  
+2020 has been an exceptional year. The worlwide pandemic caused by Covid-19 caused many conferences and events transition to the online or virtual format.
+That was C1b3rwall Academy 2020 case, the cybersecurity training program by the Spanish National Police Force.
+From LibreLabUCM, the free software and cybersecuirty student club from Universidad Complutense, we had the pleasure to deliver several training sessions/workshops/talks.
+In my case, I gave a talk called &amp;ldquo;Introduction to exploit development on ARM architecture&amp;rdquo;.</description>
+    </item>
+    
+    <item>
       <title>Reversing at Bufferhack</title>
-      <link>https://pedro-javierf.github.io/talks/revengatbufferhack/</link>
+      <link>https://pedrojavier.com/talks/revengatbufferhack/</link>
       <pubDate>Tue, 07 May 2019 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/talks/revengatbufferhack/</guid>
+      <guid>https://pedrojavier.com/talks/revengatbufferhack/</guid>
       <description>About On the 7th of May 2019, I was glad to give a talk about Reverse Engineering with open and libre tools (like Ghidra, radare2, ..) at the BufferHack event in Madrid. Aditionally, I took part in the organization of the event, which started several months before that date, and of which I&amp;rsquo;m very proud.</description>
     </item>
     
     <item>
       <title>Malicious HID Devices</title>
-      <link>https://pedro-javierf.github.io/talks/malicioushid/</link>
+      <link>https://pedrojavier.com/talks/malicioushid/</link>
       <pubDate>Thu, 29 Nov 2018 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/talks/malicioushid/</guid>
+      <guid>https://pedrojavier.com/talks/malicioushid/</guid>
       <description>About On November 2018, I gave a talk at Complutense University of Madrid about malicious HID devices and countermeasures against them, featuring open source solutions.</description>
     </item>
     

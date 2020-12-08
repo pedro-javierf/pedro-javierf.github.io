@@ -2,29 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Charlas on Dangling Pointr</title>
-    <link>https://pedro-javierf.github.io/es/talks/</link>
+    <link>https://pedrojavier.com/es/talks/</link>
     <description>Recent content in Charlas on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 07 May 2019 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 07 Dec 2020 11:39:11 +0200</lastBuildDate>
     
-	<atom:link href="https://pedro-javierf.github.io/es/talks/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://pedrojavier.com/es/talks/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>C1b3rwall Academy 2020: Introducción al desarrollo de exploits en ARM</title>
+      <link>https://pedrojavier.com/es/talks/c1b3rwall2020/</link>
+      <pubDate>Mon, 07 Dec 2020 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedrojavier.com/es/talks/c1b3rwall2020/</guid>
+      <description>Descripción  
+El año 2020 ha sido (¡o fue! Dependiendo de cuando leas esto) un año excepcionalmente peculiar. La situación provocada por el Covid-19 produjo que un gran número de conferencias y eventos transicionaran al modelo online o virtual.
+Así fue el caso de C1b3rwall Academy 2020, el programa de formación en ciberseguridad de la Policía Nacional de España.
+Desde LibreLabUCM, la asociación de estudiantes de la Facultad de Informática de la Universidad Complutense de Madrid, que se dedica a promover el software libre, cultura libre y ciberseguridad, tuvimos el placer de impartir varios cursos de formación.</description>
+    </item>
+    
+    <item>
       <title>Ingeniería Inversa en Bufferhack</title>
-      <link>https://pedro-javierf.github.io/es/talks/revengatbufferhack/</link>
+      <link>https://pedrojavier.com/es/talks/revengatbufferhack/</link>
       <pubDate>Tue, 07 May 2019 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/talks/revengatbufferhack/</guid>
+      <guid>https://pedrojavier.com/es/talks/revengatbufferhack/</guid>
       <description>Descripción El 7 de mayo de 2019 di una charla sobre Ingeniería Inversa (Reversing) con herramientas libres y de código abierto en el evento de ciberseguridad BufferHack, en Madrid. Además, fui parte de la organización del evento (sin ánimo de lucro) desde su nacimiento.</description>
     </item>
     
     <item>
       <title>Dispositivos HID maliciosos</title>
-      <link>https://pedro-javierf.github.io/es/talks/malicioushid/</link>
+      <link>https://pedrojavier.com/es/talks/malicioushid/</link>
       <pubDate>Thu, 29 Nov 2018 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/es/talks/malicioushid/</guid>
+      <guid>https://pedrojavier.com/es/talks/malicioushid/</guid>
       <description>Descripción En noviembre de 2018, tuve la oportunidad de dar una charla en la Universidad Complutense de Madrid sobre dispositivos HID (Human Interface Device) maliciosos, cómo funcionan, y cómo podemos protegernos de ellos. Se mostraron distintas soluciones de código abierto. On November 2018, I gave a talk at Complutense University of Madrid about malicious HID devices and countermeasures against them, featuring open source solutions.</description>
     </item>
     

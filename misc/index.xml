@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Miscelaneous, music, etc on Dangling Pointr</title>
-    <link>https://pedro-javierf.github.io/misc/</link>
+    <link>https://pedrojavier.com/misc/</link>
     <description>Recent content in Miscelaneous, music, etc on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 31 May 2017 11:39:11 +0200</lastBuildDate>
     
-	<atom:link href="https://pedro-javierf.github.io/misc/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://pedrojavier.com/misc/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Welcome</title>
-      <link>https://pedro-javierf.github.io/misc/welcome/</link>
+      <link>https://pedrojavier.com/misc/welcome/</link>
       <pubDate>Wed, 31 May 2017 11:39:11 +0200</pubDate>
       
-      <guid>https://pedro-javierf.github.io/misc/welcome/</guid>
+      <guid>https://pedrojavier.com/misc/welcome/</guid>
       <description> Fellow Reader  Welcome to my new, redesigned, website. I hope you enjoy and learn from the contents here.
  </description>
     </item>

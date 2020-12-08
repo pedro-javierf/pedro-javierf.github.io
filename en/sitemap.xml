@@ -3,377 +3,392 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://pedro-javierf.github.io/</loc>
+    <loc>https://pedrojavier.com/</loc>
+    <lastmod>2020-12-07T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedrojavier.com/es/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedrojavier.com/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedrojavier.com/talks/</loc>
+    <lastmod>2020-12-07T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedrojavier.com/es/talks/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedrojavier.com/talks/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedrojavier.com/devblog/</loc>
     <lastmod>2020-11-10T00:00:38+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/"
+                href="https://pedrojavier.com/es/devblog/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/"
+                href="https://pedrojavier.com/devblog/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/</loc>
-    <lastmod>2020-11-10T00:00:38+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://pedro-javierf.github.io/talks/</loc>
-    <lastmod>2019-05-07T11:39:11+02:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://pedro-javierf.github.io/es/talks/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://pedro-javierf.github.io/talks/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://pedro-javierf.github.io/gaming/</loc>
+    <loc>https://pedrojavier.com/gaming/</loc>
     <lastmod>2020-09-05T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/gaming/"
+                href="https://pedrojavier.com/es/gaming/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/gaming/"
+                href="https://pedrojavier.com/gaming/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/misc/</loc>
+    <loc>https://pedrojavier.com/misc/</loc>
     <lastmod>2017-05-31T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/misc/"
+                href="https://pedrojavier.com/es/misc/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/misc/"
+                href="https://pedrojavier.com/misc/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/about/</loc>
+    <loc>https://pedrojavier.com/about/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/about/"
+                href="https://pedrojavier.com/es/about/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/about/"
+                href="https://pedrojavier.com/about/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/hacking3ds5_part1/</loc>
+    <loc>https://pedrojavier.com/talks/c1b3rwall2020/</loc>
+    <lastmod>2020-12-07T11:39:11+02:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://pedrojavier.com/es/talks/c1b3rwall2020/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://pedrojavier.com/talks/c1b3rwall2020/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://pedrojavier.com/devblog/hacking3ds5_part1/</loc>
     <lastmod>2020-11-10T00:00:38+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/inginformaticaseguridad/</loc>
+    <loc>https://pedrojavier.com/devblog/inginformaticaseguridad/</loc>
     <lastmod>2020-11-02T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/inginformaticaseguridad/"
+                href="https://pedrojavier.com/es/devblog/inginformaticaseguridad/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/inginformaticaseguridad/"
+                href="https://pedrojavier.com/devblog/inginformaticaseguridad/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/rhmefaultinjection/</loc>
+    <loc>https://pedrojavier.com/devblog/rhmefaultinjection/</loc>
     <lastmod>2020-10-11T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/rhmefaultinjection/"
+                href="https://pedrojavier.com/es/devblog/rhmefaultinjection/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/rhmefaultinjection/"
+                href="https://pedrojavier.com/devblog/rhmefaultinjection/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/dirtcheapemfaultinjection/</loc>
+    <loc>https://pedrojavier.com/devblog/dirtcheapemfaultinjection/</loc>
     <lastmod>2020-10-09T11:39:11+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/losfractaleros/</loc>
+    <loc>https://pedrojavier.com/losfractaleros/</loc>
     <lastmod>2020-09-23T13:22:50+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/gaming/areaxbox/</loc>
+    <loc>https://pedrojavier.com/gaming/areaxbox/</loc>
     <lastmod>2020-09-05T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/gaming/areaxbox/"
+                href="https://pedrojavier.com/es/gaming/areaxbox/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/gaming/areaxbox/"
+                href="https://pedrojavier.com/gaming/areaxbox/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/advancedghidraloader/</loc>
+    <loc>https://pedrojavier.com/devblog/advancedghidraloader/</loc>
     <lastmod>2020-05-24T12:30:38+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/advancedghidraloader/"
+                href="https://pedrojavier.com/es/devblog/advancedghidraloader/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/advancedghidraloader/"
+                href="https://pedrojavier.com/devblog/advancedghidraloader/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/tutorialwritingaghidraloader/</loc>
+    <loc>https://pedrojavier.com/devblog/tutorialwritingaghidraloader/</loc>
     <lastmod>2020-04-06T12:30:38+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/tutorialwritingaghidraloader/"
+                href="https://pedrojavier.com/es/devblog/tutorialwritingaghidraloader/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/tutorialwritingaghidraloader/"
+                href="https://pedrojavier.com/devblog/tutorialwritingaghidraloader/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/ikariamexploit/</loc>
+    <loc>https://pedrojavier.com/devblog/ikariamexploit/</loc>
     <lastmod>2019-11-15T19:35:38+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/ikariamexploit/"
+                href="https://pedrojavier.com/es/devblog/ikariamexploit/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/ikariamexploit/"
+                href="https://pedrojavier.com/devblog/ikariamexploit/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/hacking3ds4/</loc>
+    <loc>https://pedrojavier.com/devblog/hacking3ds4/</loc>
     <lastmod>2019-07-25T19:35:38+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/hacking3ds4/"
+                href="https://pedrojavier.com/es/devblog/hacking3ds4/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/hacking3ds4/"
+                href="https://pedrojavier.com/devblog/hacking3ds4/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/talks/revengatbufferhack/</loc>
+    <loc>https://pedrojavier.com/talks/revengatbufferhack/</loc>
     <lastmod>2019-05-07T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/talks/revengatbufferhack/"
+                href="https://pedrojavier.com/es/talks/revengatbufferhack/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/talks/revengatbufferhack/"
+                href="https://pedrojavier.com/talks/revengatbufferhack/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/hacking3ds3/</loc>
+    <loc>https://pedrojavier.com/devblog/hacking3ds3/</loc>
     <lastmod>2019-01-30T19:35:38+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/hacking3ds3/"
+                href="https://pedrojavier.com/es/devblog/hacking3ds3/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/hacking3ds3/"
+                href="https://pedrojavier.com/devblog/hacking3ds3/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/talks/malicioushid/</loc>
+    <loc>https://pedrojavier.com/talks/malicioushid/</loc>
     <lastmod>2018-11-29T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/talks/malicioushid/"
+                href="https://pedrojavier.com/es/talks/malicioushid/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/talks/malicioushid/"
+                href="https://pedrojavier.com/talks/malicioushid/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/hacking3ds2/</loc>
+    <loc>https://pedrojavier.com/devblog/hacking3ds2/</loc>
     <lastmod>2018-01-30T11:30:48+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/hacking3ds2/"
+                href="https://pedrojavier.com/es/devblog/hacking3ds2/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/hacking3ds2/"
+                href="https://pedrojavier.com/devblog/hacking3ds2/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/hacking3ds1/</loc>
+    <loc>https://pedrojavier.com/devblog/hacking3ds1/</loc>
     <lastmod>2017-06-12T11:17:57+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/hacking3ds1/"
+                href="https://pedrojavier.com/es/devblog/hacking3ds1/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/hacking3ds1/"
+                href="https://pedrojavier.com/devblog/hacking3ds1/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/hacking3ds0/</loc>
+    <loc>https://pedrojavier.com/devblog/hacking3ds0/</loc>
     <lastmod>2017-06-01T20:49:36+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/devblog/hacking3ds0/"
+                href="https://pedrojavier.com/es/devblog/hacking3ds0/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/devblog/hacking3ds0/"
+                href="https://pedrojavier.com/devblog/hacking3ds0/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/devblog/bypassuac/</loc>
+    <loc>https://pedrojavier.com/devblog/bypassuac/</loc>
     <lastmod>2017-05-31T11:39:11+02:00</lastmod>
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/misc/welcome/</loc>
+    <loc>https://pedrojavier.com/misc/welcome/</loc>
     <lastmod>2017-05-31T11:39:11+02:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/misc/welcome/"
+                href="https://pedrojavier.com/es/misc/welcome/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/misc/welcome/"
+                href="https://pedrojavier.com/misc/welcome/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/authors/</loc>
+    <loc>https://pedrojavier.com/authors/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/authors/"
+                href="https://pedrojavier.com/es/authors/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/authors/"
+                href="https://pedrojavier.com/authors/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/categories/</loc>
+    <loc>https://pedrojavier.com/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/categories/"
+                href="https://pedrojavier.com/es/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/categories/"
+                href="https://pedrojavier.com/categories/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/series/</loc>
+    <loc>https://pedrojavier.com/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/series/"
+                href="https://pedrojavier.com/es/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/series/"
+                href="https://pedrojavier.com/series/"
                 />
   </url>
   
   <url>
-    <loc>https://pedro-javierf.github.io/tags/</loc>
+    <loc>https://pedrojavier.com/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://pedro-javierf.github.io/es/tags/"
+                href="https://pedrojavier.com/es/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://pedro-javierf.github.io/tags/"
+                href="https://pedrojavier.com/tags/"
                 />
   </url>
   
