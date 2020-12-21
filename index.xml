@@ -5,10 +5,20 @@
     <link>https://pedrojavier.com/</link>
     <description>Recent content in Home on Dangling Pointr</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 07 Dec 2020 11:39:11 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 20 Dec 2020 11:39:11 +0200</lastBuildDate>
     
 	<atom:link href="https://pedrojavier.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Interviewing the legendary composer, Martin O&#39;Donnell</title>
+      <link>https://pedrojavier.com/gaming/interviewingmartyodonnell/</link>
+      <pubDate>Sun, 20 Dec 2020 11:39:11 +0200</pubDate>
+      
+      <guid>https://pedrojavier.com/gaming/interviewingmartyodonnell/</guid>
+      <description>Martin (Marty) O&amp;rsquo;Donnell is the man behind the legendary soundtracks of the Halo and Destiny franchises, among others. Recently, I had the oportunity to interview him and ask some questions. Here they are, enjoy!
+Pedro: Welcome Marty, it&amp;rsquo;s a pleasure for me to ask these questions to you today. Tell us about your current work at Highwire Games. How&amp;rsquo;s working at the studio? Highwire Games has over thirty employees and we&amp;rsquo;re all working on a new game that should be announced soon.</description>
+    </item>
     
     <item>
       <title>C1b3rwall Academy 2020: Introduction to ARM exploit development</title>
